@@ -1,7 +1,11 @@
 # ------------------ Golang commands ------------------
-.PHONY: clean install update run scan build start
+.PHONY: clean format install update run scan build start
 clean:
 	@pnpm cache clean
+format:
+	@pnpm exec prettier . --write
+format-check:
+	@pnpm exec prettier . --check
 install:
 	@pnpm install
 update:
