@@ -1,6 +1,6 @@
-# Nuxt 3 Dashboard with chadcn Components
+# Next.js 14 Dashboard with chadcn/ui Components
 
-This repository provides a powerful and customizable Nuxt 3 dashboard template featuring pre-integrated chadcn components. It offers a solid foundation to build efficient and user-friendly dashboards tailored to your specific needs.
+This repository provides a powerful and customizable Next.js 14 dashboard template featuring pre-integrated chadcn components. It offers a solid foundation to build efficient and user-friendly dashboards tailored to your specific needs.
 
 # Features
 
@@ -24,18 +24,18 @@ This repository provides a powerful and customizable Nuxt 3 dashboard template f
 
   - Node.js (version 20 or later)
 
-  - Bun (version 1.1.31 or later)
+  - pnpm (version 9.12.2 or later)
 
   - Make installed for shortcuts
 
 ### 2. Clone the repository
 
 ```
-git clone https://github.com/4kpros/go-dashboard.git
+git clone https://github.com/4kpros/next-dashboard.git
 ```
 
 ```
-cd go-dashboard/
+cd next-dashboard/
 ```
 
   - Rename `.env.example` to ```.env```
@@ -48,21 +48,21 @@ cd go-dashboard/
 make install
 ```
 
-### 4. Run the application
+### 4. Serve the application(dev)
 
 ```
 make run
 ```
 
 
-### 4. Build and preview the application
+### 4. Build and preview the production application
 
 ```
 make build
 ```
 
 ```
-make preview
+make start
 ```
 
 
@@ -75,4 +75,4 @@ make scan
 Some screenshots below
 
 
-By following these steps, you'll have a Nuxt 3 dashboard with essential features up and running in no time!
+By following these steps, you'll have a dashboard with essential features up and running in no time!
