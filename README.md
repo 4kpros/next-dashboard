@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nuxt 3 Dashboard with chadcn Components
 
-## Getting Started
+This repository provides a powerful and customizable Nuxt 3 dashboard template featuring pre-integrated chadcn components. It offers a solid foundation to build efficient and user-friendly dashboards tailored to your specific needs.
 
-First, run the development server:
+# Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [o] Authentication
+
+- [o] History
+
+- [o] Roles
+
+- [o] Permissions
+
+- [o] Users
+
+# TODO
+
+- Authentication
+
+# To get started, follow these steps:
+
+### 1. Requirements
+
+  - Node.js (version 20 or later)
+
+  - Bun (version 1.1.31 or later)
+
+  - Make installed for shortcuts
+
+### 2. Clone the repository
+
+```
+git clone https://github.com/4kpros/go-dashboard.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+cd go-dashboard/
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  - Rename `.env.example` to ```.env```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  - Others information such configurations are on ```.env.example```
 
-## Learn More
+### 3. Install dependencies
 
-To learn more about Next.js, take a look at the following resources:
+```
+make install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run the application
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+make run
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. Build and preview the application
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+make build
+```
+
+```
+make preview
+```
+
+
+If you want to scan vulnerabilities(security issues)
+```
+make scan
+```
+
+
+Some screenshots below
+
+
+By following these steps, you'll have a Nuxt 3 dashboard with essential features up and running in no time!
