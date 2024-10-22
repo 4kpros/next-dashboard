@@ -1,20 +1,14 @@
 "use client";
 
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
+import { Oxygen } from "next/font/google";
 
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const oxygen = Oxygen({
+  subsets: ["latin"],
+  weight: "300",
 });
 
 // export const metadata: Metadata = {
@@ -27,26 +21,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const darkMode = false
+  const darkMode = true
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <AntdRegistry>
           <ConfigProvider
             theme={{
               algorithm: darkMode ? theme.darkAlgorithm : theme.compactAlgorithm,
               token: {
                 // Seed Token
-                colorPrimary: "#493628",
-                colorPrimaryBg: "#e8d5ca",
+                colorPrimary: darkMode ? "#c49b7e" : "#493628",
+                colorPrimaryBg: darkMode ? "#fcf6f34f" : "#f5e6dd9f",
+                colorPrimaryBgHover: darkMode ? "#977c6825" : "#49362825",
                 // Alias Token
-                colorBgContainer: darkMode ? "#000000" : "#FFFFFF",
-                colorBgBase: darkMode ? "#141414" : "#F4F4F4",
+                colorBgContainer: darkMode ? "#111111" : "#FFFFFF",
+                colorBgBase: darkMode ? "#2f2f2f" : "#FFFFFF",
                 // Radius
-                borderRadius: 16,
-
+                borderRadius: 4,
+                fontFamily: oxygen.styles.fontFamily,
               },
             }}
           >

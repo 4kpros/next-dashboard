@@ -51,13 +51,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const {
-    token: { colorBgContainer, borderRadius },
+    token: { colorPrimaryBg, colorBgContainer, borderRadius },
   } = theme.useToken();
 
   const siderStyle: React.CSSProperties = {
     // overflow: "auto",
     scrollbarWidth: "thin",
-    // scrollbarGutter: "stable",
+    scrollbarGutter: "stable",
     backgroundColor: colorBgContainer,
     display: "flex",
     flexDirection: "column",
@@ -82,7 +82,7 @@ export default function DashboardLayout({
       >
         <Card
           style={{
-            backgroundColor: "#f1f1f1",
+            backgroundColor: colorPrimaryBg,
             verticalAlign: "middle",
             marginTop: 10,
             height: 60,

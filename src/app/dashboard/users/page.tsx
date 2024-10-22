@@ -12,6 +12,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Typography } from "antd";
+import AvatarProfile from "@/components/avatar/avatar-profile";
 
 const { Text } = Typography;
 
@@ -63,9 +64,7 @@ export default function Page() {
           style={{ maxWidth: "500px" }}
         />
         <Flex>
-          <Badge count={1}>
-            <Avatar shape="square" icon={<UserOutlined />} />
-          </Badge>
+          <AvatarProfile/>
         </Flex>
       </Header>
       <Content style={{ marginTop: 10, overflow: "initial" }}>
