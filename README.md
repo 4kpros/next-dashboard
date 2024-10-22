@@ -1,75 +1,36 @@
-# Next.js 14 Dashboard with chadcn/ui Components
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This repository provides a powerful and customizable Next.js 14 dashboard template featuring pre-integrated chadcn components. It offers a solid foundation to build efficient and user-friendly dashboards tailored to your specific needs.
+## Getting Started
 
-# Features
+First, run the development server:
 
-- [o] Authentication
-
-- [o] History
-
-- [o] Roles
-
-- [o] Permissions
-
-- [o] Users
-
-# TODO
-
-- Authentication
-
-# To get started, follow these steps:
-
-### 1. Requirements
-
-- Node.js (version 20 or later)
-
-- pnpm (version 9.12.2 or later)
-
-- Make installed for shortcuts
-
-### 2. Clone the repository
-
-```
-git clone https://github.com/4kpros/next-dashboard.git
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-```
-cd next-dashboard/
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Rename `.env.example` to `.env`
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- Others information such configurations are on `.env.example`
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### 3. Install dependencies
+## Learn More
 
-```
-make install
-```
+To learn more about Next.js, take a look at the following resources:
 
-### 4. Serve the application(dev)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-```
-make run
-```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-### 4. Build and preview the production application
+## Deploy on Vercel
 
-```
-make build
-```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-```
-make start
-```
-
-If you want to scan vulnerabilities(security issues)
-
-```
-make scan
-```
-
-Some screenshots below
-
-By following these steps, you'll have a dashboard with essential features up and running in no time!
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,26 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
-import { Breadcrumb, Button, Flex, Layout, theme } from "antd";
+import React from "react";
+import { Avatar, Badge, Breadcrumb, Button, Flex, Layout, theme } from "antd";
 import UsersTable from "@/components/tables/users-table";
 import { Input } from "antd";
 import {
   DeleteOutlined,
-  HomeOutlined,
   MailOutlined,
   MessageOutlined,
   PrinterOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Typography } from "antd";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 const { Search } = Input;
 
 const { Header, Content } = Layout;
 
 export default function Page() {
-  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadius },
   } = theme.useToken();
@@ -29,7 +28,7 @@ export default function Page() {
     <Layout style={{ scrollbarWidth: "thin" }}>
       <Header
         style={{
-          padding: 10,
+          padding: "10px 20px 10px 20px",
           background: colorBgContainer,
           borderRadius: borderRadius,
           display: "flex",
@@ -43,7 +42,7 @@ export default function Page() {
             separator=">"
             items={[
               {
-                title: "Digitschool",
+                title: "Application name",
                 href: "/",
               },
               {
@@ -63,6 +62,11 @@ export default function Page() {
           size="large"
           style={{ maxWidth: "500px" }}
         />
+        <Flex>
+          <Badge count={1}>
+            <Avatar shape="square" icon={<UserOutlined />} />
+          </Badge>
+        </Flex>
       </Header>
       <Content style={{ marginTop: 10, overflow: "initial" }}>
         <div
