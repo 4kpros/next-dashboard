@@ -39,7 +39,7 @@ export default function RootLayout({
                 colorBgBase: darkMode ? "#2f2f2f" : "#FFFFFF",
                 // Radius
                 borderRadius: 4,
-                fontFamily: oxygen.styles.fontFamily,
+                fontFamily: oxygen.style.fontFamily,
               },
             }}
           >
