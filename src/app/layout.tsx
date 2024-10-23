@@ -1,10 +1,12 @@
 "use client";
 
-import type { Metadata } from "next";
-import "./globals.css";
+// import type { Metadata } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
 import { Roboto } from "next/font/google";
+
+import "../styles/globals.scss";
+import "../styles/modal.scss";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -23,27 +25,33 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const darkMode = false
+  const darkMode = false;
   return (
     <html lang="en">
       <body>
         <AntdRegistry>
           <ConfigProvider
             theme={{
-              algorithm: darkMode ? theme.darkAlgorithm : theme.compactAlgorithm,
+              algorithm: darkMode
+                ? theme.darkAlgorithm
+                : theme.compactAlgorithm,
               token: {
                 // Seed Token
                 colorPrimary: darkMode ? "#c49b7e" : "#493628",
                 colorPrimaryBg: darkMode ? "#fcf6f34f" : "#f5e6dd9f",
                 colorPrimaryBgHover: darkMode ? "#977c6825" : "#ecdbd0c0",
                 // Alias Token
-                colorBgContainer: darkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 1)",
-                colorBgBase: darkMode ? "#2f2f2f" : "#FFFFFF",
-                boxShadow: darkMode ? "0 4px 30px rgba(0, 0, 0, 0.25)" : "0 4px 30px rgba(255, 255, 255, 0.25)",
+                colorBgContainer: darkMode
+                  ? "rgba(0, 0, 0, 0.75)"
+                  : "rgba(255, 255, 255, 1)",
+                colorBgBase: darkMode ? "#2c2c2c" : "#FFFFFF",
+                boxShadow: darkMode
+                  ? "0 4px 30px rgba(0, 0, 0, 0.25)"
+                  : "0 4px 30px rgba(255, 255, 255, 0.25)",
                 // Radius
                 borderRadius: 20,
                 fontFamily: roboto.style.fontFamily,
-                fontSize:16,
+                fontSize: 16,
               },
             }}
           >

@@ -1,5 +1,5 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Button, Dropdown, Menu } from 'antd';
+import { Avatar, Badge, Button, Dropdown } from 'antd';
 import React from 'react'
 
 const items = [
