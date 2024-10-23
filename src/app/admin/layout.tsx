@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import {Breadcrumb, Flex, Card, Layout, Menu, theme, Input } from "antd";
+import { Breadcrumb, Flex, Card, Layout, Menu, theme, Input } from "antd";
 import { MenuItemType } from "antd/es/menu/interface";
 import AvatarProfile from "@/components/avatar/avatar-profile";
 
-import HomeIcon from "@/icons/home";
-import ShieldIcon from "@/icons/shield";
-import UserIcon from "@/icons/user";
-import HistoryIcon from "@/icons/history";
-import UserSwitchIcon from "@/icons/user-switch";
+import HomeIcon from "@/components/icons/home";
+import ShieldIcon from "@/components/icons/shield";
+import UserIcon from "@/components/icons/user";
+import HistoryIcon from "@/components/icons/history";
+import UserSwitchIcon from "@/components/icons/user-switch";
 
 const { Search } = Input;
 const { Sider, Header, Content } = Layout;
@@ -70,7 +70,7 @@ export default function DashboardLayout({
   };
 
   return (
-    <Layout style={{ minHeight: "100vh", padding: 12, gap: 10, }}>
+    <Layout style={{ minHeight: "100vh", padding: 12, gap: 10 }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -104,50 +104,50 @@ export default function DashboardLayout({
         />
       </Sider>
       <Layout style={{ scrollbarWidth: "thin" }}>
-      <Header
-        style={{
-          padding: "10px 20px 10px 20px",
-          background: colorBgContainer,
-          borderRadius: borderRadius,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 20,
-        }}
-      >
-        <div className="flex justify-center items-center">
-          <Breadcrumb
-            separator=">"
-            items={[
-              {
-                title: "Application name",
-                href: "/",
-              },
-              {
-                title: "Administration",
-                href: "/dashboard",
-              },
-              {
-                title: "Users",
-                href: "/dashboard/users",
-              },
-            ]}
+        <Header
+          style={{
+            padding: "10px 20px 10px 20px",
+            background: colorBgContainer,
+            borderRadius: borderRadius,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 20,
+          }}
+        >
+          <div className="flex justify-center items-center">
+            <Breadcrumb
+              separator=">"
+              items={[
+                {
+                  title: "Application name",
+                  href: "/",
+                },
+                {
+                  title: "Administration",
+                  href: "/dashboard",
+                },
+                {
+                  title: "Users",
+                  href: "/dashboard/users",
+                },
+              ]}
+            />
+          </div>
+          <Search
+            placeholder="input search text"
+            enterButton="Search"
+            size="large"
+            style={{ maxWidth: "500px" }}
           />
-        </div>
-        <Search
-          placeholder="input search text"
-          enterButton="Search"
-          size="large"
-          style={{ maxWidth: "500px", }}
-        />
-        <Flex>
-          <AvatarProfile/>
-        </Flex>
-      </Header>
-      <Content style={{ marginTop: 10, overflow: "initial" }}>
-        {children}
-      </Content>
-    </Layout>
+          <Flex>
+            <AvatarProfile />
+          </Flex>
+        </Header>
+        <Content style={{ marginTop: 10, overflow: "initial" }}>
+          {children}
+        </Content>
+      </Layout>
     </Layout>
   );
 }
