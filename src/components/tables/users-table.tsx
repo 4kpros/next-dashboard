@@ -79,7 +79,7 @@ const columns: ColumnsType<User> = [
     ),
   },
   {
-    title: 'Account activation',
+    title: 'Activation',
     dataIndex: 'IsActivated',
     sorter: true,
     ellipsis: {
@@ -90,7 +90,7 @@ const columns: ColumnsType<User> = [
     ),
   },
   {
-    title: 'Multiple factor authentication',
+    title: '2FA',
     dataIndex: 'IsMfaEnabled',
     sorter: true,
     ellipsis: {

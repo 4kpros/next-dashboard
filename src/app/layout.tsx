@@ -4,11 +4,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
-import { Oxygen } from "next/font/google";
+import { Roboto } from "next/font/google";
 
-const oxygen = Oxygen({
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: "300",
+  weight: "500",
+  style: "normal",
+  preload: true,
 });
 
 // export const metadata: Metadata = {
@@ -21,7 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const darkMode = true
+  const darkMode = false
   return (
     <html lang="en">
       <body>
@@ -33,13 +35,15 @@ export default function RootLayout({
                 // Seed Token
                 colorPrimary: darkMode ? "#c49b7e" : "#493628",
                 colorPrimaryBg: darkMode ? "#fcf6f34f" : "#f5e6dd9f",
-                colorPrimaryBgHover: darkMode ? "#977c6825" : "#49362825",
+                colorPrimaryBgHover: darkMode ? "#977c6825" : "#ecdbd0c0",
                 // Alias Token
-                colorBgContainer: darkMode ? "#111111" : "#FFFFFF",
+                colorBgContainer: darkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 1)",
                 colorBgBase: darkMode ? "#2f2f2f" : "#FFFFFF",
+                boxShadow: darkMode ? "0 4px 30px rgba(0, 0, 0, 0.25)" : "0 4px 30px rgba(255, 255, 255, 0.25)",
                 // Radius
-                borderRadius: 4,
-                fontFamily: oxygen.style.fontFamily,
+                borderRadius: 20,
+                fontFamily: roboto.style.fontFamily,
+                fontSize:16,
               },
             }}
           >

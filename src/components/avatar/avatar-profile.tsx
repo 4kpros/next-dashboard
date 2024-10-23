@@ -22,8 +22,12 @@ export default function AvatarProfile() {
   return (
     <Dropdown  menu={{onClick: () => {}, items: items}} placement="bottomRight" trigger={['click']}>
       <Button style={{padding: 0, boxSizing: "border-box", border: "none"}} size='large'>
-        <Avatar shape="square" size="large" icon={<UserOutlined />} />
+        {/* <Avatar shape="square" size="large" icon={<UserOutlined />} /> */}
+        <Badge size="small" count={5} offset={[-6, 3]}>
+            <Avatar shape="circle" size="large" icon={<UserOutlined />} />
+        </Badge>
       </Button>
     </Dropdown>
   )
 }
+
