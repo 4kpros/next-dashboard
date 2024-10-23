@@ -175,7 +175,7 @@ export default function UsersTable(props: { openUpdateUserModal: () => void }) {
       columns={tableColumns}
       dataSource={hasData ? data : []}
       scroll={scroll}
-      style={{ paddingTop: "5px" }}
+      style={{ marginTop: "10px" }}
     />
   );
 }

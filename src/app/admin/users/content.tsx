@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Button, theme, Typography } from "antd";
 import {
+  CloseOutlined,
   DeleteOutlined,
   PlusOutlined,
   PrinterOutlined,
@@ -17,7 +18,7 @@ const { Text } = Typography;
 
 export default function PageContent() {
   const {
-    token: { colorBgContainer, borderRadius },
+    token: { colorPrimaryBg, colorBgContainer, borderRadius },
   } = theme.useToken();
 
   const [addUserModalOpen, setAddUserModalOpen] = useState(false);
@@ -28,24 +29,14 @@ export default function PageContent() {
     <>
       <div
         style={{
-          padding: 24,
-          textAlign: "center",
+          padding: "15px",
           background: colorBgContainer,
           borderRadius: borderRadius,
           minHeight: "100vh",
         }}
       >
-        <div className="w-full flex flex-row items-center justify-between mb-5">
+        <div className="w-full flex flex-row items-center justify-between">
           <div className="flex flex-wrap items-center gap-3">
-            <Button
-              icon={<DeleteOutlined />}
-              onClick={() => setDeleteUserModalOpen(true)}
-            >
-              Delete selection
-            </Button>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Button icon={<PrinterOutlined />}>Print this page</Button>
             <Button
               type="primary"
               size="large"
@@ -55,14 +46,35 @@ export default function PageContent() {
               Add
             </Button>
           </div>
+          <div className="flex flex-wrap items-center gap-1">
+            <Text ellipsis={true}>
+              Results for search keyword
+              <span className="font-extrabold mx-2">test</span>
+            </Text>
+            <Button
+              icon={<CloseOutlined />}
+              type="text"
+              style={{ backgroundColor: colorPrimaryBg }}
+            >
+              Clear
+            </Button>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              icon={<DeleteOutlined />}
+              onClick={() => setDeleteUserModalOpen(true)}
+            >
+              Delete selection
+            </Button>
+            <Button icon={<PrinterOutlined />}>Print this page</Button>
+          </div>
         </div>
-        <div className="flex items-center justify-between gap-3">
-          <Text code ellipsis={true}>
-            Results for search keyword
-            <span className="font-extrabold mx-2">test</span>
-          </Text>
+        <div className="flex items-center justify-between gap-3 mt-3">
           <Text code ellipsis={true}>
             0 selected items
+          </Text>
+          <Text code ellipsis={true}>
+            Page 1/5
           </Text>
         </div>
         <UsersTable openUpdateUserModal={() => setUpdateUserModalOpen(true)} />
