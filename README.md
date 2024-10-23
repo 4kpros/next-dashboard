@@ -50,6 +50,5 @@ make scan
 ```
 
 Some screenshots:
-![Next-dashboard](https://github.com/user-attachments/assets/ae62c38c-1086-4d5b-8d51-43a228231380)
-
+![Next-dashboard-2](https://github.com/user-attachments/assets/b16fa71e-6847-4c78-9247-8c3ca62d5f30)
 
