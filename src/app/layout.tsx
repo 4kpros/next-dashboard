@@ -1,20 +1,16 @@
 "use client";
 
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
+import { Roboto } from "next/font/google";
 
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: "500",
+  style: "normal",
+  preload: true,
 });
 
 // export const metadata: Metadata = {
@@ -30,23 +26,24 @@ export default function RootLayout({
   const darkMode = false
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <AntdRegistry>
           <ConfigProvider
             theme={{
               algorithm: darkMode ? theme.darkAlgorithm : theme.compactAlgorithm,
               token: {
                 // Seed Token
-                colorPrimary: "#493628",
-                colorPrimaryBg: "#e8d5ca",
+                colorPrimary: darkMode ? "#c49b7e" : "#493628",
+                colorPrimaryBg: darkMode ? "#fcf6f34f" : "#f5e6dd9f",
+                colorPrimaryBgHover: darkMode ? "#977c6825" : "#ecdbd0c0",
                 // Alias Token
-                colorBgContainer: darkMode ? "#000000" : "#FFFFFF",
-                colorBgBase: darkMode ? "#141414" : "#F4F4F4",
+                colorBgContainer: darkMode ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 1)",
+                colorBgBase: darkMode ? "#2f2f2f" : "#FFFFFF",
+                boxShadow: darkMode ? "0 4px 30px rgba(0, 0, 0, 0.25)" : "0 4px 30px rgba(255, 255, 255, 0.25)",
                 // Radius
-                borderRadius: 16,
-
+                borderRadius: 20,
+                fontFamily: roboto.style.fontFamily,
+                fontSize:16,
               },
             }}
           >

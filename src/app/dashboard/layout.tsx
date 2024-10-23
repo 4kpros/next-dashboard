@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Card, Layout, Menu, theme } from "antd";
+import {Breadcrumb, Flex, Card, Layout, Menu, theme, Input } from "antd";
 import { MenuItemType } from "antd/es/menu/interface";
+import AvatarProfile from "@/components/avatar/avatar-profile";
 
 import HomeIcon from "@/icons/home";
 import ShieldIcon from "@/icons/shield";
@@ -10,7 +11,8 @@ import UserIcon from "@/icons/user";
 import HistoryIcon from "@/icons/history";
 import UserSwitchIcon from "@/icons/user-switch";
 
-const { Sider } = Layout;
+const { Search } = Input;
+const { Sider, Header, Content } = Layout;
 
 const items: MenuItemType[] = [
   {
@@ -51,13 +53,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const {
-    token: { colorBgContainer, borderRadius },
+    token: { colorPrimaryBg, colorBgContainer, borderRadius },
   } = theme.useToken();
 
   const siderStyle: React.CSSProperties = {
     // overflow: "auto",
     scrollbarWidth: "thin",
-    // scrollbarGutter: "stable",
+    scrollbarGutter: "stable",
     backgroundColor: colorBgContainer,
     display: "flex",
     flexDirection: "column",
@@ -82,7 +84,7 @@ export default function DashboardLayout({
       >
         <Card
           style={{
-            backgroundColor: "#f1f1f1",
+            backgroundColor: colorPrimaryBg,
             verticalAlign: "middle",
             marginTop: 10,
             height: 60,
@@ -101,7 +103,51 @@ export default function DashboardLayout({
           }}
         />
       </Sider>
-      {children}
+      <Layout style={{ scrollbarWidth: "thin" }}>
+      <Header
+        style={{
+          padding: "10px 20px 10px 20px",
+          background: colorBgContainer,
+          borderRadius: borderRadius,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 20,
+        }}
+      >
+        <div className="flex justify-center items-center">
+          <Breadcrumb
+            separator=">"
+            items={[
+              {
+                title: "Application name",
+                href: "/",
+              },
+              {
+                title: "Administration",
+                href: "/dashboard",
+              },
+              {
+                title: "Users",
+                href: "/dashboard/users",
+              },
+            ]}
+          />
+        </div>
+        <Search
+          placeholder="input search text"
+          enterButton="Search"
+          size="large"
+          style={{ maxWidth: "500px", }}
+        />
+        <Flex>
+          <AvatarProfile/>
+        </Flex>
+      </Header>
+      <Content style={{ marginTop: 10, overflow: "initial" }}>
+        {children}
+      </Content>
+    </Layout>
     </Layout>
   );
 }

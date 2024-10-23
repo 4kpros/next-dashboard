@@ -79,7 +79,7 @@ const columns: ColumnsType<User> = [
     ),
   },
   {
-    title: 'Account activation',
+    title: 'Activation',
     dataIndex: 'IsActivated',
     sorter: true,
     ellipsis: {
@@ -90,7 +90,7 @@ const columns: ColumnsType<User> = [
     ),
   },
   {
-    title: 'Multiple factor authentication',
+    title: '2FA',
     dataIndex: 'IsMfaEnabled',
     sorter: true,
     ellipsis: {
@@ -105,12 +105,12 @@ const columns: ColumnsType<User> = [
     key: 'action',
     sorter: true,
     render: () => (
-      <Space size="large">
+      <Space size="small">
         <Button type="link">Update</Button>
         <Popconfirm
           title="Delete"
           description="Do you really want to delete this user?"
-          placement="top"
+          placement="topRight"
           okText="Yes"
           cancelText="Cancel"
           onConfirm={() => {}}
@@ -181,7 +181,7 @@ export default function UsersTable() {
   return (
     <Table<User>
       {...tableProps}
-      pagination={{ position: [top, bottom], page: page, pageSize: pageSize, onChange(newPage, newPageSize) {
+      pagination={{ position: [top, bottom], defaultPageSize: 20, pageSize: pageSize, onChange(newPage, newPageSize) {
         setPage(newPage)
         setPageSize(newPageSize)
       },}}
