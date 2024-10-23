@@ -57,11 +57,11 @@ export default function PageContent() {
           </div>
         </div>
         <div className="flex items-center justify-between gap-3">
-          <Text code type="secondary" ellipsis={true}>
+          <Text code ellipsis={true}>
             Results for search keyword
             <span className="font-extrabold mx-2">test</span>
           </Text>
-          <Text code type="secondary" ellipsis={true}>
+          <Text code ellipsis={true}>
             0 selected items
           </Text>
         </div>
