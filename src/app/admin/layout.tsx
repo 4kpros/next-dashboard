@@ -106,7 +106,7 @@ export default function DashboardLayout({
       <Layout style={{ scrollbarWidth: "thin" }}>
         <Header
           style={{
-            padding: "10px 20px 10px 20px",
+            padding: "10px 15px 10px 15px",
             background: colorBgContainer,
             borderRadius: borderRadius,
             display: "flex",
@@ -140,9 +140,7 @@ export default function DashboardLayout({
             size="large"
             style={{ maxWidth: "500px" }}
           />
-          <Flex>
-            <AvatarProfile />
-          </Flex>
+          <AvatarProfile />
         </Header>
         <Content style={{ marginTop: 10, overflow: "initial" }}>
           {children}
