@@ -46,19 +46,6 @@ export default function PageContent() {
               Add
             </Button>
           </div>
-          <div className="flex flex-wrap items-center gap-1">
-            <Text ellipsis={true}>
-              Results for search keyword
-              <span className="font-extrabold mx-2">test</span>
-            </Text>
-            <Button
-              icon={<CloseOutlined />}
-              type="text"
-              style={{ backgroundColor: colorPrimaryBg }}
-            >
-              Clear
-            </Button>
-          </div>
           <div className="flex flex-wrap items-center gap-3">
             <Button
               icon={<DeleteOutlined />}
@@ -73,6 +60,19 @@ export default function PageContent() {
           <Text code ellipsis={true}>
             0 selected items
           </Text>
+          <div className="flex flex-wrap items-center gap-1">
+            <Text ellipsis={true}>
+              Results for search keyword
+              <span className="font-extrabold mx-2">test</span>
+            </Text>
+            <Button
+              icon={<CloseOutlined />}
+              type="text"
+              style={{ backgroundColor: colorPrimaryBg }}
+            >
+              Clear
+            </Button>
+          </div>
           <Text code ellipsis={true}>
             Page 1/5
           </Text>
