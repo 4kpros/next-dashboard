@@ -15,7 +15,6 @@ export default function FormUpdateUser(props: {
   onSubmit: () => void;
   onCancel: () => void;
 }) {
-
   return (
     <Form
       name="add-user-form"

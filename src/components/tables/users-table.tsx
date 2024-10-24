@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import type { GetProp, TableProps } from "antd";
-import { Button, Popconfirm, Space, Table, Tag, Tooltip } from "antd";
+import { Popconfirm, Space, Table, Tag, Tooltip } from "antd";
 import { NewUserList, User } from "@/models/admin/user/user.types";
 
 type SizeType = TableProps["size"];
@@ -41,7 +41,7 @@ export default function UsersTable(props: { openUpdateUserModal: () => void }) {
 
   // TODO to remove
   if (loading) {
-    setLoading(false)
+    setLoading(false);
   }
 
   const columns: ColumnsType<User> = [
@@ -112,10 +112,10 @@ export default function UsersTable(props: { openUpdateUserModal: () => void }) {
       key: "action",
       sorter: true,
       render: () => (
-        <Space size="small">
-          <Button type="link" onClick={props.openUpdateUserModal}>
+        <Space size="large">
+          <a onClick={props.openUpdateUserModal}>
             Update
-          </Button>
+          </a>
           <Popconfirm
             title="Delete"
             description="Do you really want to delete this user?"
@@ -125,9 +125,9 @@ export default function UsersTable(props: { openUpdateUserModal: () => void }) {
             onConfirm={() => {}}
             onOpenChange={() => console.log("open change")}
           >
-            <Button type="link" style={{ color: "red" }}>
+            <a style={{ color: "red" }}>
               Delete
-            </Button>
+            </a>
           </Popconfirm>
         </Space>
       ),
@@ -166,9 +166,9 @@ export default function UsersTable(props: { openUpdateUserModal: () => void }) {
       {...tableProps}
       pagination={{
         position: [top, bottom],
-        defaultPageSize: 20,
+        defaultPageSize: pageSize,
         pageSize: pageSize,
-        onChange(newPage, newPageSize) {
+        onChange(_, newPageSize) {
           setPageSize(newPageSize);
         },
       }}

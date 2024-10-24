@@ -2,6 +2,7 @@
 
 import defaultFormLayout from "@/components/form/form-layout";
 import FormModalFooter from "@/components/form/form-modal-footer";
+import { MailFilled, PhoneFilled } from "@ant-design/icons";
 import { Form, Input, Segmented, Select } from "antd";
 import React, { useState } from "react";
 
@@ -15,10 +16,12 @@ export default function FormAddUser(props: {
   onSubmit: () => void;
   onCancel: () => void;
 }) {
-  const [addMethod, setAddMethod] = useState("Email");
+  const [addMethod, setAddMethod] = useState("email");
 
-  const onFormValuesChange = (changedValues: { addMethod: string | null } | null) => {
-    const newMethod =  changedValues?.addMethod ?? null
+  const onFormValuesChange = (
+    changedValues: { addMethod: string | null } | null
+  ) => {
+    const newMethod = changedValues?.addMethod ?? null;
     if (newMethod != null && newMethod != addMethod) {
       setAddMethod(newMethod);
     }
@@ -41,11 +44,16 @@ export default function FormAddUser(props: {
         label="Add user using"
         name="addMethod"
       >
-        <Segmented options={["Email", "Phone number"]} />
+        <Segmented
+          options={[
+            { label: "Email", value: "email", icon: <MailFilled /> },
+            { label: "Phone number", value: "phone", icon: <PhoneFilled /> },
+          ]}
+        />
       </Form.Item>
       <br></br>
 
-      {addMethod == "Email" ? (
+      {addMethod == "email" ? (
         <Form.Item<AddUserInputsType>
           key={"user-add-method-email"}
           label="Email"
