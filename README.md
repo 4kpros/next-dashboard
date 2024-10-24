@@ -50,4 +50,8 @@ make scan
 ```
 
 Some screenshots:
-![Next-dashboard](https://github.com/user-attachments/assets/f3956362-75cd-4f14-9052-e2f51faa164b)
+
+![Next-dashboard-light](https://github.com/user-attachments/assets/0f305f3e-0ee7-4b6c-8de0-71b387da7151)
+
+![Next-dashboard-dark](https://github.com/user-attachments/assets/8d8de82c-4d14-4d4d-8e0d-f5ed787d6efe)
+
