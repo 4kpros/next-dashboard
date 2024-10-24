@@ -2,11 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
- 
-:root {
-  --background: #2c2c2c;
+/* :root {
+  --background: #ffffff;
   --foreground: #000000;
-}
+} */
 
 body {
   padding: 0;

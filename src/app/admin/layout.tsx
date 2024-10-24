@@ -1,51 +1,23 @@
 "use client";
 
 import React from "react";
-import { Breadcrumb, Flex, Card, Layout, Menu, theme, Input } from "antd";
+import { Breadcrumb, Card, Layout, Menu, theme, Badge, Button } from "antd";
 import { MenuItemType } from "antd/es/menu/interface";
 import AvatarProfile from "@/components/avatar/avatar-profile";
 
-import HomeIcon from "@/components/icons/home";
-import ShieldIcon from "@/components/icons/shield";
-import UserIcon from "@/components/icons/user";
-import HistoryIcon from "@/components/icons/history";
-import UserSwitchIcon from "@/components/icons/user-switch";
+import HomeIcon from "@/components/icons/hugeicons/home";
+import ShieldIcon from "@/components/icons/hugeicons/shield";
+import UserIcon from "@/components/icons/hugeicons/user";
+import HistoryIcon from "@/components/icons/hugeicons/history";
+import UserSwitchIcon from "@/components/icons/hugeicons/user-switch";
+import { useRouter } from "next/navigation";
+import {
+  MessageOutlined,
+  NodeCollapseOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 
-const { Search } = Input;
 const { Sider, Header, Content } = Layout;
-
-const items: MenuItemType[] = [
-  {
-    key: 0,
-    icon: React.createElement(HomeIcon),
-    label: "Home",
-    style: { gap: 5 },
-  },
-  {
-    key: 1,
-    icon: React.createElement(UserSwitchIcon),
-    label: "Roles",
-    style: { gap: 5 },
-  },
-  {
-    key: 2,
-    icon: React.createElement(ShieldIcon),
-    label: "Permissions",
-    style: { gap: 5 },
-  },
-  {
-    key: 3,
-    icon: React.createElement(UserIcon),
-    label: "Users",
-    style: { gap: 5 },
-  },
-  {
-    key: 4,
-    icon: React.createElement(HistoryIcon),
-    label: "History",
-    style: { gap: 5 },
-  },
-];
 
 export default function DashboardLayout({
   children,
@@ -55,6 +27,7 @@ export default function DashboardLayout({
   const {
     token: { colorPrimaryBg, colorBgContainer, borderRadius },
   } = theme.useToken();
+  const router = useRouter();
 
   const siderStyle: React.CSSProperties = {
     // overflow: "auto",
@@ -67,6 +40,58 @@ export default function DashboardLayout({
     padding: 0,
     margin: 0,
     borderRadius: borderRadius,
+  };
+
+  const items: MenuItemType[] = [
+    {
+      key: "0",
+      icon: React.createElement(HomeIcon),
+      label: "Home",
+      style: { gap: 5 },
+      onClick: () => {
+        router.replace("/admin/home");
+      },
+    },
+    {
+      key: "1",
+      icon: React.createElement(UserSwitchIcon),
+      label: "Roles",
+      style: { gap: 5 },
+      onClick: () => {
+        router.replace("/admin/roles");
+      },
+    },
+    {
+      key: "2",
+      icon: React.createElement(ShieldIcon),
+      label: "Permissions",
+      style: { gap: 5 },
+      onClick: () => {
+        router.replace("/admin/permissions");
+      },
+    },
+    {
+      key: "3",
+      icon: React.createElement(UserIcon),
+      label: "Users",
+      style: { gap: 5 },
+      onClick: () => {
+        router.replace("/admin/users");
+      },
+    },
+    {
+      key: "4",
+      icon: React.createElement(HistoryIcon),
+      label: "History",
+      style: { gap: 5 },
+      onClick: () => {
+        router.replace("/admin/history");
+      },
+    },
+  ];
+
+  const toggleSidebar = () => {
+    // TODO
   };
 
   return (
@@ -95,6 +120,8 @@ export default function DashboardLayout({
           theme="light"
           mode="inline"
           defaultSelectedKeys={["0"]}
+          selectable={true}
+          activeKey={"0"}
           items={items}
           style={{
             backgroundColor: "transparent",
@@ -115,32 +142,48 @@ export default function DashboardLayout({
             gap: 20,
           }}
         >
-          <div className="flex justify-center items-center">
+          <div className="flex flex-wrap justify-center items-center gap-5">
+            <Button
+              size="large"
+              icon={<NodeCollapseOutlined />}
+              onClick={toggleSidebar}
+            >
+              Hide
+            </Button>
             <Breadcrumb
-              separator=">"
+              separator="/"
               items={[
                 {
-                  title: "Application name",
-                  href: "/",
-                },
-                {
                   title: "Administration",
-                  href: "/dashboard",
+                  href: "/admin/home",
                 },
                 {
                   title: "Users",
-                  href: "/dashboard/users",
+                  href: "/admin/users",
                 },
               ]}
             />
           </div>
-          <Search
-            placeholder="input search text"
-            enterButton="Search"
-            size="large"
-            style={{ maxWidth: "500px" }}
-          />
-          <AvatarProfile />
+          <div className="flex flex-wrap items-center gap-2">
+            <Button size="large" icon={<QuestionCircleOutlined />}>
+              Help
+            </Button>
+            <Button
+              size="large"
+              shape="circle"
+              icon={
+                <Badge
+                  size="small"
+                  count={5}
+                  offset={[-2, 1]}
+                  style={{ cursor: "pointer" }}
+                >
+                  <MessageOutlined />
+                </Badge>
+              }
+            />
+            <AvatarProfile firstName="P" lastName="A" />
+          </div>
         </Header>
         <Content style={{ marginTop: 10, overflow: "initial" }}>
           {children}

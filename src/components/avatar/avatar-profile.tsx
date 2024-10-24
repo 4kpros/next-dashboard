@@ -1,33 +1,48 @@
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Button, Dropdown } from 'antd';
-import React from 'react'
+"use client";
+
+import { LogoutOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, theme } from "antd";
+import React from "react";
 
 const items = [
   {
-    label: "View Profile",
     key: "0",
+    label: "View Profile",
   },
   {
-    label: "Settings",
     key: "1",
+    label: "Settings",
   },
   {
-    label: "Logout",
     key: "2",
-    dashed: true,
+    label: "Logout",
+    danger: true,
     icon: React.createElement(LogoutOutlined),
   },
 ];
-export default function AvatarProfile() {
-  return (
-    <Dropdown  menu={{onClick: () => {}, items: items}} placement="bottomRight" trigger={['click']}>
-      <Button style={{padding: 0, boxSizing: "border-box", border: "none"}} size='large'>
-        {/* <Avatar shape="square" size="large" icon={<UserOutlined />} /> */}
-        <Badge size="small" count={5} offset={[-6, 3]}>
-            <Avatar shape="circle" size="large" icon={<UserOutlined />} />
-        </Badge>
-      </Button>
-    </Dropdown>
-  )
-}
+export default function AvatarProfile(props: {
+  firstName: string;
+  lastName: string;
+}) {
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
 
+  return (
+    <Dropdown
+      menu={{ onClick: () => {}, items: items }}
+      placement="bottomRight"
+      trigger={["click"]}
+    >
+      <Avatar
+        size={"large"}
+        style={{ cursor: "pointer", backgroundColor: colorPrimary }}
+      >
+        <span className="font-medium text-base">
+          {props.firstName[0].toUpperCase()}
+          {props.lastName[0].toUpperCase()}
+        </span>
+      </Avatar>
+    </Dropdown>
+  );
+}
