@@ -35,7 +35,7 @@ export default function FormUpdateUser(props: {
           {
             type: "email",
             required: true,
-            message: "Please input your email!",
+            message: "Please enter the email!",
           },
         ]}
       >
@@ -49,7 +49,7 @@ export default function FormUpdateUser(props: {
           {
             type: "string",
             required: true,
-            message: "Please input your phone number!",
+            message: "Please enter the phone number!",
           },
         ]}
       >
@@ -71,22 +71,22 @@ export default function FormUpdateUser(props: {
         ]}
       >
         <Select size="large" placeholder="Select the role">
-          <Select.Option key={"user-add-role-1"} value="0">
+          <Select.Option key={"user-add-role-0"} value="0">
             Admin
           </Select.Option>
-          <Select.Option key={"user-add-role-2"} value="1">
+          <Select.Option key={"user-add-role-1"} value="1">
             Admin assist
           </Select.Option>
-          <Select.Option key={"user-add-role-3"} value="2">
+          <Select.Option key={"user-add-role-2"} value="2">
             Director
           </Select.Option>
-          <Select.Option key={"user-add-role-4"} value="3">
+          <Select.Option key={"user-add-role-3"} value="3">
             Director assist
           </Select.Option>
-          <Select.Option key={"user-add-role-5"} value="3">
+          <Select.Option key={"user-add-role-4"} value="4">
             Teacher
           </Select.Option>
-          <Select.Option key={"user-add-role-6"} value="3">
+          <Select.Option key={"user-add-role-5"} value="5">
             Student
           </Select.Option>
         </Select>

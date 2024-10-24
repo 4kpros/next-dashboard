@@ -170,7 +170,6 @@ export default function DashboardLayout({
             </Button>
             <Button
               size="large"
-              shape="circle"
               icon={
                 <Badge
                   size="small"
