@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
-import CustomThemeProvider from "../theme";
+import CustomThemeProvider from "../theme/theme";
 
 import "../styles/globals.css";
 import "../styles/modal.scss";

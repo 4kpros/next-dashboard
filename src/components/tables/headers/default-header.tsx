@@ -1,4 +1,5 @@
 import {
+  ClearOutlined,
   CloseOutlined,
   DeleteOutlined,
   PlusOutlined,
@@ -37,15 +38,13 @@ export default function DefaultTableHeader(props: {
           onSubmit={props.onSearch}
         />
         {props.searchKeyword != undefined && props.searchKeyword != null ? (
-          <div className="flex flex-wrap items-center gap-1">
+          <div className="flex flex-wrap items-center gap-2">
             <p className="line-clamp-1">
               Results for{" "}
               <b className="font-extrabold">{props.searchKeyword ?? ""}</b>
             </p>
             <Button
-              icon={<CloseOutlined width={18} height={18} />}
-              color="primary"
-              variant="filled"
+              icon={<ClearOutlined width={18} height={18} />}
               onClick={props.onClearSearch}
             >
               Clear
