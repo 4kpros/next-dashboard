@@ -18,7 +18,7 @@ const CustomThemeProvider = ({
   return (
     <ConfigProvider
       theme={{
-        algorithm: darkMode ? theme.darkAlgorithm : theme.compactAlgorithm,
+        algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
           // Colors primary
           colorPrimary: darkMode ? "#1ba3a9" : "#1ba3a9",
@@ -39,7 +39,7 @@ const CustomThemeProvider = ({
 
           // Font
           fontFamily: roboto.style.fontFamily,
-          fontSize: 16,
+          // fontSize: 16,
         },
       }}
     >
