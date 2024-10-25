@@ -51,8 +51,7 @@ make scan
 
 Some screenshots:
 
-![Next-dashboard-light-3](https://github.com/user-attachments/assets/157bf9af-8f9b-4b37-ba6c-4456aef2c3d9)
+![Next-dashboard-light-4](https://github.com/user-attachments/assets/1cb9ffa2-5086-4ecb-9009-3d07848c66e9)
 
-![Next-dashboard-dark-3](https://github.com/user-attachments/assets/dd91ae3b-8a3f-4de4-bf28-f9005a6070fc)
-
+![Next-dashboard-dark-4](https://github.com/user-attachments/assets/50f47754-460f-4c2e-8ac5-b7f171112837)
 
