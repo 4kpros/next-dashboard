@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Layout, Card, Menu, theme } from "antd";
+import { Layout, Menu, theme } from "antd";
 import { useRouter, usePathname } from "next/navigation";
 import { ItemType } from "antd/es/menu/interface";
 import getAdminSideMenuItems from "./admin-side-menu-items";
@@ -17,17 +17,15 @@ export default function AdminSideMenu() {
   } = theme.useToken();
 
   const siderStyle: React.CSSProperties = {
-    // overflow: "auto",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    overflow: "auto",
     scrollbarWidth: "thin",
-    scrollbarGutter: "stable",
+    scrollbarGutter: "auto",
     backgroundColor: colorBgContainer,
     height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 0,
-    margin: 0,
-    borderRadius: borderRadius,
+    // borderRadius: borderRadius,
   };
   const items: ItemType[] = getAdminSideMenuItems(({ key }) => {
     router.replace(key);
@@ -35,25 +33,22 @@ export default function AdminSideMenu() {
 
   return (
     <Sider
-      breakpoint="lg"
-      collapsedWidth="0"
+      breakpoint={"lg"}
+      collapsedWidth={0}
       onBreakpoint={(broken) => {
         console.log(broken);
       }}
       style={siderStyle}
       trigger={null}
-      collapsible
+      collapsible={true}
       collapsed={false}
     >
-      <Card
+      <div
+        className="w-full h-16"
         style={{
           backgroundColor: colorPrimaryBg,
-          verticalAlign: "middle",
-          marginTop: 10,
-          height: 60,
-          width: 170,
         }}
-      ></Card>
+      ></div>
       <Menu
         mode="inline"
         defaultSelectedKeys={[pathName]}
@@ -62,7 +57,8 @@ export default function AdminSideMenu() {
         items={items}
         style={{
           backgroundColor: "transparent",
-          marginTop: 20,
+          paddingTop: 20,
+          paddingBottom: 20,
           border: "none",
         }}
       />
