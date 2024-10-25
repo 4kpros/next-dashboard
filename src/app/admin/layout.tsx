@@ -29,11 +29,11 @@ export default function DashboardLayout({
 
   return (
     <MotionLayout>
-      <Layout style={{ scrollbarWidth: "thin", minHeight: "100vh", padding: 12, gap: 10 }}>
+      <Layout style={{ scrollbarWidth: "thin", minHeight: "100vh" }}>
         <MotionPageTransitionFromLeft>
           <AdminSideMenu />
         </MotionPageTransitionFromLeft>
-        <Layout style={{ scrollbarWidth: "thin", gap: 10 }}>
+        <Layout style={{ marginLeft: 210, scrollbarWidth: "thin", gap: 10 }}>
           <MotionPageTransitionFromTop>
             <Header
               style={{

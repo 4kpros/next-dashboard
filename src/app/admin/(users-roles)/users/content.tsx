@@ -19,7 +19,7 @@ export default function PageContent() {
   const isLoading = false;
   const data = newUserList(100);
   // const page = 1;
-  const pageSize = 20;
+  const pageSize = 30;
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const [addUserModalOpen, setAddUserModalOpen] = useState(false);
