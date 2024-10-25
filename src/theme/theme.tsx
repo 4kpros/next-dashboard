@@ -29,8 +29,8 @@ const CustomThemeProvider = ({
           colorBgBase: darkMode ? "#181d1b" : "#fcfdfd", // Body
           colorBgElevated: darkMode ? "#28312e" : "#fcfdfd", // Modal, popup
           colorBorderSecondary: darkMode
-            ? "rgba(255, 255, 255, 0.05)"
-            : "rgba(0, 0, 0, 0.05)",
+            ? "rgba(255, 255, 255, 0.15)"
+            : "rgba(0, 0, 0, 0.15)",
 
           // Radius
           borderRadiusXS: 4,

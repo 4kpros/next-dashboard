@@ -6,28 +6,36 @@ import React from "react";
 
 const items = [
   {
-    key: "0",
+    key: "avatar-0",
     label: "View Profile",
   },
   {
-    key: "1",
+    key: "avatar-1",
     label: "Settings",
   },
   {
-    key: "2",
+    key: "avatar-2",
     label: "Logout",
     danger: true,
     icon: React.createElement(LogoutOutlined),
   },
 ];
 export default function AvatarProfile(props: {
-  firstName: string;
-  lastName: string;
+  firstName: string | null;
+  lastName: string | null;
 }) {
   const {
     token: { colorPrimary },
   } = theme.useToken();
 
+  const firstNameChar =
+    props.firstName && props.firstName.length >= 1
+      ? props.firstName[0].toUpperCase().trim()
+      : "";
+  const lastNameChar =
+    props.lastName && props.lastName.length >= 1
+      ? props.lastName[0].toUpperCase().trim()
+      : "";
   return (
     <Dropdown
       menu={{ onClick: () => {}, items: items }}
@@ -39,8 +47,8 @@ export default function AvatarProfile(props: {
         style={{ cursor: "pointer", backgroundColor: colorPrimary }}
       >
         <span className="font-medium text-base">
-          {props.firstName[0].toUpperCase()}
-          {props.lastName[0].toUpperCase()}
+          {firstNameChar.length == 1 ? firstNameChar : "A"}
+          {lastNameChar.length == 1 ? lastNameChar : "A"}
         </span>
       </Avatar>
     </Dropdown>

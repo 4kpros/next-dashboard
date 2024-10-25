@@ -1,6 +1,5 @@
 import {
   ClearOutlined,
-  CloseOutlined,
   DeleteOutlined,
   PlusOutlined,
   PrinterOutlined,
@@ -12,12 +11,12 @@ const { Search } = Input;
 
 export default function DefaultTableHeader(props: {
   searchKeyword?: string | null;
-  onAdd?: () => void | null;
-  onSearch?: () => void | null;
-  onRefresh?: () => void | null;
-  onDelete?: () => void | null;
-  onPrint?: () => void | null;
-  onClearSearch?: () => void | null;
+  onAdd?: () => void;
+  onSearch?: () => void;
+  onRefresh?: () => void;
+  onDelete?: () => void;
+  onPrint?: () => void;
+  onClearSearch?: () => void;
 }) {
   return (
     <div className="w-full flex flex-wrap items-center justify-between gap-3">
