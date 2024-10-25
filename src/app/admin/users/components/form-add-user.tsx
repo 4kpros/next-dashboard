@@ -1,6 +1,5 @@
 "use client";
 
-import defaultFormLayout from "@/components/form/form-layout";
 import FormModalFooter from "@/components/form/form-modal-footer";
 import { MailFilled, PhoneFilled } from "@ant-design/icons";
 import { Form, Input, Segmented, Select } from "antd";
@@ -30,9 +29,8 @@ export default function FormAddUser(props: {
   return (
     <Form
       name="add-user-form"
-      layout={defaultFormLayout}
+      layout={"vertical"}
       style={{ maxWidth: 600 }}
-      initialValues={{ layout: defaultFormLayout }}
       onValuesChange={onFormValuesChange}
       onFinish={() => {}}
       onFinishFailed={() => {}}

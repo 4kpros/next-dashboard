@@ -1,6 +1,5 @@
 "use client";
 
-import defaultFormLayout from "@/components/form/form-layout";
 import FormModalFooter from "@/components/form/form-modal-footer";
 import { Form, Input, Select } from "antd";
 import React from "react";
@@ -15,12 +14,12 @@ export default function FormUpdateUser(props: {
   onSubmit: () => void;
   onCancel: () => void;
 }) {
+
   return (
     <Form
       name="add-user-form"
-      layout={defaultFormLayout}
+      layout={"vertical"}
       style={{ maxWidth: 600 }}
-      initialValues={{ layout: defaultFormLayout }}
       onFinish={() => {}}
       onFinishFailed={() => {}}
       autoComplete="on"
