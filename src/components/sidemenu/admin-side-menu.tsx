@@ -13,7 +13,7 @@ export default function AdminSideMenu() {
   const pathName = usePathname();
 
   const {
-    token: { colorPrimaryBg, colorBgContainer, borderRadius },
+    token: { colorPrimaryBg, colorBgContainer },
   } = theme.useToken();
 
   const siderStyle: React.CSSProperties = {
