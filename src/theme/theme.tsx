@@ -8,7 +8,6 @@ const roboto = Roboto({
   subsets: ["latin"],
   weight: "500",
   style: "normal",
-  preload: true,
 });
 
 const CustomThemeProvider = ({
@@ -48,7 +47,7 @@ const CustomThemeProvider = ({
 
           // Font
           fontFamily: roboto.style.fontFamily,
-          // fontSize: 16,
+          // fontSize: 15,
         },
       }}
     >
