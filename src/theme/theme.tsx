@@ -33,11 +33,7 @@ const CustomThemeProvider = ({
             : "rgba(0, 0, 0, 0.15)",
 
           // Radius
-          borderRadius: 2,
-          // borderRadiusXS: 4,
-          // borderRadiusSM: 8,
-          // borderRadius: 12,
-          // borderRadiusLG: 14,
+          borderRadius: 4,
 
           // Shadow
           boxShadow: darkMode
