@@ -9,12 +9,9 @@ import {
 } from "@ant-design/icons";
 import AvatarProfile from "@/components/avatar/avatar-profile";
 import MotionLayout from "@/components/motion/motion-layout";
-import {
-  MotionPageTransitionFromLeft,
-  MotionPageTransitionFromTop,
-} from "@/components/motion/motion-page";
+import { MotionPageTransitionFromLeft, MotionPageTransitionFromTop } from "@/components/motion/motion-page";
 import SideMenu from "@/components/sidemenu/side-menu";
-import getAdminSideMenuItems from "@/components/sidemenu/admin-side-menu-items";
+import getDirectorUniversitySideMenuItems from "@/components/sidemenu/director-university-side-menu copy";
 
 const { Header, Content } = Layout;
 
@@ -35,7 +32,7 @@ export default function DashboardLayout({
     <MotionLayout>
       <Layout style={{ scrollbarWidth: "thin", minHeight: "100vh" }}>
         <MotionPageTransitionFromLeft>
-          <SideMenu getItems={getAdminSideMenuItems} />
+          <SideMenu getItems={getDirectorUniversitySideMenuItems} />
         </MotionPageTransitionFromLeft>
         <Layout style={{ marginLeft: 210, scrollbarWidth: "thin", gap: 10 }}>
           <MotionPageTransitionFromTop>
@@ -93,7 +90,9 @@ export default function DashboardLayout({
               </div>
             </Header>
           </MotionPageTransitionFromTop>
-          <Content style={{ overflow: "initial" }}>{children}</Content>
+          <Content style={{ overflow: "initial" }}>
+            {children}
+          </Content>
         </Layout>
       </Layout>
     </MotionLayout>

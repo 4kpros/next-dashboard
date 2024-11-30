@@ -10,9 +10,6 @@ import CustomerSupportIcon from "@/components/icons/hugeicons/customer-support";
 import SchoolIcon from "@/components/icons/hugeicons/school";
 import ClockHistoryIcon from "@/components/icons/hugeicons/clock-history";
 import ManagerIcon from "../icons/hugeicons/manager";
-import TeacherIcon from "../icons/hugeicons/teacher";
-import StudentsIcon from "../icons/hugeicons/students";
-import AssignmentsIcon from "../icons/hugeicons/assignments";
 
 export default function getAdminSideMenuItems(
   onClick?: (info: { key: string }) => void
@@ -41,27 +38,6 @@ export default function getAdminSideMenuItems(
           key: "/admin/directors",
           icon: React.createElement(ManagerIcon),
           label: "Directors",
-          style: { gap: 5 },
-          onClick: onClick,
-        },
-        {
-          key: "/admin/teachers",
-          icon: React.createElement(TeacherIcon),
-          label: "Teachers",
-          style: { gap: 5 },
-          onClick: onClick,
-        },
-        {
-          key: "/admin/students",
-          icon: React.createElement(StudentsIcon),
-          label: "Students",
-          style: { gap: 5 },
-          onClick: onClick,
-        },
-        {
-          key: "/admin/exams",
-          icon: React.createElement(AssignmentsIcon),
-          label: "Exams",
           style: { gap: 5 },
           onClick: onClick,
         },

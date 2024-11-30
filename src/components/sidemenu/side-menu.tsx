@@ -4,11 +4,12 @@ import React from "react";
 import { Layout, Menu, theme } from "antd";
 import { useRouter, usePathname } from "next/navigation";
 import { ItemType } from "antd/es/menu/interface";
-import getAdminSideMenuItems from "./admin-side-menu-items";
 
 const { Sider } = Layout;
 
-export default function AdminSideMenu() {
+export default function SideMenu(props: {
+  getItems: (onClick?: (info: { key: string }) => void) => ItemType[];
+}) {
   const router = useRouter();
   const pathName = usePathname();
 
@@ -27,7 +28,7 @@ export default function AdminSideMenu() {
     height: "100%",
     // borderRadius: borderRadius,
   };
-  const items: ItemType[] = getAdminSideMenuItems(({ key }) => {
+  const items: ItemType[] = props.getItems(({ key }) => {
     router.replace(key);
   });
 
