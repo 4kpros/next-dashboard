@@ -31,27 +31,23 @@ const menus = [
 export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
-
-  const navigateToPage = (path: string) => {
-    router.push(path);
-  };
   return (
     <nav className="bg-white border-b">
       <CustomContainer>
-        <div className="w-full flex flex-wrap items-center justify-between py-2">
+        <div className="w-full flex flex-wrap items-center justify-between py-4">
           <Link
             href="/"
             className="flex items-center space-x-0"
           >
             <Image
-              style={{ width: "60px", height: "60px", objectFit: "contain" }}
-              width={60}
-              height={60}
+              style={{ width: "40px", height: "40px", objectFit: "contain" }}
+              width={40}
+              height={40}
               src={"/images/logo/logo-xs.png"}
               className="me-2"
               alt="Logo"
             />
-            <span className="self-center text-xl font-semibold whitespace-nowrap text-primary">
+            <span className="self-center text-xl font-medium whitespace-nowrap text-primary">
               Digitschool
             </span>
           </Link>
@@ -115,14 +111,14 @@ export default function Navbar() {
             className="hidden w-full lg:block lg:w-auto"
             id="navbar-dropdown"
           >
-            <ul className="flex flex-col justify-center items-center font-medium p-4 md:p-0 mt-4 d-lg md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+            <ul className="flex flex-col justify-center items-center p-4 md:p-0 mt-4 d-lg md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
               {menus.map((item) => {
                 return (
                   <li key={item.label}>
                     <Link
                       href={item.link}
                       aria-current="page"
-                      className={`py-2 px-3 font-semibold transition-all 
+                      className={`py-2 px-3 font-medium transition-all 
                                         ${
                                           item.link === pathName
                                             ? "text-primary underline underline-offset-4"
@@ -136,10 +132,10 @@ export default function Navbar() {
                 );
               })}
               <li>
-                <Button onClick={() => navigateToPage("/auth/register")}>Sign up</Button>
+                <Button onClick={() => router.push("/auth/register")}>Sign up</Button>
               </li>
               <li>
-                <Button type="primary" onClick={() => navigateToPage("/auth/login")}>Login</Button>
+                <Button type="primary" onClick={() => router.push("/auth/login")}>Login</Button>
               </li>
             </ul>
           </div>
