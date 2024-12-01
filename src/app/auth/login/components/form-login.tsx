@@ -4,13 +4,11 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import {
   FacebookFilled,
-  FacebookOutlined,
   GoogleCircleFilled,
   LockOutlined,
   MailOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import GoogleIcon from "@/components/icons/boxicons/google";
 
 export default function FormLogin() {
   const onFinish = (values: any) => {

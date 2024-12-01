@@ -35,10 +35,7 @@ export default function Navbar() {
     <nav className="bg-white border-b">
       <CustomContainer>
         <div className="w-full flex flex-wrap items-center justify-between py-4">
-          <Link
-            href="/"
-            className="flex items-center space-x-0"
-          >
+          <Link href="/" className="flex items-center space-x-0">
             <Image
               style={{ width: "40px", height: "40px", objectFit: "contain" }}
               width={40}
@@ -132,10 +129,21 @@ export default function Navbar() {
                 );
               })}
               <li>
-                <Button onClick={() => router.push("/auth/register")}>Sign up</Button>
-              </li>
-              <li>
-                <Button type="primary" onClick={() => router.push("/auth/login")}>Login</Button>
+                <div className="w-auto flex gap-1">
+                  <Button
+                    size="large"
+                    onClick={() => router.push("/auth/register")}
+                  >
+                    Sign up
+                  </Button>
+                  <Button
+                    size="large"
+                    type="primary"
+                    onClick={() => router.push("/auth/login")}
+                  >
+                    Login
+                  </Button>
+                </div>
               </li>
             </ul>
           </div>

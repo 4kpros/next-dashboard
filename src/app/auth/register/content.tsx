@@ -1,7 +1,6 @@
 "use client";
 
 import Title from "antd/es/typography/Title";
-import FormLogin from "./components/form-register";
 import LogoHeader from "../(components)/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import FormRegister from "./components/form-register";
@@ -28,7 +27,7 @@ export default function PageContent() {
           style={{
             borderRadius: borderRadius,
           }}
-          className="w-full relative"
+          className="w-full"
         >
           <Image
             src={"/images/pages/auth/register.jpg"}
@@ -38,21 +37,8 @@ export default function PageContent() {
             style={{
               borderRadius: borderRadius,
             }}
-            className="w-full h-full absolute object-cover"
+            className="w-full max-w-[400px] h-[500px] object-cover"
           />
-          <div className="w-full max-w-[400px] h-[500px] flex flex-col z-10">
-            <div className="w-full flex justify-start p-4">
-              <Button
-                type="primary"
-                htmlType="submit"
-                variant="filled"
-                icon={<HomeOutlined/>}
-                onClick={() => router.push("/")}
-              >
-                Back to website
-              </Button>
-            </div>
-          </div>
         </div>
         <div className="w-full flex flex-col items-center justify-center">
           <div className="w-full max-w-[400px] flex flex-col items-center justify-center gap-8">
@@ -68,6 +54,16 @@ export default function PageContent() {
           </div>
         </div>
       </div>
+        <div className="w-full flex item-center justify-center mt-4">
+          <Button
+            htmlType="submit"
+            color="primary"
+            variant="filled"
+            onClick={() => router.push("/")}
+          >
+            Back to the website
+          </Button>
+        </div>
     </CustomContainerFullHeight>
   );
 }
