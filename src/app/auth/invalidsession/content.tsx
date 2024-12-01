@@ -5,13 +5,13 @@ import { CustomContainerFullHeight } from "@/components/container/custom-contain
 import LogoHeader from "../(components)/logo-header";
 import { Button } from "antd";
 import { theme } from "antd";
+import { useRouter } from "next/navigation";
 
 export default function PageContent() {
+  const router = useRouter();
   const {
     token: { borderRadius },
   } = theme.useToken();
-
-  const navigateToLoginPage = () => {};
 
   return (
     <CustomContainerFullHeight>
@@ -25,7 +25,9 @@ export default function PageContent() {
         <div className="w-full flex flex-col items-center justify-center">
           <Title level={2}>Session timeout</Title>
           <span className="text-center">
-            Enter your received code to your email/phone number.
+            To enhance security, we've implemented a session timeout of 60
+            minutes to 30 days on all user accounts. This helps protect user
+            data in case a computer is left unattended.
           </span>
         </div>
 
@@ -34,7 +36,7 @@ export default function PageContent() {
           type="primary"
           htmlType="submit"
           className="w-full"
-          onClick={navigateToLoginPage}
+          onClick={() => router.push("/auth/login")}
         >
           Go to login page
         </Button>
