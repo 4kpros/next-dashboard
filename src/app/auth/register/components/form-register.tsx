@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import GoogleIcon from "@/components/icons/boxicons/google";
 
-export default function FormLogin() {
+export default function FormRegister() {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
@@ -43,7 +43,7 @@ export default function FormLogin() {
         />
       </Form.Item>
       <Form.Item
-        name="password"
+        name="password1"
         rules={[
           {
             required: true,
@@ -58,13 +58,22 @@ export default function FormLogin() {
           placeholder="Password"
         />
       </Form.Item>
-      <div className="w-full flex flex-wrap gap-2 justify-between">
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Link href="/auth/forgot/init">Forgot password ?</Link>
-      </div>
+      <Form.Item
+        name="password2"
+        rules={[
+          {
+            required: true,
+            message: "Please input your Password!",
+          },
+        ]}
+      >
+        <Input
+          size="large"
+          prefix={<LockOutlined />}
+          type="password"
+          placeholder="Confirm password"
+        />
+      </Form.Item>
       <Form.Item>
         <Button
           size="large"
@@ -72,36 +81,11 @@ export default function FormLogin() {
           htmlType="submit"
           className="w-full"
         >
-          Log in
+          Register
         </Button>
       </Form.Item>
-      <Form.Item>
-        <p className="text-center text-lg opacity-50">OR</p>
-      </Form.Item>
-      <div className="w-full flex flex-col gap-2">
-        <Form.Item noStyle>
-          <Button
-            size="large"
-            icon={<GoogleCircleFilled />}
-            htmlType="submit"
-            className="w-full"
-          >
-            Continue with Google
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Button
-            size="large"
-            icon={<FacebookFilled />}
-            htmlType="submit"
-            className="w-full"
-          >
-            Continue with Facebook
-          </Button>
-        </Form.Item>
-      </div>
       <div className="w-full flex justify-center items-center gap-2">
-        Don't have an account? <Link href="/auth/register">Sign up now</Link>
+        Already have an account? <Link href="/auth/login">Login</Link>
       </div>
     </Form>
   );

@@ -7,8 +7,8 @@ import "../styles/globals.css";
 import "../styles/modal.scss";
 
 export const metadata: Metadata = {
-  title: "Application name",
-  description: "Description",
+  title: "Digitschool",
+  description: "Scholl management",
 };
 
 export default function RootLayout({

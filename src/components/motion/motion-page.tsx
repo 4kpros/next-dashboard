@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 
-const duration = 0.4
+const durationShort = 0.25
+const durationMedium = 0.3
+const durationLong = 0.45
 
 function MotionPageTransitionFromBottom({
   children,
@@ -14,7 +16,7 @@ function MotionPageTransitionFromBottom({
       exit={{ y: 10, opacity: 0 }}
       transition={{
         ease: "easeInOut",
-        duration: duration,
+        duration: durationMedium,
         delay: 0,
       }}
       className="w-full"
@@ -34,7 +36,7 @@ function MotionPageTransitionFromTop({
       exit={{ y: -10, opacity: 0 }}
       transition={{
         ease: "easeInOut",
-        duration: duration,
+        duration: durationShort,
         delay: 0,
       }}
       className="w-full"
@@ -54,7 +56,7 @@ function MotionPageTransitionFromLeft({
       exit={{ x: -10, opacity: 0 }}
       transition={{
         ease: "easeInOut",
-        duration: duration,
+        duration: durationMedium,
         delay: 0,
       }}
     >
