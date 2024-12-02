@@ -140,16 +140,16 @@ export default function Navbar() {
                 <div className="w-auto flex gap-1">
                   <Button
                     size="large"
-                    onClick={() => router.push("/auth/register")}
+                    onClick={() => router.push("/auth/login")}
                   >
-                    Sign up
+                    Login
                   </Button>
                   <Button
                     size="large"
                     type="primary"
-                    onClick={() => router.push("/auth/login")}
+                    onClick={() => router.push("/auth/register")}
                   >
-                    Login
+                    Sign up
                   </Button>
                 </div>
               </li>
