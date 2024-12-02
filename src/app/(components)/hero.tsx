@@ -29,8 +29,8 @@ export default function Hero() {
           </p>
         </div>
         <div className="w-auto flex items-center justify-center gap-4">
-          <Button size="large" type="primary" onClick={() => router.push("/")}>
-            Request a demo
+          <Button size="large" type="primary" onClick={() => router.push("/auth/register")}>
+            Register now
           </Button>
           <Button size="large" onClick={() => router.push("#contact")}>
             Contact us
