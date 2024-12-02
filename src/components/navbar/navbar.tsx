@@ -32,7 +32,7 @@ export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
   return (
-    <nav className="bg-white border-b">
+    <nav className="bg-white">
       <CustomContainer>
         <div className="w-full flex flex-wrap items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-0">

@@ -6,7 +6,19 @@ function CustomContainer({
     children: React.ReactNode;
   }>) {
   return (
-    <div className="w-full max-w-screen-xl flex flex-col flex-wrap items-center justify-center mx-auto px-4">
+    <div className="w-full max-w-screen-2xl flex flex-col flex-wrap items-center justify-center mx-auto px-4">
+      {children}
+    </div>
+  );
+}
+
+function CustomContainerXl({
+    children,
+  }: Readonly<{
+    children: React.ReactNode;
+  }>) {
+  return (
+    <div className="w-full max-w-[1650px] flex flex-col flex-wrap items-center justify-center mx-auto px-4">
       {children}
     </div>
   );
@@ -26,5 +38,6 @@ function CustomContainerFullHeight({
 
 export {
   CustomContainer,
-  CustomContainerFullHeight
+  CustomContainerXl,
+  CustomContainerFullHeight,
 }

@@ -37,7 +37,7 @@ export default function DashboardLayout({
         <MotionPageTransitionFromLeft>
           <SideMenu getItems={getAdminSideMenuItems} />
         </MotionPageTransitionFromLeft>
-        <Layout style={{ marginLeft: 210, scrollbarWidth: "thin", gap: 10 }}>
+        <Layout style={{ marginLeft: 210, scrollbarWidth: "thin", gap: 10, marginTop: "10px", marginRight: "10px" }}>
           <MotionPageTransitionFromTop>
             <Header
               style={{
