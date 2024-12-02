@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { CustomContainer } from "../container/custom-container";
-import { Button } from "antd";
+import { Button, theme } from "antd";
 
 const menus = [
   {
@@ -13,7 +13,7 @@ const menus = [
   },
   {
     label: "Directors",
-    link: "#director",
+    link: "#directors",
   },
   {
     label: "Teachers",
@@ -31,8 +31,16 @@ const menus = [
 export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   return (
-    <nav className="bg-white">
+    <nav
+      style={{
+        background: colorBgContainer,
+      }}
+    >
       <CustomContainer>
         <div className="w-full flex flex-wrap items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-0">
@@ -117,7 +125,7 @@ export default function Navbar() {
                       aria-current="page"
                       className={`py-2 px-3 font-medium transition-all 
                                         ${
-                                          item.link === pathName
+                                          item.link === "//"
                                             ? "text-primary underline underline-offset-4"
                                             : "text-primary/50"
                                         }
