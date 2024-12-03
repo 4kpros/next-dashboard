@@ -7,8 +7,12 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 
+interface FormForgotInitType {
+  email: string;
+}
+
 export default function FormForgotInit() {
-  const onFinish = (values: any) => {
+  const onFinish = (values: FormForgotInitType) => {
     console.log("Received values of form: ", values);
   };
 

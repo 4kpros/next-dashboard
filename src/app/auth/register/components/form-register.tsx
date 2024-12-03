@@ -5,8 +5,14 @@ import { Form, Input, Button } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
+interface FormRegisterType {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export default function FormRegister() {
-  const onFinish = (values: any) => {
+  const onFinish = (values: FormRegisterType) => {
     console.log("Received values of form: ", values);
   };
 
@@ -36,7 +42,7 @@ export default function FormRegister() {
         />
       </Form.Item>
       <Form.Item
-        name="password1"
+        name="password"
         rules={[
           {
             required: true,
@@ -52,7 +58,7 @@ export default function FormRegister() {
         />
       </Form.Item>
       <Form.Item
-        name="password2"
+        name="confirmPassword"
         rules={[
           {
             required: true,

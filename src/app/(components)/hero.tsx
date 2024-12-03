@@ -1,14 +1,52 @@
-"use client"
+"use client";
 
+import {
+  FEATURE_ADMIN,
+  FEATURE_DIRECTOR,
+  FEATURE_PARENT,
+  FEATURE_STUDENT,
+  FEATURE_TEACHER,
+} from "@/constants/feature";
 import { Button, theme } from "antd";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const session = useSession();
   const router = useRouter();
   const {
     token: { colorFillContent, borderRadius },
   } = theme.useToken();
+
+  const action = () => {
+    if (session.status !== "loading") {
+      if (session.status == "authenticated") {
+        switch (session?.data?.user?.feature ?? "") {
+          case FEATURE_ADMIN:
+            router.push("/admin/home");
+            break;
+          case FEATURE_DIRECTOR:
+            router.push("/director/home");
+            break;
+          case FEATURE_TEACHER:
+            router.push("/teacher/home");
+            break;
+          case FEATURE_STUDENT:
+            router.push("/student/home");
+            break;
+          case FEATURE_PARENT:
+            router.push("/parent/home");
+            break;
+
+          default:
+            break;
+        }
+      } else {
+        router.push("/auth/register");
+      }
+    }
+  };
 
   return (
     <section
@@ -29,8 +67,18 @@ export default function Hero() {
           </p>
         </div>
         <div className="w-auto flex items-center justify-center gap-4">
-          <Button size="large" type="primary" onClick={() => router.push("/auth/register")}>
-            Register now
+          <Button
+            size="large"
+            type="primary"
+            onClick={action}
+            loading={session.status === "loading"}
+            className="transition-all duration-200 ease-in-out"
+          >
+            {session.status === "loading"
+              ? "Loading..."
+              : session.status === "authenticated"
+              ? "Go to the dashboard"
+              : "Register now"}
           </Button>
           <Button size="large" onClick={() => router.push("#contact")}>
             Contact us

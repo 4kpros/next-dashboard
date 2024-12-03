@@ -3,6 +3,6 @@ import React from 'react'
 
 export default function LogoHeader() {
   return (
-    <Image src={"/logo/logo-xs.png"} alt="" width={50} height={50} />
+    <Image src={"/images/logo/logo-xs.png"} alt="" width={50} height={50} />
   )
 }

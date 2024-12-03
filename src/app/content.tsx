@@ -16,8 +16,6 @@ import Contact from "./(components)/contact";
 import Statistics from "./(components)/statistics";
 import { useEffect, useState } from "react";
 
-const partners: (string | null)[] = [null, null, null];
-
 export default function PageContent() {
   const [scrollYPosition, setScrollYPosition] = useState(0);
 
@@ -28,11 +26,10 @@ export default function PageContent() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    console.log(scrollYPosition);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollYPosition]);
+  }, []);
   return (
     <>
       <Navbar />

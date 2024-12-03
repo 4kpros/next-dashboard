@@ -5,8 +5,13 @@ import { Form, Input, Button } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
-export default function FormAuthActivateAccount() {
-  const onFinish = (values: any) => {
+interface FormActivateAccountType {
+  code: number;
+}
+
+
+export default function FormActivateAccount() {
+  const onFinish = (values: FormActivateAccountType) => {
     console.log("Received values of form: ", values);
   };
 

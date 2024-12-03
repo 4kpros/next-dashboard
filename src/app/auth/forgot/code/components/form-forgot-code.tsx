@@ -7,8 +7,13 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 
+
+interface FormForgotCodeType {
+  code: number;
+}
+
 export default function FormForgotCode() {
-  const onFinish = (values: any) => {
+  const onFinish = (values: FormForgotCodeType) => {
     console.log("Received values of form: ", values);
   };
 

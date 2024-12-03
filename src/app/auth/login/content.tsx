@@ -1,17 +1,40 @@
 "use client";
 
 import Title from "antd/es/typography/Title";
-import FormLogin from "./components/form-login";
+import FormLogin, { FormLoginType } from "./components/form-login";
 import LogoHeader from "../(components)/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import { Button, theme } from "antd";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 
 export default function PageContent() {
   const router = useRouter();
   const {
     token: { borderRadius },
   } = theme.useToken();
+
+  const signInWithCredentialMutation = useMutation({
+    mutationFn: (formData: FormLoginType) => {
+      return signIn("credentials", {
+        redirect: true,
+        redirectTo: "/",
+        email: formData.email,
+        password: formData.password,
+        stayConnected: formData.remember,
+      });
+    },
+  });
+
+  const onSubmitGoogleMutation = useMutation({
+    mutationFn: () => {
+      return signIn("google", {
+        redirect: true,
+        redirectTo: "/",
+      });
+    },
+  });
 
   return (
     <CustomContainerFullHeight>
@@ -30,7 +53,13 @@ export default function PageContent() {
               sign in.
             </span>
           </div>
-          <FormLogin />
+          <FormLogin
+            isLoading={signInWithCredentialMutation.isPending}
+            onSubmitCredentials={(formData) =>
+              signInWithCredentialMutation.mutate(formData)
+            }
+            onSubmitGoogle={() => onSubmitGoogleMutation.mutate()}
+          />
         </div>
         <div className="w-full flex item-center justify-center mt-4">
           <Button

@@ -20,7 +20,6 @@ export default function FormUpdateUser(props: {
       layout={"vertical"}
       style={{ maxWidth: 600 }}
       onFinish={() => {}}
-      onFinishFailed={() => {}}
       autoComplete="on"
     >
       <br></br>

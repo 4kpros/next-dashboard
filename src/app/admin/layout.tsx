@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Breadcrumb, Layout, theme, Badge, Button } from "antd";
+import { Breadcrumb, Layout, theme, Badge, Button, Avatar } from "antd";
 import {
   MessageOutlined,
   NodeCollapseOutlined,
@@ -15,6 +15,7 @@ import {
 } from "@/components/motion/motion-page";
 import SideMenu from "@/components/sidemenu/side-menu";
 import getAdminSideMenuItems from "@/components/sidemenu/admin-side-menu-items";
+import { useSession } from "next-auth/react";
 
 const { Header, Content } = Layout;
 
@@ -23,6 +24,7 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = useSession();
   const {
     token: { colorBgContainer, borderRadius },
   } = theme.useToken();
@@ -37,7 +39,15 @@ export default function DashboardLayout({
         <MotionPageTransitionFromLeft>
           <SideMenu getItems={getAdminSideMenuItems} />
         </MotionPageTransitionFromLeft>
-        <Layout style={{ marginLeft: 210, scrollbarWidth: "thin", gap: 10, marginTop: "10px", marginRight: "10px" }}>
+        <Layout
+          style={{
+            marginLeft: 210,
+            scrollbarWidth: "thin",
+            gap: 10,
+            marginTop: "10px",
+            marginRight: "10px",
+          }}
+        >
           <MotionPageTransitionFromTop>
             <Header
               style={{
@@ -89,7 +99,13 @@ export default function DashboardLayout({
                     </Badge>
                   }
                 />
-                <AvatarProfile firstName="P" lastName="A" />
+                {session.status === "loading" ? (
+                  <Avatar size={"large"} className="opacity-0">
+                    <span className="font-medium text-base">NA</span>
+                  </Avatar>
+                ) : (
+                  <AvatarProfile nameTrunc={session.data?.user?.nameTrunc} />
+                )}
               </div>
             </Header>
           </MotionPageTransitionFromTop>

@@ -33,7 +33,6 @@ export default function FormAddUser(props: {
       style={{ maxWidth: 600 }}
       onValuesChange={onFormValuesChange}
       onFinish={() => {}}
-      onFinishFailed={() => {}}
       autoComplete="on"
     >
       <br></br>

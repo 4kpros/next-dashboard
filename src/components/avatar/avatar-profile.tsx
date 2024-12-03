@@ -2,43 +2,46 @@
 
 import { LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, theme } from "antd";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const items = [
   {
-    key: "avatar-0",
+    key: "/profile",
     label: "View Profile",
   },
   {
-    key: "avatar-1",
+    key: "/profile/settings",
     label: "Settings",
   },
   {
-    key: "avatar-2",
+    key: "/logout",
     label: "Logout",
     danger: true,
     icon: React.createElement(LogoutOutlined),
   },
 ];
 export default function AvatarProfile(props: {
-  firstName: string | null;
-  lastName: string | null;
+  nameTrunc?: string | null;
 }) {
+  const router = useRouter();
   const {
     token: { colorPrimary },
   } = theme.useToken();
 
-  const firstNameChar =
-    props.firstName && props.firstName.length >= 1
-      ? props.firstName[0].toUpperCase().trim()
-      : "";
-  const lastNameChar =
-    props.lastName && props.lastName.length >= 1
-      ? props.lastName[0].toUpperCase().trim()
-      : "";
   return (
     <Dropdown
-      menu={{ onClick: () => {}, items: items }}
+      menu={{ onClick: (item) => {
+        if(item.key != "/logout") {
+          router.push(item.key)
+        }else {
+          signOut({
+            redirect: true,
+            redirectTo: "/auth/logout",
+          })
+        }
+      }, items: items }}
       placement="bottomRight"
       trigger={["click"]}
     >
@@ -47,8 +50,7 @@ export default function AvatarProfile(props: {
         style={{ cursor: "pointer", backgroundColor: colorPrimary }}
       >
         <span className="font-medium text-base">
-          {firstNameChar.length == 1 ? firstNameChar : "A"}
-          {lastNameChar.length == 1 ? lastNameChar : "A"}
+          {props.nameTrunc ?? "NA"}
         </span>
       </Avatar>
     </Dropdown>

@@ -9,11 +9,31 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useGoogleLogin } from "@react-oauth/google";
 
-export default function FormLogin() {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+interface FormLoginType {
+  email: string;
+  password: string;
+  remember: boolean;
+}
+type AuthProvider = "google" | "facebook"
+
+export { type FormLoginType };
+export default function FormLogin(props: {
+  onSubmitCredentials?: (formData: FormLoginType) => void;
+  onSubmitGoogle?: () => void;
+  isLoading: boolean;
+}) {
+  const signInWithCredentials = async (formData: FormLoginType) => {
+    props.onSubmitCredentials!(formData);
   };
+  const googleLogin = useGoogleLogin({
+      flow: 'auth-code',
+      onSuccess: async () => {
+        props.onSubmitGoogle!()
+      },
+  });
 
   return (
     <Form
@@ -22,11 +42,15 @@ export default function FormLogin() {
       initialValues={{
         remember: true,
       }}
-      onFinish={onFinish}
+      onFinish={signInWithCredentials}
     >
       <Form.Item
         name="email"
         rules={[
+          {
+            type: "email",
+            message: "The input is not valid Email!",
+          },
           {
             required: true,
             message: "Please input your Email!",
@@ -58,13 +82,14 @@ export default function FormLogin() {
       </Form.Item>
       <div className="w-full flex flex-wrap gap-2 justify-between">
         <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox disabled={props.isLoading}>Remember me</Checkbox>
         </Form.Item>
 
         <Link href="/auth/forgot/init">Forgot password ?</Link>
       </div>
       <Form.Item>
         <Button
+          loading={props.isLoading}
           size="large"
           type="primary"
           htmlType="submit"
@@ -77,24 +102,15 @@ export default function FormLogin() {
         <p className="text-center text-lg opacity-50">OR</p>
       </Form.Item>
       <div className="w-full flex flex-col gap-2">
-        <Form.Item noStyle>
+        <Form.Item>
           <Button
+            disabled={props.isLoading}
+            onClick={() => googleLogin()}
             size="large"
             icon={<GoogleCircleFilled />}
-            htmlType="submit"
             className="w-full"
           >
             Continue with Google
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Button
-            size="large"
-            icon={<FacebookFilled />}
-            htmlType="submit"
-            className="w-full"
-          >
-            Continue with Facebook
           </Button>
         </Form.Item>
       </div>

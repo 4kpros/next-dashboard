@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { CustomContainer } from "../container/custom-container";
-import { Button, theme } from "antd";
+import { Avatar, Button, theme } from "antd";
+import { useSession } from "next-auth/react";
+import AvatarProfile from "../avatar/avatar-profile";
 
 const menus = [
   {
@@ -29,12 +31,11 @@ const menus = [
   },
 ];
 export default function Navbar() {
-  const pathName = usePathname();
+  const session = useSession();
   const router = useRouter();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
   return (
     <nav
       style={{
@@ -137,21 +138,29 @@ export default function Navbar() {
                 );
               })}
               <li>
-                <div className="w-auto flex gap-1">
-                  <Button
-                    size="large"
-                    onClick={() => router.push("/auth/login")}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    size="large"
-                    type="primary"
-                    onClick={() => router.push("/auth/register")}
-                  >
-                    Sign up
-                  </Button>
-                </div>
+                {session.status === "loading" ? (
+                  <Avatar size={"large"} className="opacity-0">
+                    <span className="font-medium text-base">NA</span>
+                  </Avatar>
+                ) : session.status == "authenticated" ? (
+                  <AvatarProfile nameTrunc={session.data?.user?.nameTrunc} />
+                ) : (
+                  <div className="w-auto flex gap-1">
+                    <Button
+                      size="large"
+                      onClick={() => router.push("/auth/login")}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      size="large"
+                      type="primary"
+                      onClick={() => router.push("/auth/register")}
+                    >
+                      Sign up
+                    </Button>
+                  </div>
+                )}
               </li>
             </ul>
           </div>

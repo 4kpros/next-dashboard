@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Breadcrumb, Layout, theme, Badge, Button } from "antd";
+import { Breadcrumb, Layout, theme, Badge, Button, Avatar } from "antd";
 import {
   MessageOutlined,
   NodeCollapseOutlined,
@@ -9,9 +9,13 @@ import {
 } from "@ant-design/icons";
 import AvatarProfile from "@/components/avatar/avatar-profile";
 import MotionLayout from "@/components/motion/motion-layout";
-import { MotionPageTransitionFromLeft, MotionPageTransitionFromTop } from "@/components/motion/motion-page";
+import {
+  MotionPageTransitionFromLeft,
+  MotionPageTransitionFromTop,
+} from "@/components/motion/motion-page";
 import SideMenu from "@/components/sidemenu/side-menu";
 import getDirectorUniversitySideMenuItems from "@/components/sidemenu/director-university-side-menu copy";
+import { useSession } from "next-auth/react";
 
 const { Header, Content } = Layout;
 
@@ -20,6 +24,7 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = useSession();
   const {
     token: { colorBgContainer, borderRadius },
   } = theme.useToken();
@@ -86,13 +91,17 @@ export default function DashboardLayout({
                     </Badge>
                   }
                 />
-                <AvatarProfile firstName="P" lastName="A" />
+                {session.status === "loading" ? (
+                  <Avatar size={"large"} className="opacity-0">
+                    <span className="font-medium text-base">NA</span>
+                  </Avatar>
+                ) : (
+                  <AvatarProfile nameTrunc={session.data?.user?.nameTrunc} />
+                )}
               </div>
             </Header>
           </MotionPageTransitionFromTop>
-          <Content style={{ overflow: "initial" }}>
-            {children}
-          </Content>
+          <Content style={{ overflow: "initial" }}>{children}</Content>
         </Layout>
       </Layout>
     </MotionLayout>

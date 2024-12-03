@@ -5,8 +5,13 @@ import { Form, Input, Button } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
+interface FormForgotNewPasswordType {
+  password: string;
+  confirmPassword: string;
+}
+
 export default function FormForgotNewPassword() {
-  const onFinish = (values: any) => {
+  const onFinish = (values: FormForgotNewPasswordType) => {
     console.log("Received values of form: ", values);
   };
 
@@ -18,7 +23,7 @@ export default function FormForgotNewPassword() {
       onFinish={onFinish}
     >
       <Form.Item
-        name="password1"
+        name="password"
         rules={[
           {
             required: true,
@@ -34,7 +39,7 @@ export default function FormForgotNewPassword() {
         />
       </Form.Item>
       <Form.Item
-        name="password2"
+        name="confirmPassword"
         rules={[
           {
             required: true,
