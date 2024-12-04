@@ -1,30 +1,28 @@
-"use client";
-
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import Image from "next/image";
 
-interface HeroTeacherCardType {
+export interface HeroTeacherCardType {
   image: string | null;
   title: string | null;
   subtitle: string | null;
 }
-export { type HeroTeacherCardType };
+
 export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
-  const {
-    token: { colorPrimary, colorFillContent, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <div
       style={{
-        background: colorFillContent,
-        borderRadius: borderRadius,
+        background: theme.colorFillContent,
+        borderRadius: theme.borderRadius,
       }}
       className="w-full p-4"
     >
       <Image
         style={{
-          borderRadius: borderRadius,
+          borderRadius: theme.borderRadius,
         }}
         src={props.item.image ?? ""}
         alt=""
@@ -34,7 +32,7 @@ export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
       />
       <h3
         style={{
-          color: colorPrimary,
+          color: theme.colorPrimary,
         }}
         className="tracking-widest text-xs font-medium"
       >

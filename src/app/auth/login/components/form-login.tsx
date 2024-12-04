@@ -1,15 +1,10 @@
-"use client";
-
-import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import {
-  FacebookFilled,
   GoogleCircleFilled,
   LockOutlined,
   MailOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { useGoogleLogin } from "@react-oauth/google";
 
 interface FormLoginType {
@@ -17,7 +12,6 @@ interface FormLoginType {
   password: string;
   remember: boolean;
 }
-type AuthProvider = "google" | "facebook";
 
 export { type FormLoginType };
 export default function FormLogin(props: {
@@ -117,7 +111,8 @@ export default function FormLogin(props: {
         </Form.Item>
       </div>
       <div className="w-full flex justify-center items-center gap-2">
-        Don't have an account? <Link href="/auth/register">Sign up now</Link>
+        Don&apos;t have an account?{" "}
+        <Link href="/auth/register">Sign up now</Link>
       </div>
     </Form>
   );

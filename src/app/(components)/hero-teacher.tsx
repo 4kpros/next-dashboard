@@ -1,38 +1,10 @@
-"use client";
-
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import HeroTeacherCard, { HeroTeacherCardType } from "./hero-teacher-card";
 
 export default function HeroTeacher() {
-  const {
-    token: { colorPrimary, borderRadius },
-  } = theme.useToken();
-
-  const items: HeroTeacherCardType[] = [
-    {
-      image: "/images/pages/home/teacher-student.jpg",
-      title: "Students/Pupils",
-      subtitle:
-        "Our student management system simplifies administrative tasks and provides valuable insights into student performance.",
-    },
-    {
-      image: "/images/pages/home/teacher-course.jpg",
-      title: "Courses",
-      subtitle:
-        "Simplifies the process of creating, managing, and tracking courses.",
-    },
-    {
-      image: "/images/pages/home/teacher-meet.jpg",
-      title: "Meetings & forum",
-      subtitle:
-        "Centralized platform for organizing and facilitating meetings and discussions within your school community. ",
-    },
-    {
-      image: "/images/pages/home/teacher-exam.jpg",
-      title: "Exams & quizzes",
-      subtitle: "Helps to make exams and quizzes more engaging for students.",
-    },
-  ];
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <section>
@@ -44,8 +16,8 @@ export default function HeroTeacher() {
             </h1>
             <div
               style={{
-                backgroundColor: colorPrimary,
-                borderRadius: borderRadius,
+                backgroundColor: theme.colorPrimary,
+                borderRadius: theme.borderRadius,
               }}
               className="h-1 w-20 rounded"
             ></div>
@@ -67,3 +39,29 @@ export default function HeroTeacher() {
     </section>
   );
 }
+
+const items: HeroTeacherCardType[] = [
+  {
+    image: "/images/pages/home/teacher-student.jpg",
+    title: "Students/Pupils",
+    subtitle:
+      "Our student management system simplifies administrative tasks and provides valuable insights into student performance.",
+  },
+  {
+    image: "/images/pages/home/teacher-course.jpg",
+    title: "Courses",
+    subtitle:
+      "Simplifies the process of creating, managing, and tracking courses.",
+  },
+  {
+    image: "/images/pages/home/teacher-meet.jpg",
+    title: "Meetings & forum",
+    subtitle:
+      "Centralized platform for organizing and facilitating meetings and discussions within your school community. ",
+  },
+  {
+    image: "/images/pages/home/teacher-exam.jpg",
+    title: "Exams & quizzes",
+    subtitle: "Helps to make exams and quizzes more engaging for students.",
+  },
+];

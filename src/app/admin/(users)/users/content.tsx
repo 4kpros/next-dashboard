@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import DeleteModal from "@/components/modal/delete";
 import FormAddUser from "./components/form-add-user";
 import FormUpdateUser from "./components/form-update-user";
@@ -12,27 +12,27 @@ import UsersTable from "./components/table";
 import { newUserList } from "@/types/user/response";
 
 export default function PageContent() {
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
-
-  const isLoading = false;
-  const data = newUserList(100);
-  // const page = 1;
-  const pageSize = 30;
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+  
+  // React hooks
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-
   const [addUserModalOpen, setAddUserModalOpen] = useState(false);
   const [updateUserModalOpen, setUpdateUserModalOpen] = useState(false);
   const [deleteUserModalOpen, setDeleteUserModalOpen] = useState(false);
+
+  const isLoading = false;
+  const data = newUserList(100);
+  const pageSize = 30;
 
   return (
     <>
       <div
         style={{
           padding: "15px",
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
           minHeight: "100vh",
         }}
       >

@@ -3,17 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CustomContainer } from "../container/custom-container";
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 
 export default function Footer() {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <footer
       style={{
-        background: colorBgContainer,
+        background: theme.colorBgContainer,
       }}
       className="w-full border-t mt-52"
     >

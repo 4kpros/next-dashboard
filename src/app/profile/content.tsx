@@ -3,7 +3,7 @@
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import { getDashboardPath } from "@/utils/redirect/dashboard";
 import { DashboardOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, theme } from "antd";
+import { Button, theme as antdTheme } from "antd";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,11 +11,15 @@ import UserProfile from "./(components)/user-profile";
 import UserSettings from "./(components)/user-settings";
 
 export default function PageContent() {
-  const session = useSession();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
-  const {
-    token: { colorPrimary, colorBgContainer, borderRadius },
-  } = theme.useToken();
+
+  // Next hooks
+  const session = useSession();
 
   const action = () => {
     if (session.status == "authenticated") {
@@ -27,16 +31,16 @@ export default function PageContent() {
     <CustomContainerFullHeight>
       <div
         style={{
-          backgroundColor: colorBgContainer,
-          borderRadius: borderRadius,
+          backgroundColor: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full h-full flex flex-col gap-6 items-center border"
       >
         <div
           style={{
-            backgroundColor: colorPrimary,
-            borderTopLeftRadius: borderRadius,
-            borderTopRightRadius: borderRadius,
+            backgroundColor: theme.colorPrimary,
+            borderTopLeftRadius: theme.borderRadius,
+            borderTopRightRadius: theme.borderRadius,
             backgroundImage:
               "radial-gradient(#ffffff4f 1.25px, transparent 1.25px)",
             backgroundSize: "25px 25px",
@@ -82,7 +86,7 @@ export default function PageContent() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-4 px-4 mt-6 mb-4">
           <div
             style={{
-              borderRadius: borderRadius,
+              borderRadius: theme.borderRadius,
             }}
             className="w-full h-full flex flex-col border"
           >
@@ -90,7 +94,7 @@ export default function PageContent() {
           </div>
           <div
             style={{
-              borderRadius: borderRadius,
+              borderRadius: theme.borderRadius,
             }}
             className="w-full h-full flex flex-col border"
           >

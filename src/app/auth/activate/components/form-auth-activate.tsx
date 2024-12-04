@@ -1,14 +1,11 @@
-"use client";
-
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
-interface FormActivateAccountType {
+export interface FormActivateAccountType {
   code: number;
 }
-
 
 export default function FormActivateAccount() {
   const onFinish = (values: FormActivateAccountType) => {

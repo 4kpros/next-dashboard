@@ -86,8 +86,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       if (account) {
-        let newToken = user.accessToken ?? "";
-        let newTokenExpires = user.expires ?? "";
+        let newToken = user?.accessToken ?? "";
+        let newTokenExpires = user?.expires ?? "";
         if (account?.provider === "google") {
           try {
             const respData = await signInWithProvider(
@@ -164,7 +164,7 @@ const signInWithProvider = async (provider: string, token: string) => {
 };
 
 const getProfileLogged = async (token: string) => {
-  return GET<ProfileLoggedResponse>("/profile/logged", {
+  return GET<ProfileLoggedResponse, {}>("/profile/logged", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -177,7 +177,7 @@ const signInWithCredentials = async (
   password: string,
   stayConnected?: boolean
 ) => {
-  return POST<any, SignInEmailRequest>("/auth/login/" + type, {
+  return POST<SignInResponse, SignInEmailRequest>("/auth/login/" + type, {
     email: email,
     password: password,
     stayConnected: stayConnected,

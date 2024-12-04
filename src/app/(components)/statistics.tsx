@@ -1,15 +1,15 @@
 import { CustomContainer } from "@/components/container/custom-container";
-import { theme } from "antd";
-import React from "react";
+import { theme as antdTheme } from "antd";
 
 export default function Statistics() {
-  const {
-    token: { colorPrimaryText },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+  
   return (
     <section
       style={{
-        background: colorPrimaryText,
+        background: theme.colorPrimaryText,
         color: "#fff",
       }}
       className="w-full py-12"

@@ -1,11 +1,8 @@
-"use client";
-
-import React from "react";
 import { Form, Input, Button } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
-interface FormForgotInitType {
+export interface FormForgotInitType {
   email: string;
 }
 

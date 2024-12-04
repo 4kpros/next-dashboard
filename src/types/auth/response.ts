@@ -1,8 +1,8 @@
 // Sign in
 export interface SignInResponse {
   accessToken?: string | null;
-  activateAccountToken?: string | null;
   expires?: string | null;
+  activateAccountToken?: string | null;
 }
 
 // Sign up
@@ -31,4 +31,3 @@ export interface ForgotNewPasswordResponse {
 export interface LogoutResponse {
   message?: string | null;
 }
-

@@ -17,7 +17,7 @@ const axiosInstance = axios.create({
 //   }[];
 // }
 
-const GET = async <T = any, D = any>(
+const GET = async <T, D>(
   path: string,
   config?: AxiosRequestConfig<D>
 ) => {
@@ -27,7 +27,7 @@ const GET = async <T = any, D = any>(
   );
 };
 
-const POST = async <T = any, D = any>(
+const POST = async <T, D>(
   path: string,
   payload?: D,
   config?: AxiosRequestConfig<D>
@@ -39,7 +39,7 @@ const POST = async <T = any, D = any>(
   );
 };
 
-const PUT = async <T = any, D = any>(
+const PUT = async <T, D>(
   path: string,
   payload?: D,
   config?: AxiosRequestConfig<D>
@@ -51,7 +51,7 @@ const PUT = async <T = any, D = any>(
   );
 };
 
-const DELETE = async <T = any, D = any>(
+const DELETE = async <T, D>(
   path: string,
   config?: AxiosRequestConfig<D>
 ) => {

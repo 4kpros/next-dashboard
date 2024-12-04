@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CustomContainerXl } from "../container/custom-container";
-import { Avatar, Button, theme } from "antd";
+import { Button, theme as antdTheme } from "antd";
 import { useSession } from "next-auth/react";
 import AvatarProfile from "../avatar/avatar-profile";
 
@@ -31,17 +31,22 @@ const menus = [
   },
 ];
 export default function NavbarFixed() {
-  const session = useSession();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
+
+  // Next hooks
+  const session = useSession();
+
   return (
     <CustomContainerXl>
       <nav
         style={{
-          backgroundColor: colorBgContainer,
-          borderRadius: borderRadius,
+          backgroundColor: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full border shadow-sm my-2 px-6"
       >
@@ -140,16 +145,9 @@ export default function NavbarFixed() {
                 );
               })}
               <li>
-                {session.status === "loading" ? (
-                  <Avatar size={"large"} className="opacity-0">
-                    <span className="font-medium text-base">NA</span>
-                  </Avatar>
-                ) : session.status == "authenticated" ? (
-                  <AvatarProfile
-                    image={session.data?.user?.image}
-                    nameTrunc={session.data?.user?.nameTrunc}
-                    feature={session.data?.user?.feature}
-                  />
+                {session.status === "loading" ||
+                session.status === "authenticated" ? (
+                  <AvatarProfile />
                 ) : (
                   <div className="w-auto flex gap-1">
                     <Button

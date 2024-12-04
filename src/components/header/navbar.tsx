@@ -31,8 +31,12 @@ const menus = [
   },
 ];
 export default function Navbar() {
-  const session = useSession();
+  // React hooks
   const router = useRouter();
+
+  // Next hooks
+  const session = useSession();
+
   return (
     <nav className="w-full z-40">
       <CustomContainer>
@@ -131,16 +135,9 @@ export default function Navbar() {
                 );
               })}
               <li className="z-40">
-                {session.status === "loading" ? (
-                  <Avatar size={"large"} className="opacity-0">
-                    <span className="font-medium text-base">NA</span>
-                  </Avatar>
-                ) : session.status == "authenticated" ? (
-                  <AvatarProfile
-                    image={session.data?.user?.image}
-                    nameTrunc={session.data?.user?.nameTrunc}
-                    feature={session.data?.user?.feature}
-                  />
+                {session.status === "loading" ||
+                session.status === "authenticated" ? (
+                  <AvatarProfile />
                 ) : (
                   <div className="w-auto flex gap-1">
                     <Button

@@ -1,12 +1,10 @@
-"use client";
-
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import Image from "next/image";
 
 export default function HeroParent() {
-  const {
-    token: { borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <section>
@@ -14,21 +12,21 @@ export default function HeroParent() {
         <div className="w-full h-full max-w-screen-lg flex flex-col justify-center text-right gap-4">
           <h1 className="text-2xl font-bold sm:text-3x">Parents</h1>
           <p className="sm:text-lg opacity-75">
-            Our parent portal provides a comprehensive overview of your child's
-            academic progress, attendance, and extracurricular activities. Stay
-            connected with your child's teachers and receive personalized
-            updates on their performance.
+            Our parent portal provides a comprehensive overview of your
+            child&apos;s academic progress, attendance, and extracurricular
+            activities. Stay connected with your child&apos;s teachers and
+            receive personalized updates on their performance.
           </p>
         </div>
         <div
           style={{
-            borderRadius: borderRadius,
+            borderRadius: theme.borderRadius,
           }}
           className="w-full h-[500px] overflow-hidden shadow-lg md:h-auto"
         >
           <Image
             style={{
-              borderRadius: borderRadius,
+              borderRadius: theme.borderRadius,
             }}
             src={"/images/pages/home/parent.jpg"}
             alt=""

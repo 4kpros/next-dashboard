@@ -1,5 +1,5 @@
 import { User } from "@/types/user/response";
-import NextAuth, { DefaultSession } from "next-auth";
+// import NextAuth, { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
   /**

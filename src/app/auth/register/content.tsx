@@ -5,27 +5,29 @@ import LogoHeader from "../../../components/header/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import FormRegister from "./components/form-register";
 import Image from "next/image";
-import { Button, theme } from "antd";
+import { Button, theme as antdTheme } from "antd";
 import { useRouter } from "next/navigation";
 
 export default function PageContent() {
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
 
   return (
     <CustomContainerFullHeight>
       <div
         style={{
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 border"
       >
         <div
           style={{
-            borderRadius: borderRadius,
+            borderRadius: theme.borderRadius,
           }}
           className="w-full"
         >
@@ -35,7 +37,7 @@ export default function PageContent() {
             height={500}
             alt={""}
             style={{
-              borderRadius: borderRadius,
+              borderRadius: theme.borderRadius,
             }}
             className="w-full max-w-[400px] h-[500px] object-cover"
           />

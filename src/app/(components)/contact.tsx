@@ -1,15 +1,20 @@
 import { MailOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, theme } from "antd";
+import { Button, Form, Input, theme as antdTheme } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Image from "next/image";
-import React from "react";
+
+export interface FormContact {
+  name: string;
+  email: string;
+  message: string;
+}
 
 export default function Contact() {
-  const {
-    token: { colorFillTertiary, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
-  const handleSubmit = (values: any) => {
+  const onFinish = (values: FormContact) => {
     console.log("Received values of form: ", values);
   };
   return (
@@ -17,14 +22,14 @@ export default function Contact() {
       <h1 className="w-full text-4xl text-center font-semibold">Contact us</h1>
       <div
         style={{
-          backgroundColor: colorFillTertiary,
-          borderRadius: borderRadius,
+          backgroundColor: theme.colorFillTertiary,
+          borderRadius: theme.borderRadius,
         }}
         className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 p-6"
       >
         <Image
           style={{
-            borderRadius: borderRadius,
+            borderRadius: theme.borderRadius,
           }}
           src={"/images/pages/home/contact.jpg"}
           alt=""
@@ -35,12 +40,7 @@ export default function Contact() {
 
         <div className="w-full flex items-center justify-center">
           <div className="w-full max-w-[500px]">
-            <Form
-              name="cf"
-              method="post"
-              onFinish={handleSubmit}
-              layout="vertical"
-            >
+            <Form name="cf" method="post" onFinish={onFinish} layout="vertical">
               <Form.Item
                 label="Don't fill this out"
                 className={`hidden`}
@@ -51,9 +51,9 @@ export default function Contact() {
               </Form.Item>
 
               <Form.Item
+                name="name"
                 label="Name"
                 rules={[{ required: true, message: `Please enter your name.` }]}
-                name="name"
               >
                 <Input
                   size="large"
@@ -63,6 +63,7 @@ export default function Contact() {
               </Form.Item>
 
               <Form.Item
+                name="email"
                 label="Email"
                 rules={[
                   {
@@ -71,7 +72,6 @@ export default function Contact() {
                     message: `Please enter your email.`,
                   },
                 ]}
-                name="email"
               >
                 <Input
                   size="large"
@@ -81,11 +81,11 @@ export default function Contact() {
               </Form.Item>
 
               <Form.Item
+                name="message"
                 label="Message"
                 rules={[
                   { required: true, message: `Please enter your message.` },
                 ]}
-                name="message"
               >
                 <TextArea placeholder="Your Message" rows={5} />
               </Form.Item>

@@ -115,6 +115,6 @@ const getAccessToken = (jwtToken: JWT | null) => {
 };
 
 const getRoleFeature = (jwtToken: JWT | null) => {
-  let feature: string = (jwtToken?.feature as string | null | undefined) ?? "";
+  const feature: string = (jwtToken?.feature as string | null | undefined) ?? "";
   return feature;
 };

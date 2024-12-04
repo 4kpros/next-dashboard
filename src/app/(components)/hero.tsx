@@ -1,17 +1,21 @@
 "use client";
 
 import { getDashboardPath } from "@/utils/redirect/dashboard";
-import { Button, theme } from "antd";
+import { Button, theme as antdTheme } from "antd";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Hero() {
-  const session = useSession();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
-  const {
-    token: { colorFillContent, borderRadius },
-  } = theme.useToken();
+
+  // Next hooks
+  const session = useSession();
 
   const action = () => {
     if (session.status == "authenticated") {
@@ -24,11 +28,8 @@ export default function Hero() {
   return (
     <section
       style={{
-        background: colorFillContent,
-        borderRadius: borderRadius,
-        // backgroundSize: "20px 20px",
-        // backgroundImage:
-        //   "repeating-linear-gradient(to right,#444df74f,#444df74f 1px,transparent 1px,transparent)",
+        background: theme.colorFillContent,
+        borderRadius: theme.borderRadius,
       }}
       className="w-full bg-[#f0f5f5]/50 border mt-6 p-6"
     >
@@ -62,7 +63,7 @@ export default function Hero() {
         </div>
         <Image
           style={{
-            borderRadius: borderRadius,
+            borderRadius: theme.borderRadius,
           }}
           src={"/images/pages/home/hero.png"}
           alt=""

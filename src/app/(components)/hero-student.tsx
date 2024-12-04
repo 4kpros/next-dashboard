@@ -1,12 +1,10 @@
-"use client";
-
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import Image from "next/image";
 
 export default function HeroStudent() {
-  const {
-    token: { colorPrimary, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <section>
@@ -14,7 +12,7 @@ export default function HeroStudent() {
         <div className="w-full flex flex-col items-center justify-center gap-6">
           <p
             style={{
-              color: colorPrimary,
+              color: theme.colorPrimary,
             }}
             className="text-center font-bold md:text-left"
           >
@@ -22,7 +20,7 @@ export default function HeroStudent() {
           </p>
           <Image
             style={{
-              borderRadius: borderRadius,
+              borderRadius: theme.borderRadius,
             }}
             src={"/images/pages/home/student.jpg"}
             alt=""

@@ -4,16 +4,18 @@ import Title from "antd/es/typography/Title";
 import FormLogin, { FormLoginType } from "./components/form-login";
 import LogoHeader from "../../../components/header/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
-import { Button, theme } from "antd";
+import { Button, theme as antdTheme } from "antd";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 
 export default function PageContent() {
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
 
   const signInWithCredentialMutation = useMutation({
     mutationFn: (formData: FormLoginType) => {
@@ -41,8 +43,8 @@ export default function PageContent() {
       <div className="w-full flex flex-col items-center justify-center">
         <div
           style={{
-            backgroundColor: colorBgContainer,
-            borderRadius: borderRadius,
+            backgroundColor: theme.colorBgContainer,
+            borderRadius: theme.borderRadius,
           }}
           className="w-full max-w-[450px] flex flex-col items-center justify-center gap-6 border border-none lg:border-solid p-8"
         >

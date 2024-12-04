@@ -1,7 +1,10 @@
-"use client";
-
-import React from "react";
-import { Breadcrumb, Layout, theme, Badge, Button, Avatar } from "antd";
+import {
+  Breadcrumb,
+  Layout,
+  theme as antdTheme,
+  Badge,
+  Button,
+} from "antd";
 import {
   MessageOutlined,
   NodeCollapseOutlined,
@@ -15,7 +18,6 @@ import {
 } from "@/components/motion/motion-page";
 import SideMenu from "@/components/sidemenu/side-menu";
 import getAdminSideMenuItems from "@/components/sidemenu/admin-side-menu-items";
-import { useSession } from "next-auth/react";
 
 const { Header, Content } = Layout;
 
@@ -24,10 +26,9 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = useSession();
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   const toggleSidebar = () => {
     // TODO
@@ -52,8 +53,8 @@ export default function DashboardLayout({
             <Header
               style={{
                 padding: "10px 15px 10px 15px",
-                background: colorBgContainer,
-                borderRadius: borderRadius,
+                background: theme.colorBgContainer,
+                borderRadius: theme.borderRadius,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -99,17 +100,7 @@ export default function DashboardLayout({
                     </Badge>
                   }
                 />
-                {session.status === "loading" ? (
-                  <Avatar size={"large"} className="opacity-0">
-                    <span className="font-medium text-base">NA</span>
-                  </Avatar>
-                ) : (
-                  <AvatarProfile
-                    image={session.data?.user?.image}
-                    nameTrunc={session.data?.user?.nameTrunc}
-                    feature={session.data?.user?.feature}
-                  />
-                )}
+                <AvatarProfile />
               </div>
             </Header>
           </MotionPageTransitionFromTop>

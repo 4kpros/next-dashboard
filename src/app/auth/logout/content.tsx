@@ -4,21 +4,23 @@ import Title from "antd/es/typography/Title";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import LogoHeader from "../../../components/header/logo-header";
 import { Button } from "antd";
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import { useRouter } from "next/navigation";
 
 export default function PageContent() {
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
 
   return (
     <CustomContainerFullHeight>
       <div
         style={{
-          backgroundColor: colorBgContainer,
-          borderRadius: borderRadius,
+          backgroundColor: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full max-w-[450px] flex flex-col gap-6 items-center justify-center p-8 border"
       >
@@ -26,8 +28,9 @@ export default function PageContent() {
         <div className="w-full flex flex-col items-center justify-center">
           <Title level={2}>Successful logged out</Title>
           <span className="text-center">
-            Thank you for using Digitschool. You've been successfully logged out
-            of your account. Would you like to log back in or explore more?
+            Thank you for using Digitschool. You&apos;ve been successfully
+            logged out of your account. Would you like to log back in or explore
+            more?
           </span>
         </div>
 

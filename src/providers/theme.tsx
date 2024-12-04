@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import { ConfigProvider, theme } from "antd";
 import { Roboto } from "next/font/google";
 

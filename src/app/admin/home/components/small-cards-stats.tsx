@@ -1,18 +1,16 @@
-"use client";
-
-import { theme } from "antd";
-import React from "react";
+import { theme as antdTheme } from "antd";
 
 export default function SmallCardsStats() {
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+  
   return (
     <div className="w-full flex items-start justify-between gap-2">
       <div
         style={{
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full p-4"
       >
@@ -21,8 +19,8 @@ export default function SmallCardsStats() {
       </div>
       <div
         style={{
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full p-4"
       >
@@ -31,8 +29,8 @@ export default function SmallCardsStats() {
       </div>
       <div
         style={{
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full p-4"
       >
@@ -41,8 +39,8 @@ export default function SmallCardsStats() {
       </div>
       <div
         style={{
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full p-4"
       >
@@ -51,8 +49,8 @@ export default function SmallCardsStats() {
       </div>
       <div
         style={{
-          background: colorBgContainer,
-          borderRadius: borderRadius,
+          background: theme.colorBgContainer,
+          borderRadius: theme.borderRadius,
         }}
         className="w-full p-4"
       >

@@ -1,25 +1,23 @@
-"use client";
-
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import Image from "next/image";
 
 export default function HeroDirector() {
-  const {
-    token: { colorPrimary, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <section>
       <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
         <div
           style={{
-            borderRadius: borderRadius,
+            borderRadius: theme.borderRadius,
           }}
           className="w-full h-[500px] overflow-hidden shadow-lg md:h-auto"
         >
           <Image
             style={{
-              borderRadius: borderRadius,
+              borderRadius: theme.borderRadius,
             }}
             src={"/images/pages/home/director.jpg"}
             alt=""
@@ -32,7 +30,7 @@ export default function HeroDirector() {
         <div className="md:pt-8">
           <p
             style={{
-              color: colorPrimary,
+              color: theme.colorPrimary,
             }}
             className="text-center font-bold md:text-left"
           >

@@ -1,40 +1,13 @@
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import Hero2Card, { Hero2CardType } from "./hero-2-card";
 import ManagerIcon from "@/components/icons/hugeicons/manager";
 import MessageIcon from "@/components/icons/hugeicons/message";
 import ComputerVideoCallIcon from "@/components/icons/hugeicons/computer-video-call";
 
 export default function Hero2() {
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
-
-  const items: Hero2CardType[] = [
-    {
-      icon: <ManagerIcon className="text-white" />,
-      title: "Management",
-      subtitle:
-        "Enhance your school's efficiency and transparency with our robust school management system. Manage staff, track student progress and streamline operations.",
-      actionText: "Learn more",
-      actionHref: "#contact",
-    },
-    {
-      icon: <MessageIcon className="text-white" />,
-      title: "Forums",
-      subtitle:
-        "Our forum feature fosters a vibrant community where students and teachers can connect, share ideas, and collaborate on projects.",
-      actionText: "Learn more",
-      actionHref: "#contact",
-    },
-    {
-      icon: <ComputerVideoCallIcon className="text-white" />,
-      title: "Meetings",
-      subtitle:
-        "Allows teachers and students to easily schedule and manage one-on-one or group sessions, making it simple to book, confirm, and remind users.",
-      actionText: "Learn more",
-      actionHref: "#contact",
-    },
-  ];
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <section>
@@ -42,7 +15,7 @@ export default function Hero2() {
         <div className="w-full flex flex-col items-center justify-center text-center gap-6">
           <p
             style={{
-              color: colorPrimary,
+              color: theme.colorPrimary,
             }}
             className="w-auto font-semibold"
           >
@@ -65,3 +38,30 @@ export default function Hero2() {
     </section>
   );
 }
+
+const items: Hero2CardType[] = [
+  {
+    icon: <ManagerIcon className="text-white" />,
+    title: "Management",
+    subtitle:
+      "Enhance your school's efficiency and transparency with our robust school management system. Manage staff, track student progress and streamline operations.",
+    actionText: "Learn more",
+    actionHref: "#contact",
+  },
+  {
+    icon: <MessageIcon className="text-white" />,
+    title: "Forums",
+    subtitle:
+      "Our forum feature fosters a vibrant community where students and teachers can connect, share ideas, and collaborate on projects.",
+    actionText: "Learn more",
+    actionHref: "#contact",
+  },
+  {
+    icon: <ComputerVideoCallIcon className="text-white" />,
+    title: "Meetings",
+    subtitle:
+      "Allows teachers and students to easily schedule and manage one-on-one or group sessions, making it simple to book, confirm, and remind users.",
+    actionText: "Learn more",
+    actionHref: "#contact",
+  },
+];

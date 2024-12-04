@@ -1,38 +1,34 @@
-"use client";
-
 import { ArrowRightOutlined, InfoCircleOutlined } from "@ant-design/icons";
-import { theme } from "antd";
+import { theme as antdTheme } from "antd";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
-interface Hero2CardType {
+export interface Hero2CardType {
   icon: ReactNode | null;
   title: string | null;
   subtitle: string | null;
   actionText: string | null;
   actionHref: string | null;
 }
-export { type Hero2CardType };
+
 export default function Hero2Card(props: { item: Hero2CardType }) {
-  const router = useRouter();
-  const {
-    token: { colorPrimary, colorFillContent, borderRadius },
-  } = theme.useToken();
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
 
   return (
     <div className="p-4 md:w-1/3">
       <div
         style={{
-          background: colorFillContent,
-          borderRadius: borderRadius,
+          background: theme.colorFillContent,
+          borderRadius: theme.borderRadius,
         }}
         className="flex h-full p-8 flex-col"
       >
         <div className="flex items-center mb-3">
           <div
             style={{
-              backgroundColor: colorPrimary,
+              backgroundColor: theme.colorPrimary,
             }}
             className="w-8 h-8 p-[6px] mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"
           >
@@ -46,7 +42,7 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
           </p>
           <Link
             style={{
-              color: colorPrimary,
+              color: theme.colorPrimary,
             }}
             href={props.item.actionHref ?? ""}
             className="mt-3 inline-flex items-center"
