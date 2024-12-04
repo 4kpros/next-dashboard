@@ -1,10 +1,6 @@
-import {
-  Breadcrumb,
-  Layout,
-  theme as antdTheme,
-  Badge,
-  Button,
-} from "antd";
+"use client";
+
+import { Breadcrumb, Layout, Badge, Button, theme as antdTheme } from "antd";
 import {
   MessageOutlined,
   NodeCollapseOutlined,
@@ -13,6 +9,7 @@ import {
 import AvatarProfile from "@/components/avatar/avatar-profile";
 import MotionLayout from "@/components/motion/motion-layout";
 import {
+  MotionPageTransitionFromBottom,
   MotionPageTransitionFromLeft,
   MotionPageTransitionFromTop,
 } from "@/components/motion/motion-page";
@@ -36,7 +33,13 @@ export default function DashboardLayout({
 
   return (
     <MotionLayout>
-      <Layout style={{ scrollbarWidth: "thin", minHeight: "100vh" }}>
+      <Layout
+        style={{
+          backgroundColor: "transparent",
+          scrollbarWidth: "thin",
+          minHeight: "100vh",
+        }}
+      >
         <MotionPageTransitionFromLeft>
           <SideMenu getItems={getAdminSideMenuItems} />
         </MotionPageTransitionFromLeft>
@@ -47,19 +50,21 @@ export default function DashboardLayout({
             gap: 10,
             marginTop: "10px",
             marginRight: "10px",
+            backgroundColor: "transparent",
           }}
         >
           <MotionPageTransitionFromTop>
             <Header
               style={{
                 padding: "10px 15px 10px 15px",
-                background: theme.colorBgContainer,
+                backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 gap: 20,
               }}
+              className="border"
             >
               <div className="flex flex-wrap justify-center items-center gap-5">
                 <Button
@@ -104,7 +109,18 @@ export default function DashboardLayout({
               </div>
             </Header>
           </MotionPageTransitionFromTop>
-          <Content style={{ overflow: "initial" }}>{children}</Content>
+          <MotionPageTransitionFromBottom>
+            <Content
+              style={{
+                overflow: "initial",
+                backgroundColor: theme.colorBgContainer,
+                borderRadius: theme.borderRadius,
+              }}
+              className="border p-0 m-0"
+            >
+              {children}
+            </Content>
+          </MotionPageTransitionFromBottom>
         </Layout>
       </Layout>
     </MotionLayout>

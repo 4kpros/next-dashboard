@@ -1,5 +1,6 @@
 import { ConfigProvider, theme } from "antd";
 import { Roboto } from "next/font/google";
+import { ReactNode } from "react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -9,7 +10,7 @@ const roboto = Roboto({
 
 const CustomThemeProvider = ({
   children,
-}: Readonly<{ children: React.ReactNode }>) => {
+}: Readonly<{ children: ReactNode }>) => {
   const darkMode = false;
   return (
     <ConfigProvider

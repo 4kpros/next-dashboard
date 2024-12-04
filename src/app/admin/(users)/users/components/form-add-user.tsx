@@ -3,7 +3,7 @@
 import FormModalFooter from "@/components/form/form-modal-footer";
 import { MailFilled, PhoneFilled } from "@ant-design/icons";
 import { Form, Input, Segmented, Select } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type AddUserInputsType = {
   email?: string;
@@ -118,7 +118,7 @@ export default function FormAddUser(props: {
         </Select>
       </Form.Item>
       <br></br>
-      <FormModalFooter onCancel={props.onCancel} onSubmit={props.onSubmit} />
+      <FormModalFooter onCancel={props.onCancel} />
     </Form>
   );
 }

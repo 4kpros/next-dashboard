@@ -28,10 +28,10 @@ export default function Hero() {
   return (
     <section
       style={{
-        background: theme.colorFillContent,
+        backgroundColor: theme.colorPrimaryBg,
         borderRadius: theme.borderRadius,
       }}
-      className="w-full bg-[#f0f5f5]/50 border mt-6 p-6"
+      className="w-full mt-6 p-6"
     >
       <div className="w-full flex flex-col items-center justify-center gap-12 pt-12">
         <div className="w-full flex flex-col items-center justify-center text-center gap-6">
@@ -64,12 +64,14 @@ export default function Hero() {
         <Image
           style={{
             borderRadius: theme.borderRadius,
+            borderColor: theme.colorPrimary,
+            boxShadow: "",
           }}
           src={"/images/pages/home/hero.png"}
           alt=""
           width={1920}
           height={1920}
-          className="w-full object-fill"
+          className="w-full object-fill border"
         />
       </div>
     </section>

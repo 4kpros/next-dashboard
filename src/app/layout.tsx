@@ -25,13 +25,14 @@ export default function RootLayout({
         <AntdRegistry>
           <CustomThemeProvider>
             <SessionProvider>
-              <CustomQueryClientProvider>
-                <GoogleOAuthProvider
-                  clientId={process.env.GOOGLE_CLIENT_ID || ""}
-                >
+              <GoogleOAuthProvider
+                clientId={process.env.GOOGLE_CLIENT_ID || ""}
+              >
+                {children}
+                {/* <CustomQueryClientProvider>
                   {children}
-                </GoogleOAuthProvider>
-              </CustomQueryClientProvider>
+                </CustomQueryClientProvider> */}
+              </GoogleOAuthProvider>
             </SessionProvider>
             ;
           </CustomThemeProvider>

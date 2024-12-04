@@ -1,15 +1,11 @@
 import { Button, Form } from "antd";
-import React from "react";
 
-export default function FormModalFooter(props: {
-  onCancel: () => void;
-  onSubmit: () => void;
-}) {
+export default function FormModalFooter(props: { onCancel?: () => void }) {
   return (
-    <div className="w-full flex flex-wrap items-center justify-end gap-1">
+    <div className="w-full flex flex-wrap items-center justify-end gap-1 mt-4">
       <Button onClick={props.onCancel}>Cancel</Button>
-      <Form.Item key={"user-add-submit"} noStyle>
-        <Button type="primary" htmlType="submit" onSubmit={props.onSubmit}>
+      <Form.Item noStyle>
+        <Button type="primary" htmlType="submit">
           Submit
         </Button>
       </Form.Item>

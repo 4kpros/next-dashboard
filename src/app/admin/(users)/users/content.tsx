@@ -31,8 +31,6 @@ export default function PageContent() {
       <div
         style={{
           padding: "15px",
-          background: theme.colorBgContainer,
-          borderRadius: theme.borderRadius,
           minHeight: "100vh",
         }}
       >

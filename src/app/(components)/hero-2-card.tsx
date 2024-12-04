@@ -20,7 +20,7 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
     <div className="p-4 md:w-1/3">
       <div
         style={{
-          background: theme.colorFillContent,
+          backgroundColor: theme.colorFillContent,
           borderRadius: theme.borderRadius,
         }}
         className="flex h-full p-8 flex-col"

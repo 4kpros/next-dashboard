@@ -9,7 +9,7 @@ export default function Statistics() {
   return (
     <section
       style={{
-        background: theme.colorPrimaryText,
+        backgroundColor: theme.colorPrimary,
         color: "#fff",
       }}
       className="w-full py-12"

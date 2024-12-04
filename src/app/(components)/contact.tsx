@@ -22,7 +22,7 @@ export default function Contact() {
       <h1 className="w-full text-4xl text-center font-semibold">Contact us</h1>
       <div
         style={{
-          backgroundColor: theme.colorFillTertiary,
+          backgroundColor: theme.colorFillContent,
           borderRadius: theme.borderRadius,
         }}
         className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 p-6"

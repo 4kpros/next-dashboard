@@ -15,7 +15,7 @@ export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
   return (
     <div
       style={{
-        background: theme.colorFillContent,
+        backgroundColor: theme.colorFillContent,
         borderRadius: theme.borderRadius,
       }}
       className="w-full p-4"

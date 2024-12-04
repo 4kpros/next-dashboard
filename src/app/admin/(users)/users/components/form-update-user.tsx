@@ -2,7 +2,6 @@
 
 import FormModalFooter from "@/components/form/form-modal-footer";
 import { Form, Input, Select } from "antd";
-import React from "react";
 
 type UpdateUserInputsType = {
   email?: string;
@@ -89,7 +88,7 @@ export default function FormUpdateUser(props: {
         </Select>
       </Form.Item>
       <br></br>
-      <FormModalFooter onCancel={props.onCancel} onSubmit={props.onSubmit} />
+      <FormModalFooter onCancel={props.onCancel} />
     </Form>
   );
 }

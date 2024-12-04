@@ -1,62 +1,72 @@
+import ManagerIcon from "@/components/icons/hugeicons/manager";
+import SchoolIcon from "@/components/icons/hugeicons/school";
+import StudentsIcon from "@/components/icons/hugeicons/students";
+import TeacherIcon from "@/components/icons/hugeicons/teacher";
 import { theme as antdTheme } from "antd";
+import { ReactNode } from "react";
+
+interface SmallCardStatsType {
+  icon: ReactNode;
+  label: string;
+  count: number;
+}
 
 export default function SmallCardsStats() {
-  // Ant design theme
-  const { useToken } = antdTheme;
-  const { token: theme } = useToken();
-  
   return (
-    <div className="w-full flex items-start justify-between gap-2">
-      <div
-        style={{
-          background: theme.colorBgContainer,
-          borderRadius: theme.borderRadius,
-        }}
-        className="w-full p-4"
-      >
-        <h1 className="text-xl font-bold">50%</h1>
-        <p>Percentage of success</p>
-      </div>
-      <div
-        style={{
-          background: theme.colorBgContainer,
-          borderRadius: theme.borderRadius,
-        }}
-        className="w-full p-4"
-      >
-        <h1 className="text-xl font-bold">50%</h1>
-        <p>Percentage of success</p>
-      </div>
-      <div
-        style={{
-          background: theme.colorBgContainer,
-          borderRadius: theme.borderRadius,
-        }}
-        className="w-full p-4"
-      >
-        <h1 className="text-xl font-bold">50%</h1>
-        <p>Percentage of success</p>
-      </div>
-      <div
-        style={{
-          background: theme.colorBgContainer,
-          borderRadius: theme.borderRadius,
-        }}
-        className="w-full p-4"
-      >
-        <h1 className="text-xl font-bold">50%</h1>
-        <p>Percentage of success</p>
-      </div>
-      <div
-        style={{
-          background: theme.colorBgContainer,
-          borderRadius: theme.borderRadius,
-        }}
-        className="w-full p-4"
-      >
-        <h1 className="text-xl font-bold">50%</h1>
-        <p>Percentage of success</p>
-      </div>
+    <div className="w-full h-32 flex items-start justify-between gap-2">
+      {items.map((item, index) => (
+        <ItemCard item={item} key={index} />
+      ))}
     </div>
   );
 }
+
+function ItemCard(props: { item: SmallCardStatsType }) {
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  return (
+    <div
+      style={{
+        backgroundColor: theme.colorFillContent,
+        borderRadius: theme.borderRadius,
+      }}
+      className="w-full h-full flex flex-col items-center justify-between gap-2 p-4"
+    >
+      <div className="w-full flex items-center gap-2">
+        {props.item.icon}
+        <h3 className="text-lg">{props.item.label}</h3>
+      </div>
+      <h1 className="text-3xl font-bold">{props.item.count}</h1>
+    </div>
+  );
+}
+
+const items: SmallCardStatsType[] = [
+  {
+    icon: <SchoolIcon width={50} height={50} />,
+    label: "Schools",
+    count: 7,
+  },
+  {
+    icon: <ManagerIcon width={50} height={50} />,
+    label: "Directors",
+    count: 11,
+  },
+  {
+    icon: <TeacherIcon width={50} height={50} />,
+    label: "Teachers",
+    count: 120,
+  },
+  {
+    icon: <StudentsIcon width={50} height={50} />,
+    label: "Students",
+    count: 7061,
+  },
+  {
+    icon: <StudentsIcon width={50} height={50} />,
+    label: "Parents",
+    count: 349,
+  },
+];

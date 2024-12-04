@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu, theme as antdTheme } from "antd";
 import { useRouter, usePathname } from "next/navigation";
 import { ItemType } from "antd/es/menu/interface";
 
@@ -10,12 +10,13 @@ const { Sider } = Layout;
 export default function SideMenu(props: {
   getItems: (onClick?: (info: { key: string }) => void) => ItemType[];
 }) {
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // React hooks
   const router = useRouter();
   const pathName = usePathname();
-
-  const {
-    token: { colorPrimaryBg, colorBgContainer },
-  } = theme.useToken();
 
   const siderStyle: React.CSSProperties = {
     position: "fixed",
@@ -24,7 +25,7 @@ export default function SideMenu(props: {
     overflow: "auto",
     scrollbarWidth: "thin",
     scrollbarGutter: "auto",
-    backgroundColor: colorBgContainer,
+    backgroundColor: theme.colorBgContainer,
     height: "100%",
     // borderRadius: borderRadius,
   };
@@ -43,11 +44,12 @@ export default function SideMenu(props: {
       trigger={null}
       collapsible={true}
       collapsed={false}
+      className="border-r"
     >
       <div
         className="w-full h-16"
         style={{
-          backgroundColor: colorPrimaryBg,
+          backgroundColor: theme.colorPrimary,
         }}
       ></div>
       <Menu
