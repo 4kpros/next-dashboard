@@ -5,13 +5,13 @@ import CustomThemeProvider from "../providers/theme";
 
 import "../styles/globals.css";
 import "../styles/modal.scss";
-import CustomQueryClientProvider from "@/providers/tanstack-client-provider";
+import CustomQueryClientProvider from "@/providers/tanstack";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Digitschool",
-  description: "Scholl management",
+  description: "School management",
 };
 
 export default function RootLayout({

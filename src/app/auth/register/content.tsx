@@ -1,12 +1,11 @@
 "use client";
 
 import Title from "antd/es/typography/Title";
-import LogoHeader from "../(components)/logo-header";
+import LogoHeader from "../../../components/header/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import FormRegister from "./components/form-register";
 import Image from "next/image";
 import { Button, theme } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
 export default function PageContent() {

@@ -44,7 +44,7 @@ export default function DashboardLayout({
             <Header
               style={{
                 padding: "10px 15px 10px 15px",
-                background: colorBgContainer,
+                backgroundColor: colorBgContainer,
                 borderRadius: borderRadius,
                 display: "flex",
                 alignItems: "center",

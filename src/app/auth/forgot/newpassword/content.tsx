@@ -1,7 +1,7 @@
 "use client";
 
 import Title from "antd/es/typography/Title";
-import LogoHeader from "../../(components)/logo-header";
+import LogoHeader from "../../../../components/header/logo-header";
 import FormForgotNewPassword from "./components/form-forgot-new-password";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import { theme } from "antd";
@@ -15,7 +15,7 @@ export default function PageContent() {
     <CustomContainerFullHeight>
       <div
         style={{
-          background: colorBgContainer,
+          backgroundColor: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="w-full max-w-[450px] flex flex-col gap-6 items-center justify-center p-8 border"

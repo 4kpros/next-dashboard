@@ -20,9 +20,6 @@ body {
 
   background-image: linear-gradient(#45a7f718 1px, transparent 1px),
     linear-gradient(to right, #45a7f718 1px, rgba(255, 255, 255, 0) 1px);
-    
-    background-image: radial-gradient(#45a7f71f 1.25px, transparent 1.25px);
-    background-size: 25px 25px;
 
   /* background-image: repeating-linear-gradient(
     0deg,
@@ -34,6 +31,6 @@ body {
 }
 
 .profile-bg {
-  background-image: radial-gradient(#ffffff 1.25px, transparent 1.25px);
+  background-image: radial-gradient(#ffffff4f 1.25px, transparent 1.25px);
   background-size: 25px 25px;
 }

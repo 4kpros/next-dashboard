@@ -1,13 +1,11 @@
 "use client";
 
-import { Button, theme } from "antd";
+import { theme } from "antd";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function HeroParent() {
-  const router = useRouter();
   const {
-    token: { colorPrimary, borderRadius },
+    token: { borderRadius },
   } = theme.useToken();
 
   return (
@@ -34,8 +32,8 @@ export default function HeroParent() {
             }}
             src={"/images/pages/home/parent.jpg"}
             alt=""
-            width={1500}
-            height={1500}
+            width={720}
+            height={720}
             className="w-full h-72 object-cover object-center"
           />
         </div>

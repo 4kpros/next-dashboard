@@ -1,28 +1,36 @@
 "use client";
 
 import { Table, TableColumnsType } from "antd";
-import { User } from "@/models/admin/user.types";
+import { User } from "@/types/user/response";
 import DefaultTableProps from "@/components/tables/props/default-table-props";
 import {
   defaultColumnActionProps,
   defaultColumnBooleanProps,
   defaultColumnProps,
 } from "@/components/tables/props/default-column-props";
-import { FilterValue, RowSelectMethod, SorterResult } from "antd/es/table/interface";
+import {
+  FilterValue,
+  RowSelectMethod,
+  SorterResult,
+} from "antd/es/table/interface";
 
 export default function UsersTable(props: {
   isLoading: boolean;
   data: User[];
   pageSize?: number;
-  selectedRowKeys?: React.Key[],
+  selectedRowKeys?: React.Key[];
   onPaginationChanged?: (page: number, pageSize: number) => void;
   onFilterSortChanged?: (
     filters: Record<string, FilterValue | null>,
     sorter: SorterResult<User> | SorterResult<User>[]
   ) => void;
-  onRowSelectionChanged?: (selectedRowKeys: React.Key[], selectedRows: User[], info: {
-    type: RowSelectMethod;
-  }) => void
+  onRowSelectionChanged?: (
+    selectedRowKeys: React.Key[],
+    selectedRows: User[],
+    info: {
+      type: RowSelectMethod;
+    }
+  ) => void;
   onUpdateRequested?: (value: User, index: number) => void;
   onDeleteConfirmed?: (value: User, index: number) => void;
 }) {
@@ -74,7 +82,7 @@ export default function UsersTable(props: {
           selectedRowKeys: props.selectedRowKeys,
           onPaginationChanged: props.onPaginationChanged,
           onFilterSortChanged: props.onFilterSortChanged,
-          onRowSelectionChanged: props.onRowSelectionChanged
+          onRowSelectionChanged: props.onRowSelectionChanged,
         })}
       />
     </div>

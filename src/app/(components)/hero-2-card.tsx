@@ -38,9 +38,7 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
           >
             {props.item.icon ?? <InfoCircleOutlined />}
           </div>
-          <h2 className="text-lg font-medium">
-            {props.item.title ?? "Title"}
-          </h2>
+          <h2 className="text-lg font-medium">{props.item.title ?? "Title"}</h2>
         </div>
         <div className="flex-grow">
           <p className="leading-relaxed text-base">
@@ -53,7 +51,7 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
             href={props.item.actionHref ?? ""}
             className="mt-3 inline-flex items-center"
           >
-            {props.item.actionText ?? "Action text"} {" "} <ArrowRightOutlined />
+            {props.item.actionText ?? "Action text"} <ArrowRightOutlined />
           </Link>
         </div>
       </div>

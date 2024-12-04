@@ -1,7 +1,7 @@
 "use client";
 
 import { Table, TableColumnsType } from "antd";
-import { User } from "@/models/admin/user.types";
+import { User } from "@/types/user/response";
 import DefaultTableProps from "@/components/tables/props/default-table-props";
 import {
   defaultColumnActionProps,

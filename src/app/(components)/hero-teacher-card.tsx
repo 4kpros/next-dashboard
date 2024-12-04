@@ -1,11 +1,7 @@
 "use client";
 
-import { ArrowRightOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { theme } from "antd";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { ReactNode } from "react";
 
 interface HeroTeacherCardType {
   image: string | null;
@@ -14,7 +10,6 @@ interface HeroTeacherCardType {
 }
 export { type HeroTeacherCardType };
 export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
-  const router = useRouter();
   const {
     token: { colorPrimary, colorFillContent, borderRadius },
   } = theme.useToken();

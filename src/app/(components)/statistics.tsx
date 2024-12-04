@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Statistics() {
   const {
-    token: { colorPrimary, colorPrimaryText },
+    token: { colorPrimaryText },
   } = theme.useToken();
   return (
     <section

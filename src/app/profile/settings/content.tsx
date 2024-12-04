@@ -14,7 +14,7 @@ export default function PageContent() {
     <CustomContainerFullHeight>
       <div
         style={{
-          background: colorBgContainer,
+          backgroundColor: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="w-full flex item-center justify-center mt-4"

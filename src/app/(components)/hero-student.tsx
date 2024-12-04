@@ -1,11 +1,9 @@
 "use client";
 
-import { Button, theme } from "antd";
+import { theme } from "antd";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function HeroStudent() {
-  const router = useRouter();
   const {
     token: { colorPrimary, borderRadius },
   } = theme.useToken();
@@ -28,8 +26,8 @@ export default function HeroStudent() {
             }}
             src={"/images/pages/home/student.jpg"}
             alt=""
-            width={1920}
-            height={600}
+            width={1280}
+            height={1280}
             className="w-full h-[300px] object-cover object-center"
           />
         </div>

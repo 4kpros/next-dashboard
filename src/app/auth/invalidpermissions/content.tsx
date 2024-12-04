@@ -2,7 +2,7 @@
 
 import Title from "antd/es/typography/Title";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
-import LogoHeader from "../(components)/logo-header";
+import LogoHeader from "../../../components/header/logo-header";
 import { Button } from "antd";
 import { theme } from "antd";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ export default function PageContent() {
     <CustomContainerFullHeight>
       <div
         style={{
-          background: colorBgContainer,
+          backgroundColor: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="w-full max-w-[450px] flex flex-col gap-6 items-center justify-center p-8 border"

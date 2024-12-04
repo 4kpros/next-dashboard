@@ -2,11 +2,8 @@
 
 import React from "react";
 import { Form, Input, Button } from "antd";
-import {
-  LockOutlined,
-} from "@ant-design/icons";
+import { LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
-
 
 interface FormForgotCodeType {
   code: number;
@@ -21,8 +18,7 @@ export default function FormForgotCode() {
     <Form
       name="login-form"
       className="w-full"
-      initialValues={{
-      }}
+      initialValues={{}}
       onFinish={onFinish}
     >
       <Form.Item

@@ -4,7 +4,7 @@ import PageContent from "./content";
 export default function Page() {
   return (
     <MotionPageTransitionFromTop>
-      <PageContent/>
+      <PageContent />
     </MotionPageTransitionFromTop>
   );
 }

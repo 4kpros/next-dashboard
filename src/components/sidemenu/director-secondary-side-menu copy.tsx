@@ -2,9 +2,6 @@ import React from "react";
 import { ItemType } from "antd/es/menu/interface";
 
 import HomeIcon from "@/components/icons/hugeicons/home";
-import ShieldIcon from "@/components/icons/hugeicons/shield";
-import UserIcon from "@/components/icons/hugeicons/user";
-import UserSwitchIcon from "@/components/icons/hugeicons/user-switch";
 import MegaphoneIcon from "@/components/icons/hugeicons/megaphone";
 import CustomerSupportIcon from "@/components/icons/hugeicons/customer-support";
 import SchoolIcon from "@/components/icons/hugeicons/school";

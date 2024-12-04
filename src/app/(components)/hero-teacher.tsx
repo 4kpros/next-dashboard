@@ -1,13 +1,9 @@
 "use client";
 
-import { Button, theme } from "antd";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { theme } from "antd";
 import HeroTeacherCard, { HeroTeacherCardType } from "./hero-teacher-card";
-import ManagerIcon from "@/components/icons/hugeicons/manager";
 
 export default function HeroTeacher() {
-  const router = useRouter();
   const {
     token: { colorPrimary, borderRadius },
   } = theme.useToken();

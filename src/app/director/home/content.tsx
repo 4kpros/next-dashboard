@@ -9,7 +9,7 @@ import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
 import DefaultTableHeader from "@/components/tables/headers/default-header";
 import UsersTable from "./components/table";
-import { newUserList } from "@/models/admin/user.types";
+import { newUserList } from "@/types/user/response";
 
 export default function PageContent() {
   const {
@@ -31,7 +31,7 @@ export default function PageContent() {
       <div
         style={{
           padding: "15px",
-          background: colorBgContainer,
+          backgroundColor: colorBgContainer,
           borderRadius: borderRadius,
           minHeight: "100vh",
         }}

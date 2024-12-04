@@ -2,10 +2,8 @@
 
 import { theme } from "antd";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function HeroDirector() {
-  const router = useRouter();
   const {
     token: { colorPrimary, borderRadius },
   } = theme.useToken();
@@ -25,8 +23,8 @@ export default function HeroDirector() {
             }}
             src={"/images/pages/home/director.jpg"}
             alt=""
-            width={1500}
-            height={1500}
+            width={720}
+            height={720}
             className="w-full h-full object-cover object-center"
           />
         </div>

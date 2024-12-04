@@ -2,9 +2,8 @@
 
 import { motion } from "framer-motion";
 
-const durationShort = 0.25
-const durationMedium = 0.3
-const durationLong = 0.45
+const durationShort = 0.25;
+const durationMedium = 0.3;
 
 function MotionPageTransitionFromBottom({
   children,

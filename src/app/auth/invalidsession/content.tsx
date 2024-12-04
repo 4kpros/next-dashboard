@@ -1,44 +1,44 @@
 "use client";
 
 import Title from "antd/es/typography/Title";
-import FormForgotInit from "./components/form-forgot-init";
-import LogoHeader from "../../../../components/header/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
-import { Button, theme } from "antd";
+import { Button } from "antd";
+import { theme } from "antd";
 import { useRouter } from "next/navigation";
+import LogoHeader from "@/components/header/logo-header";
 
 export default function PageContent() {
   const router = useRouter();
   const {
-    token: { colorBgContainer, borderRadius },
+    token: { borderRadius },
   } = theme.useToken();
 
   return (
     <CustomContainerFullHeight>
       <div
         style={{
-          backgroundColor: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="w-full max-w-[450px] flex flex-col gap-6 items-center justify-center p-8 border"
       >
         <LogoHeader />
         <div className="w-full flex flex-col items-center justify-center">
-          <Title level={2}>Forgot password</Title>
+          <Title level={2}>Session timeout</Title>
           <span className="text-center">
-            Enter your email address to receive a password reset code.
+            To enhance security, we've implemented a session timeout of 60
+            minutes to 30 days on all user accounts. This helps protect user
+            data in case a computer is left unattended.
           </span>
         </div>
-        <FormForgotInit />
-      </div>
-      <div className="w-full flex item-center justify-center mt-4">
+
         <Button
+          size="large"
+          type="primary"
           htmlType="submit"
-          color="primary"
-          variant="filled"
-          onClick={() => router.push("/")}
+          className="w-full"
+          onClick={() => router.push("/auth/login")}
         >
-          Back to website
+          Go to login page
         </Button>
       </div>
     </CustomContainerFullHeight>

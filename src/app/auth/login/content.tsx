@@ -2,7 +2,7 @@
 
 import Title from "antd/es/typography/Title";
 import FormLogin, { FormLoginType } from "./components/form-login";
-import LogoHeader from "../(components)/logo-header";
+import LogoHeader from "../../../components/header/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
 import { Button, theme } from "antd";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,7 @@ export default function PageContent() {
       <div className="w-full flex flex-col items-center justify-center">
         <div
           style={{
-            background: colorBgContainer,
+            backgroundColor: colorBgContainer,
             borderRadius: borderRadius,
           }}
           className="w-full max-w-[450px] flex flex-col items-center justify-center gap-6 border border-none lg:border-solid p-8"
