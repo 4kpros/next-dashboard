@@ -24,8 +24,8 @@ export default function HeroStudent() {
             }}
             src={"/images/pages/home/student.jpg"}
             alt=""
-            width={1280}
-            height={1280}
+            width={1024}
+            height={1024}
             className="w-full h-[300px] object-cover object-center"
           />
         </div>

@@ -86,7 +86,7 @@ export default function PageContent() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-4 px-4 mt-6 mb-4">
           <div
             style={{
-              borderRadius: theme.borderRadius,
+              // borderRadius: theme.borderRadius,
             }}
             className="w-full h-full flex flex-col border"
           >
@@ -94,7 +94,7 @@ export default function PageContent() {
           </div>
           <div
             style={{
-              borderRadius: theme.borderRadius,
+              // borderRadius: theme.borderRadius,
             }}
             className="w-full h-full flex flex-col border"
           >

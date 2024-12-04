@@ -26,8 +26,8 @@ export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
         }}
         src={props.item.image ?? ""}
         alt=""
-        width={1500}
-        height={1500}
+        width={200}
+        height={200}
         className="w-full h-48 object-cover object-center mb-6"
       />
       <h3

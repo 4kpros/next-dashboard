@@ -33,9 +33,9 @@ export default function Contact() {
           }}
           src={"/images/pages/home/contact.jpg"}
           alt=""
-          width={1500}
-          height={1500}
-          className="w-full h-[400px] object-cover object-center"
+          width={500}
+          height={500}
+          className="w-full max-w-[500px] h-[400px] object-cover object-center"
         />
 
         <div className="w-full flex items-center justify-center">
