@@ -10,13 +10,14 @@ import { useRouter } from "next/navigation";
 export default function PageContent() {
   const router = useRouter();
   const {
-    token: { borderRadius },
+    token: { colorBgContainer, borderRadius },
   } = theme.useToken();
 
   return (
     <CustomContainerFullHeight>
       <div
         style={{
+          background: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="w-full max-w-[450px] flex flex-col gap-6 items-center justify-center p-8 border"
@@ -25,9 +26,8 @@ export default function PageContent() {
         <div className="w-full flex flex-col items-center justify-center">
           <Title level={2}>Successful logged out</Title>
           <span className="text-center">
-            Thank you for using Digitschool. You've been successfully
-            logged out of your account. Would
-            you like to log back in or explore more?
+            Thank you for using Digitschool. You've been successfully logged out
+            of your account. Would you like to log back in or explore more?
           </span>
         </div>
 

@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CustomContainer } from "../container/custom-container";
-import { Avatar, Button } from "antd";
+import { CustomContainerXl } from "../container/custom-container";
+import { Avatar, Button, theme } from "antd";
 import { useSession } from "next-auth/react";
 import AvatarProfile from "../avatar/avatar-profile";
 
@@ -30,12 +30,21 @@ const menus = [
     link: "#parents",
   },
 ];
-export default function Navbar() {
+export default function NavbarFixed() {
   const session = useSession();
   const router = useRouter();
+  const {
+    token: { colorBgContainer, borderRadius },
+  } = theme.useToken();
   return (
-    <nav className="w-full z-40">
-      <CustomContainer>
+    <CustomContainerXl>
+      <nav
+        style={{
+          background: colorBgContainer,
+          borderRadius: borderRadius,
+        }}
+        className="w-full border shadow-sm my-2 px-6"
+      >
         <div className="w-full flex flex-wrap items-center justify-between py-4">
           <Link href="/" className="flex items-center space-x-0">
             <Image
@@ -130,7 +139,7 @@ export default function Navbar() {
                   </li>
                 );
               })}
-              <li className="z-40">
+              <li>
                 {session.status === "loading" ? (
                   <Avatar size={"large"} className="opacity-0">
                     <span className="font-medium text-base">NA</span>
@@ -162,7 +171,7 @@ export default function Navbar() {
             </ul>
           </div>
         </div>
-      </CustomContainer>
-    </nav>
+      </nav>
+    </CustomContainerXl>
   );
 }

@@ -1,10 +1,22 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { CustomContainer } from "../container/custom-container";
+import { theme } from "antd";
 
 export default function Footer() {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   return (
-    <footer className="w-full border-t mt-52">
+    <footer
+      style={{
+        background: colorBgContainer,
+      }}
+      className="w-full border-t mt-52"
+    >
       <CustomContainer>
         <div className="w-full flex flex-col gap-12 py-12">
           <div className="sm:flex sm:items-center sm:justify-between">

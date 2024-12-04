@@ -17,7 +17,7 @@ interface FormLoginType {
   password: string;
   remember: boolean;
 }
-type AuthProvider = "google" | "facebook"
+type AuthProvider = "google" | "facebook";
 
 export { type FormLoginType };
 export default function FormLogin(props: {
@@ -29,10 +29,10 @@ export default function FormLogin(props: {
     props.onSubmitCredentials!(formData);
   };
   const googleLogin = useGoogleLogin({
-      flow: 'auth-code',
-      onSuccess: async () => {
-        props.onSubmitGoogle!()
-      },
+    flow: "auth-code",
+    onSuccess: async () => {
+      props.onSubmitGoogle!();
+    },
   });
 
   return (
@@ -58,6 +58,7 @@ export default function FormLogin(props: {
         ]}
       >
         <Input
+          disabled={props.isLoading}
           size="large"
           prefix={<MailOutlined />}
           type="email"
@@ -74,6 +75,7 @@ export default function FormLogin(props: {
         ]}
       >
         <Input
+          disabled={props.isLoading}
           size="large"
           prefix={<LockOutlined />}
           type="password"

@@ -1,10 +1,11 @@
 import {
   SignInEmailRequest,
   SignInProviderRequest,
-} from "@/app/types/auth/request";
-import { SignInResponse } from "@/app/types/auth/response";
-import { POST } from "@/utils/http/http";
-import NextAuth from "next-auth";
+} from "@/types/auth/request";
+import { SignInResponse } from "@/types/auth/response";
+import { ProfileLoggedResponse } from "@/types/profile/response";
+import { GET, POST } from "@/utils/http/http";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
@@ -91,26 +92,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           try {
             const respData = await signInWithProvider(
               account?.provider ?? "",
-              newToken
+              account?.id_token ?? ""
             );
             newToken = respData?.data?.accessToken ?? "";
             newTokenExpires = respData?.data?.expires ?? "";
           } catch (error) {
-            return null;
+            throw new Error(`Error when trying to check token with backend!`);
           }
         }
         if (newToken.length < 1 || newTokenExpires.length < 1)
           throw new Error(`No access token provided!`);
 
-        // Decode the access token
-        let role = "";
-        let feature = "";
-        let nameTrunc = "";
-        let image = "";
-        token.role = role;
-        token.feature = feature;
-        token.nameTrunc = nameTrunc;
-        token.image = image;
+        try {
+          const respData = await getProfileLogged(newToken);
+          const usernameTrunc = (respData?.data?.username ?? "").substring(
+            0,
+            2
+          );
+          const fullNameTrunc =
+            (respData?.data?.lastName ?? "").substring(0, 1) +
+            "" +
+            (respData?.data?.firstName ?? "").substring(0, 1);
+          token.loginMethod = respData?.data?.loginMethod;
+          token.provider = respData?.data?.provider;
+          token.role = respData?.data?.role;
+          token.feature = respData?.data?.feature;
+          token.nameTrunc =
+            usernameTrunc.length >= 2 ? usernameTrunc : fullNameTrunc;
+          token.image = respData?.data?.image;
+        } catch (error) {
+          throw new Error(`Error when getting profile information!`);
+        }
+
         token.accessToken = newToken;
         token.accessTokenExpires = newTokenExpires;
         return {
@@ -126,6 +139,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return null;
     },
     async session({ session, token }) {
+      session.user.loginMethod = token.loginMethod as string | null | undefined;
+      session.user.provider = token.provider as string | null | undefined;
       session.user.role = token.role as string | null | undefined;
       session.user.feature = token.feature as string | null | undefined;
       session.user.nameTrunc = token.nameTrunc as string | null | undefined;
@@ -140,10 +155,19 @@ const hashPassword = async (password: string): Promise<string> => {
   const newPassword = password;
   return newPassword;
 };
+
 const signInWithProvider = async (provider: string, token: string) => {
   return POST<SignInResponse, SignInProviderRequest>("/auth/login/provider", {
     provider: provider,
     token: token,
+  });
+};
+
+const getProfileLogged = async (token: string) => {
+  return GET<ProfileLoggedResponse>("/profile/logged", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 };
 

@@ -12,7 +12,7 @@ import { signIn } from "next-auth/react";
 export default function PageContent() {
   const router = useRouter();
   const {
-    token: { borderRadius },
+    token: { colorBgContainer, borderRadius },
   } = theme.useToken();
 
   const signInWithCredentialMutation = useMutation({
@@ -41,6 +41,7 @@ export default function PageContent() {
       <div className="w-full flex flex-col items-center justify-center">
         <div
           style={{
+            background: colorBgContainer,
             borderRadius: borderRadius,
           }}
           className="w-full max-w-[450px] flex flex-col items-center justify-center gap-6 border border-none lg:border-solid p-8"
@@ -68,7 +69,7 @@ export default function PageContent() {
             variant="filled"
             onClick={() => router.push("/")}
           >
-            Back to the website
+            Back to website
           </Button>
         </div>
       </div>

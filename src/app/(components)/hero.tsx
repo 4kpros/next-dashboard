@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  FEATURE_ADMIN,
-  FEATURE_DIRECTOR,
-  FEATURE_PARENT,
-  FEATURE_STUDENT,
-  FEATURE_TEACHER,
-} from "@/constants/feature";
+import { getDashboardPath } from "@/utils/redirect/dashboard";
 import { Button, theme } from "antd";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -20,31 +14,10 @@ export default function Hero() {
   } = theme.useToken();
 
   const action = () => {
-    if (session.status !== "loading") {
-      if (session.status == "authenticated") {
-        switch (session?.data?.user?.feature ?? "") {
-          case FEATURE_ADMIN:
-            router.push("/admin/home");
-            break;
-          case FEATURE_DIRECTOR:
-            router.push("/director/home");
-            break;
-          case FEATURE_TEACHER:
-            router.push("/teacher/home");
-            break;
-          case FEATURE_STUDENT:
-            router.push("/student/home");
-            break;
-          case FEATURE_PARENT:
-            router.push("/parent/home");
-            break;
-
-          default:
-            break;
-        }
-      } else {
-        router.push("/auth/register");
-      }
+    if (session.status == "authenticated") {
+      router.push(getDashboardPath(session?.data?.user?.feature ?? ""));
+    } else {
+      router.push("/auth/register");
     }
   };
 
@@ -53,8 +26,11 @@ export default function Hero() {
       style={{
         background: colorFillContent,
         borderRadius: borderRadius,
+        // backgroundSize: "20px 20px",
+        // backgroundImage:
+        //   "repeating-linear-gradient(to right,#444df74f,#444df74f 1px,transparent 1px,transparent)",
       }}
-      className="w-full mt-6 p-6"
+      className="w-full bg-[#f0f5f5]/50 border mt-6 p-6"
     >
       <div className="w-full flex flex-col items-center justify-center gap-12 pt-12">
         <div className="w-full flex flex-col items-center justify-center text-center gap-6">
@@ -98,3 +74,4 @@ export default function Hero() {
     </section>
   );
 }
+

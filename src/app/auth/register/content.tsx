@@ -12,13 +12,14 @@ import { useRouter } from "next/navigation";
 export default function PageContent() {
   const router = useRouter();
   const {
-    token: { borderRadius },
+    token: { colorBgContainer, borderRadius },
   } = theme.useToken();
 
   return (
     <CustomContainerFullHeight>
       <div
         style={{
+          background: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 border"
@@ -54,16 +55,16 @@ export default function PageContent() {
           </div>
         </div>
       </div>
-        <div className="w-full flex item-center justify-center mt-4">
-          <Button
-            htmlType="submit"
-            color="primary"
-            variant="filled"
-            onClick={() => router.push("/")}
-          >
-            Back to the website
-          </Button>
-        </div>
+      <div className="w-full flex item-center justify-center mt-4">
+        <Button
+          htmlType="submit"
+          color="primary"
+          variant="filled"
+          onClick={() => router.push("/")}
+        >
+          Back to website
+        </Button>
+      </div>
     </CustomContainerFullHeight>
   );
 }

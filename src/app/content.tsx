@@ -15,6 +15,7 @@ import HeroParent from "./(components)/hero-parent";
 import Contact from "./(components)/contact";
 import Statistics from "./(components)/statistics";
 import { useEffect, useState } from "react";
+import NavbarFixed from "@/components/navbar/navbar-fixed";
 
 export default function PageContent() {
   const [scrollYPosition, setScrollYPosition] = useState(0);
@@ -34,11 +35,11 @@ export default function PageContent() {
     <>
       <Navbar />
       <div
-        className={`w-full top-0 left-0 fixed z-30 border-b transition-all duration-200 ease-in-out ${
-          scrollYPosition >= 500 ? "" : "hidden"
+        className={`w-full fixed top-0 left-0 transition-all duration-200 ease-in-out z-30 ${
+          scrollYPosition >= 500 ? "h-auto opacity-100 z-30" : "h-0 opacity-0 -z-10"
         }`}
       >
-        <Navbar />
+        <NavbarFixed />
       </div>
       <div className="w-full min-h-screen flex flex-col gap-40">
         <CustomContainerXl>

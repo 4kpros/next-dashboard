@@ -96,7 +96,11 @@ export default function DashboardLayout({
                     <span className="font-medium text-base">NA</span>
                   </Avatar>
                 ) : (
-                  <AvatarProfile nameTrunc={session.data?.user?.nameTrunc} />
+                  <AvatarProfile
+                    image={session.data?.user?.image}
+                    nameTrunc={session.data?.user?.nameTrunc}
+                    feature={session.data?.user?.feature}
+                  />
                 )}
               </div>
             </Header>

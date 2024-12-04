@@ -1,5 +1,6 @@
 "use client";
 
+import { getDashboardPath } from "@/utils/redirect/dashboard";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, theme } from "antd";
 import { signOut } from "next-auth/react";
@@ -12,8 +13,8 @@ const items = [
     label: "View Profile",
   },
   {
-    key: "/profile/settings",
-    label: "Settings",
+    key: "/dashboard",
+    label: "Dashboard",
   },
   {
     key: "/logout",
@@ -23,7 +24,9 @@ const items = [
   },
 ];
 export default function AvatarProfile(props: {
+  image?: string | null;
   nameTrunc?: string | null;
+  feature?: string | null;
 }) {
   const router = useRouter();
   const {
@@ -32,25 +35,47 @@ export default function AvatarProfile(props: {
 
   return (
     <Dropdown
-      menu={{ onClick: (item) => {
-        if(item.key != "/logout") {
-          router.push(item.key)
-        }else {
-          signOut({
-            redirect: true,
-            redirectTo: "/auth/logout",
-          })
-        }
-      }, items: items }}
+      menu={{
+        onClick: (item) => {
+          if (item.key != "/logout") {
+            router.push(item.key);
+          } else {
+            signOut({
+              redirect: true,
+              redirectTo: "/auth/logout",
+            });
+          }
+          switch (item.key) {
+            case "/logout":
+              signOut({
+                redirect: true,
+                redirectTo: "/auth/logout",
+              });
+              break;
+            case "/dashboard":
+              router.push(getDashboardPath(props?.feature ?? ""));
+              break;
+
+            default:
+              router.push(item.key);
+              break;
+          }
+        },
+        items: items,
+      }}
       placement="bottomRight"
       trigger={["click"]}
     >
       <Avatar
         size={"large"}
-        style={{ cursor: "pointer", backgroundColor: colorPrimary }}
+        style={{
+          cursor: "pointer",
+          backgroundColor: colorPrimary,
+          backgroundImage: props.image ?? "",
+        }}
       >
         <span className="font-medium text-base">
-          {props.nameTrunc ?? "NA"}
+          {(props.nameTrunc?.length ?? 0) < 2 ? "NA" : props.nameTrunc ?? "NA"}
         </span>
       </Avatar>
     </Dropdown>

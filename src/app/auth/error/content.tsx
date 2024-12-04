@@ -10,13 +10,14 @@ import { useRouter } from "next/navigation";
 export default function PageContent() {
   const router = useRouter();
   const {
-    token: { borderRadius },
+    token: {  colorBgContainer,borderRadius },
   } = theme.useToken();
 
   return (
     <CustomContainerFullHeight>
       <div
         style={{
+          background: colorBgContainer,
           borderRadius: borderRadius,
         }}
         className="w-full max-w-[450px] flex flex-col gap-6 items-center justify-center p-8 border"
