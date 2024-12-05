@@ -13,7 +13,7 @@ interface SmallCardStatsType {
 
 export default function SmallCardsStats() {
   return (
-    <div className="w-full h-32 flex items-start justify-between gap-2">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
       {items.map((item, index) => (
         <ItemCard item={item} key={index} />
       ))}
@@ -29,10 +29,10 @@ function ItemCard(props: { item: SmallCardStatsType }) {
   return (
     <div
       style={{
-        backgroundColor: theme.colorFillContent,
+        backgroundColor: theme.colorPrimaryBg,
         borderRadius: theme.borderRadius,
       }}
-      className="w-full h-full flex flex-col items-center justify-between gap-2 p-4"
+      className="w-full h-32 flex flex-col items-center justify-between gap-2 p-4"
     >
       <div className="w-full flex items-center gap-2">
         {props.item.icon}
@@ -63,10 +63,5 @@ const items: SmallCardStatsType[] = [
     icon: <StudentsIcon width={50} height={50} />,
     label: "Students",
     count: 7061,
-  },
-  {
-    icon: <StudentsIcon width={50} height={50} />,
-    label: "Parents",
-    count: 349,
   },
 ];

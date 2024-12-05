@@ -47,7 +47,7 @@ export default function SideMenu(props: {
       className="border-r"
     >
       <div
-        className="w-full h-16"
+        className="w-full h-[74px]"
         style={{
           backgroundColor: theme.colorPrimary,
         }}
@@ -60,8 +60,8 @@ export default function SideMenu(props: {
         items={items}
         style={{
           backgroundColor: "transparent",
-          paddingTop: 20,
-          paddingBottom: 20,
+          paddingTop: 22,
+          paddingBottom: 22,
           border: "none",
         }}
       />

@@ -1,8 +1,40 @@
 import { Line } from "@ant-design/charts";
+import { theme as antdTheme } from "antd";
 
-export default function ChartLine() {
+export default function ChartLine(props: { title?: string }) {
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  const config = {
+    data: data,
+    autoFit: true,
+    xField: "type",
+    yField: "value",
+    colorField: "type",
+    point: {
+      shapeField: "circle",
+      sizeField: 4,
+    },
+    interaction: {
+      tooltip: {
+        marker: false,
+      },
+    },
+    style: {
+      lineWidth: 1,
+      gradient: "y",
+    },
+    scale: {
+      color: {
+        range: [theme.colorPrimary],
+      },
+    },
+  };
+
   return (
     <>
+      <h1 className="w-full font-medium text-lg mx-4 my-3">{props.title}</h1>
       <Line {...config} />
     </>
   );
@@ -18,20 +50,3 @@ const data = [
   { type: "2023", value: 26531 },
   { type: "2024", value: 58221 },
 ];
-const config = {
-  data,
-  xField: "type",
-  yField: "value",
-  point: {
-    shapeField: "square",
-    sizeField: 4,
-  },
-  interaction: {
-    tooltip: {
-      marker: false,
-    },
-  },
-  style: {
-    lineWidth: 2,
-  },
-};

@@ -19,47 +19,47 @@ export default function PageContent() {
           padding: "15px",
           minHeight: "100vh",
         }}
-        className="w-full flex flex-col xl:flex-row items-start justify-between gap-2"
+        className="w-full grid grid-cols-1 xl:grid-cols-3 gap-2"
       >
-        <div className="w-full h-full flex flex-col gap-2">
+        <div className="w-full h-full flex flex-col xl:col-span-2 gap-2">
           <SmallCardsStats />
           <div
             style={{
               backgroundColor: theme.colorBgContainer,
               borderRadius: theme.borderRadius,
             }}
-            className="w-full h-[400px] border"
+            className="w-full border"
           >
-            <ChartColumn />
+            <ChartColumn title={"Percentage of success by school"}/>
           </div>
           <div
             style={{
               backgroundColor: theme.colorBgContainer,
               borderRadius: theme.borderRadius,
             }}
-            className="w-full h-[400px] border"
+            className="w-full border"
           >
-            <ChartBidirectionalBar />
+            <ChartBidirectionalBar title={"Percentage of success comparison between boys and girls"}/>
           </div>
         </div>
-        <div className="w-full h-full max-w-[500px] flex flex-col gap-2">
-          <div
+        <div className="w-full h-full flex flex-col gap-2">
+          {/* <div
             style={{
               backgroundColor: theme.colorBgContainer,
               borderRadius: theme.borderRadius,
             }}
             className="w-full h-[435px] border"
           >
-            <ChartGauge />
-          </div>
+            <ChartGauge title={"This year so far"}/>
+          </div> */}
           <div
             style={{
               backgroundColor: theme.colorBgContainer,
               borderRadius: theme.borderRadius,
             }}
-            className="w-full h-[500px] border"
+            className="w-full border"
           >
-            <ChartLine />
+            <ChartLine title={"All time users progression"}/>
           </div>
         </div>
       </div>
