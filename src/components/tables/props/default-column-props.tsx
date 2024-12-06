@@ -2,7 +2,7 @@ import { Popconfirm, Space, Tag, Tooltip } from "antd";
 import { ColumnType } from "antd/es/table";
 
 // Default column props for string
-const defaultColumnProps = {
+export const defaultColumnProps = {
   sorter: true,
   ellipsis: {
     showTitle: false,
@@ -15,7 +15,7 @@ const defaultColumnProps = {
 };
 
 // Default column props for boolean
-const defaultColumnBooleanProps = {
+export const defaultColumnBooleanProps = {
   sorter: true,
   ellipsis: {
     showTitle: false,
@@ -25,7 +25,7 @@ const defaultColumnBooleanProps = {
 };
 
 // Default column props for user actions
-function defaultColumnActionProps<T>(props: {
+export function defaultColumnActionProps<T>(props: {
   deleteDescription?: string | null;
   onUpdateRequested?: (value: T, index: number) => void;
   onDeleteConfirmed?: (value: T, index: number) => void;
@@ -33,7 +33,7 @@ function defaultColumnActionProps<T>(props: {
   return {
     title: "Action",
     key: "action",
-    sorter: true,
+    sorter: false,
     render: (_, record, index) => (
       <Space size="large">
         <a
@@ -45,11 +45,7 @@ function defaultColumnActionProps<T>(props: {
         </a>
         <Popconfirm
           title="Delete"
-          description={
-            "Do you really want to delete" +
-            (props.deleteDescription ?? "") +
-            "?"
-          }
+          description={`Do you really want to delete ${props.deleteDescription} ?`}
           placement="topRight"
           okText="Yes"
           cancelText="Cancel"
@@ -64,8 +60,3 @@ function defaultColumnActionProps<T>(props: {
   };
 }
 
-export {
-  defaultColumnProps,
-  defaultColumnBooleanProps,
-  defaultColumnActionProps,
-};

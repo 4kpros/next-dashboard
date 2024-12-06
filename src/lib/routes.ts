@@ -1,4 +1,4 @@
-export const ROUTE_BACKEND_API_CALL = ["/backend-api"];
+export const ROUTE_API_BASE_URL_INTERNAL = "/backend-api";
 
 export const ROUTE_INVALID_FEATURE_PERMISSION = "/auth/invalidpermissions";
 

@@ -1,10 +1,10 @@
 import {
   SignInEmailRequest,
   SignInProviderRequest,
-} from "@/types/auth/request";
-import { SignInResponse } from "@/types/auth/response";
-import { ProfileLoggedResponse } from "@/types/profile/response";
-import { GET, POST } from "@/utils/http/http";
+} from "@/lib/api/auth/request";
+import { SignInResponse } from "@/lib/api/auth/response";
+import { ProfileLoggedResponse } from "@/lib/api/profile/response";
+import { GET, POST } from "@/lib/http/http";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Facebook from "next-auth/providers/facebook";
@@ -23,6 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     maxAge: 30 * 24 * 60 * 60, // Max age 30 days
   },
   secret: `${process.env.NEXT_AUTH_SECRET}`,
+  trustHost: true,
   providers: [
     Credentials({
       credentials: {

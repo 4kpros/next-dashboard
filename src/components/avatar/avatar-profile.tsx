@@ -1,6 +1,6 @@
 "use client";
 
-import { getDashboardPath } from "@/utils/redirect/dashboard";
+import { getDashboardPath } from "@/lib/links/dashboard";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, theme as antdTheme } from "antd";
 import { signOut, useSession } from "next-auth/react";

@@ -9,7 +9,6 @@ import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
 import DefaultTableHeader from "@/components/tables/headers/default-header";
 import UsersTable from "./components/table";
-import { newUserList } from "@/types/user/response";
 
 export default function PageContent() {
   // Ant design theme
@@ -23,7 +22,7 @@ export default function PageContent() {
   const [deleteUserModalOpen, setDeleteUserModalOpen] = useState(false);
 
   const isLoading = false;
-  const data = newUserList(100);
+  const data: [] = [];
   const pageSize = 30;
 
   return (

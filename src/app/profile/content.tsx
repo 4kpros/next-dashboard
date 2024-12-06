@@ -1,6 +1,6 @@
 "use client";
 
-import { getDashboardPath } from "@/utils/redirect/dashboard";
+import { getDashboardPath } from "@/lib/links/dashboard";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button, theme as antdTheme } from "antd";
 import { useSession } from "next-auth/react";
@@ -69,15 +69,16 @@ export default function PageContent() {
               </Button>
             </div>
             <div className="w-full flex flex-col items-center justify-center gap-4 my-4">
-              <div className="w-32 h-32">
-                <Image
-                  src={"/images/pages/auth/register.jpg"}
-                  width={256}
-                  height={256}
-                  alt={""}
-                  className="w-full h-full object-cover p-[2px] rounded-full ring-2 ring-gray-400"
-                />
-              </div>
+              <Image
+                style={{
+                  backgroundColor: theme.colorWhite,
+                }}
+                src={"/images/pages/auth/register.jpg"}
+                width={256}
+                height={256}
+                alt={""}
+                className="w-32 h-32 object-cover rounded-full ring-4 ring-gray-400"
+              />
               <div
                 style={{
                   color: "#fff",
@@ -85,7 +86,7 @@ export default function PageContent() {
                 className="w-full flex flex-col items-center justify-center"
               >
                 <h3 className="text-2xl font-semibold leading-normal">
-                  Jenna Stones
+                  John Doe
                 </h3>
                 <p className="text-lg leading-normal opacity-75">
                   {session.status == "loading"

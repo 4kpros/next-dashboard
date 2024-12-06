@@ -1,6 +1,6 @@
 "use client";
 
-import { getDashboardPath } from "@/utils/redirect/dashboard";
+import { getDashboardPath } from "@/lib/links/dashboard";
 import { Button, theme as antdTheme } from "antd";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -61,18 +61,32 @@ export default function Hero() {
             Contact us
           </Button>
         </div>
-        <Image
-          style={{
-            borderRadius: theme.borderRadius,
-            borderColor: theme.colorPrimary,
-            boxShadow: "",
-          }}
-          src={"/images/pages/home/hero.png"}
-          alt=""
-          width={1920}
-          height={1920}
-          className="w-full object-fill border"
-        />
+        <div className="w-full flex flex-col items-center justify-center gap-4">
+          <Image
+            style={{
+              borderRadius: theme.borderRadius,
+              borderColor: theme.colorPrimary,
+              boxShadow: "",
+            }}
+            src={"/images/pages/home/hero.png"}
+            alt=""
+            width={1800}
+            height={1800}
+            className="w-full object-fill border"
+          />
+          <Image
+            style={{
+              borderRadius: theme.borderRadius,
+              borderColor: theme.colorPrimary,
+              boxShadow: "",
+            }}
+            src={"/images/pages/home/hero-b.png"}
+            alt=""
+            width={1800}
+            height={1800}
+            className="w-full object-fill border"
+          />
+        </div>
       </div>
     </section>
   );

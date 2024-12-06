@@ -10,6 +10,10 @@ import { Button, Input } from "antd";
 const { Search } = Input;
 
 export default function DefaultTableHeader(props: {
+  isLoading?: boolean;
+  isFetching?: boolean;
+  isDeletingSelection?: boolean;
+  selectedItemsCount?: number;
   searchKeyword?: string | null;
   onAdd?: () => void;
   onSearch?: () => void;
@@ -36,7 +40,7 @@ export default function DefaultTableHeader(props: {
           className="max-w-[500px] flex-1"
           onSubmit={props.onSearch}
         />
-        {props.searchKeyword != undefined && props.searchKeyword != null ? (
+        {props.searchKeyword && props.searchKeyword?.length >= 1 ? (
           <div className="flex flex-wrap items-center gap-2">
             <p className="line-clamp-1">
               Results for{" "}
@@ -52,13 +56,28 @@ export default function DefaultTableHeader(props: {
         ) : null}
       </div>
       <div className="flex flex-wrap items-center gap-3">
-        <Button icon={<SyncOutlined />} onClick={props.onRefresh}>
+        <Button
+          loading={props.isFetching}
+          icon={<SyncOutlined />}
+          onClick={props.onRefresh}
+        >
           Refresh
         </Button>
-        <Button icon={<DeleteOutlined />} onClick={props.onDelete}>
+        <Button
+          loading={props.isDeletingSelection}
+          disabled={
+            (props.selectedItemsCount ?? 0) < 1 || props.isLoading == true
+          }
+          icon={<DeleteOutlined />}
+          onClick={props.onDelete}
+        >
           Delete
         </Button>
-        <Button icon={<PrinterOutlined />} onClick={props.onPrint}>
+        <Button
+          disabled={props.isLoading}
+          icon={<PrinterOutlined />}
+          onClick={props.onPrint}
+        >
           Print
         </Button>
       </div>

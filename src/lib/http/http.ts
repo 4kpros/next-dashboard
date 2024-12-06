@@ -1,23 +1,21 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-const API_BASE_URL = `${process.env.API_BASE_URL}`;
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL_INTERNAL}`;
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 1000,
-  headers: { "X-Custom-Header": "foobar" },
 });
 
-// interface ErrorResponse {
-//   title?: string | null;
-//   status?: number | null;
-//   detail?: string | null;
-//   errors?: {
-//     message?: string | null;
-//   }[];
-// }
+interface ErrorResponse {
+  title?: string | null;
+  status?: number | null;
+  detail?: string | null;
+  errors?: {
+    message?: string | null;
+  }[];
+}
 
-const GET = async <T, D>(
+export const GET = async <T, D>(
   path: string,
   config?: AxiosRequestConfig<D>
 ) => {
@@ -27,7 +25,7 @@ const GET = async <T, D>(
   );
 };
 
-const POST = async <T, D>(
+export const POST = async <T, D>(
   path: string,
   payload?: D,
   config?: AxiosRequestConfig<D>
@@ -39,7 +37,7 @@ const POST = async <T, D>(
   );
 };
 
-const PUT = async <T, D>(
+export const PUT = async <T, D>(
   path: string,
   payload?: D,
   config?: AxiosRequestConfig<D>
@@ -51,7 +49,7 @@ const PUT = async <T, D>(
   );
 };
 
-const DELETE = async <T, D>(
+export const DELETE = async <T, D>(
   path: string,
   config?: AxiosRequestConfig<D>
 ) => {
@@ -60,5 +58,3 @@ const DELETE = async <T, D>(
     config
   );
 };
-
-export { GET, POST, PUT, DELETE };

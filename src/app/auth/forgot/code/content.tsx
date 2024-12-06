@@ -1,3 +1,5 @@
+"use client";
+
 import Title from "antd/es/typography/Title";
 import LogoHeader from "../../../../components/header/logo-header";
 import FormForgotCode from "./components/form-forgot-code";

@@ -12,8 +12,8 @@ export default function ChartBidirectionalBar(props: { title?: string }) {
       elementSelect: false,
     },
     style: {
-      fill: (d: any) => {
-        return d.groupKey === "Girls" ? "#f1a7b4" : "#25c5da";
+      fill: (item: any) => {
+        return item.groupKey === "Girls" ? "#f1a7b4" : "#25c5da";
       },
     },
   };

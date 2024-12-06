@@ -28,10 +28,9 @@ export default function RootLayout({
               <GoogleOAuthProvider
                 clientId={process.env.GOOGLE_CLIENT_ID || ""}
               >
-                {children}
-                {/* <CustomQueryClientProvider>
+                <CustomQueryClientProvider>
                   {children}
-                </CustomQueryClientProvider> */}
+                </CustomQueryClientProvider>
               </GoogleOAuthProvider>
             </SessionProvider>
             ;

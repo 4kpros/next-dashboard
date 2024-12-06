@@ -1,7 +1,6 @@
 "use client";
 
 import { Table, TableColumnsType } from "antd";
-import { User } from "@/types/user/response";
 import DefaultTableProps from "@/components/tables/props/default-table-props";
 import {
   defaultColumnActionProps,
@@ -9,48 +8,49 @@ import {
   defaultColumnProps,
 } from "@/components/tables/props/default-column-props";
 import { FilterValue, RowSelectMethod, SorterResult } from "antd/es/table/interface";
+import { UserResponse } from "@/lib/api/user/response";
 
 export default function UsersTable(props: {
   isLoading: boolean;
-  data: User[];
+  data: UserResponse[];
   pageSize?: number;
   selectedRowKeys?: React.Key[],
   onPaginationChanged?: (page: number, pageSize: number) => void;
   onFilterSortChanged?: (
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<User> | SorterResult<User>[]
+    sorter: SorterResult<UserResponse> | SorterResult<UserResponse>[]
   ) => void;
-  onRowSelectionChanged?: (selectedRowKeys: React.Key[], selectedRows: User[], info: {
+  onRowSelectionChanged?: (selectedRowKeys: React.Key[], selectedRows: UserResponse[], info: {
     type: RowSelectMethod;
   }) => void
-  onUpdateRequested?: (value: User, index: number) => void;
-  onDeleteConfirmed?: (value: User, index: number) => void;
+  onUpdateRequested?: (value: UserResponse, index: number) => void;
+  onDeleteConfirmed?: (value: UserResponse, index: number) => void;
 }) {
   // Table columns. dataIndex represents the field name(case sensitive) of the model(RecordType)
-  const columns: TableColumnsType<User> = [
+  const columns: TableColumnsType<UserResponse> = [
     {
       title: "ID",
-      dataIndex: "ID",
+      dataIndex: "id",
       ...defaultColumnProps,
     },
     {
       title: "Email",
-      dataIndex: "Email",
+      dataIndex: "email",
       ...defaultColumnProps,
     },
     {
       title: "Phone number",
-      dataIndex: "PhoneNumber",
+      dataIndex: "phoneNumber",
       ...defaultColumnProps,
     },
     {
       title: "Role ID",
-      dataIndex: "RoleId",
+      dataIndex: "roleID",
       ...defaultColumnProps,
     },
     {
       title: "Is activated",
-      dataIndex: "IsActivated",
+      dataIndex: "isActivated",
       // Column props for booleans
       ...defaultColumnBooleanProps,
     },
@@ -65,7 +65,7 @@ export default function UsersTable(props: {
   ];
   return (
     <div className="w-full mt-2">
-      <Table<User>
+      <Table<UserResponse>
         {...DefaultTableProps({
           isLoading: props.isLoading,
           data: props.data,

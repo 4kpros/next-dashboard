@@ -1,3 +1,5 @@
+"use client";
+
 import Title from "antd/es/typography/Title";
 import LogoHeader from "../../../components/header/logo-header";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";

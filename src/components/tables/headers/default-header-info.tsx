@@ -3,9 +3,9 @@ import { Typography } from "antd";
 const { Text } = Typography;
 
 export default function DefaultTableHeaderInfo(props: {
-  selectedItemsCount?: number | null;
-  currentPage?: number | null;
-  totalPages?: number | null;
+  selectedItemsCount?: number;
+  currentPage?: number;
+  totalPages?: number;
 }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 mt-3">

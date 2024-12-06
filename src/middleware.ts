@@ -9,7 +9,7 @@ import {
   FEATURE_TEACHER,
 } from "./lib/features";
 import {
-  ROUTE_BACKEND_API_CALL,
+  ROUTE_API_BASE_URL_INTERNAL,
   ROUTE_INVALID_FEATURE_PERMISSION,
   ROUTE_PROTECTED_ADMIN,
   ROUTE_PROTECTED_DIRECTOR,
@@ -27,13 +27,19 @@ export default auth(async (req: NextRequest) => {
   const accessToken = getAccessToken(jwt);
 
   // Rewrite to API url
-  if (ROUTE_BACKEND_API_CALL.some((path) => pathname.startsWith(path))) {
+  if (pathname.startsWith(ROUTE_API_BASE_URL_INTERNAL)) {
     const newHeaders = new Headers(req.headers);
     newHeaders.set("Content-Type", "application/json");
     newHeaders.set("Accept", "application/json");
     if (accessToken) {
       newHeaders.set("Authorization", `Bearer ${accessToken}`);
     }
+    const newUrl = `${process.env.API_BASE_URL}${pathname.substring(
+      ROUTE_API_BASE_URL_INTERNAL.length
+    )}`;
+    console.log("AAAAAAAAAAAAAAAAAAA");
+    console.log(newUrl);
+    console.log("ZZZZZZZZZZZZZZZZZZZ");
     return NextResponse.rewrite(req.nextUrl, {
       request: {
         headers: newHeaders,
@@ -115,6 +121,7 @@ const getAccessToken = (jwtToken: JWT | null) => {
 };
 
 const getRoleFeature = (jwtToken: JWT | null) => {
-  const feature: string = (jwtToken?.feature as string | null | undefined) ?? "";
+  const feature: string =
+    (jwtToken?.feature as string | null | undefined) ?? "";
   return feature;
 };
