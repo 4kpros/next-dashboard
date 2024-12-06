@@ -32,6 +32,9 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.7.9
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       framer-motion:
         specifier: 12.0.0-alpha.0
         version: 12.0.0-alpha.0(@emotion/is-prop-valid@1.2.2)(react-dom@19.0.0-rc-65a56d0e-20241020(react@19.0.0-rc-65a56d0e-20241020))(react@19.0.0-rc-65a56d0e-20241020)

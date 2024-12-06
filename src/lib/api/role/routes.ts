@@ -1,6 +1,7 @@
 import { RoleListRequest, RoleRequest } from "@/lib/api/role/request";
 import { RoleListResponse, RoleResponse } from "@/lib/api/role/response";
 import { DELETE, GET, POST, PUT } from "@/lib/http/http";
+import { SelectionRequest } from "../base-response";
 
 export function getRole(id: number) {
   return GET<RoleResponse, RoleRequest>(`/roles/${id}`);
@@ -27,8 +28,8 @@ export function updateRole(item: RoleRequest) {
 export function deleteRole(id: number) {
   return DELETE<RoleResponse, RoleRequest>(`/roles/${id}`);
 }
-export function deleteRoleList(itemList: number[]) {
-  return DELETE<number[], number[]>(`/roles/selection`, {
-    data: itemList,
+export function deleteMultipleRole(selection: SelectionRequest) {
+  return DELETE<number, SelectionRequest>(`/roles/multiple/delete`, {
+    data: selection,
   });
 }

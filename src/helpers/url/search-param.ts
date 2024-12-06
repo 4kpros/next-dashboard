@@ -2,6 +2,7 @@
 export const setSearchParam = (url: string, param: string, value: string) => {
   const newUrl = new URL(url);
   newUrl.searchParams.set(param, value);
+  return newUrl;
 };
 export const setMultipleSearchParam = (
   url: string,
@@ -21,6 +22,7 @@ export const setMultipleSearchParam = (
 export const deleteSearchParam = (url: string, param: string) => {
   const newUrl = new URL(url);
   newUrl.searchParams.delete(param);
+  return newUrl;
 };
 export const deleteMultipleSearchParam = (url: string, params: string[]) => {
   const newUrl = new URL(url);

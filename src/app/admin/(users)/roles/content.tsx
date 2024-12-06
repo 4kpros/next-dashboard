@@ -10,8 +10,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import FormAddUpdateRole from "./components/form-add-update-role";
 import {
+  deleteMultipleRole,
   deleteRole,
-  deleteRoleList,
   getRoleList,
   postRole,
   updateRole,
@@ -24,8 +24,11 @@ import { HttpStatusCode } from "axios";
 import { HttpMessageFromStatus } from "@/lib/http/status-message";
 import {
   deleteMultipleSearchParam,
+  deleteSearchParam,
   setMultipleSearchParam,
+  setSearchParam,
 } from "@/helpers/url/search-param";
+import { SelectionRequest } from "@/lib/api/base-response";
 
 export default function PageContent() {
   // React hooks
@@ -112,8 +115,8 @@ export default function PageContent() {
     },
   });
   const mutationDeleteMultiple = useMutation({
-    mutationFn: (roleList: number[]) => {
-      return deleteRoleList(roleList);
+    mutationFn: (selection: SelectionRequest) => {
+      return deleteMultipleRole(selection);
     },
     onSuccess(_data, _variables, _context) {
       setSelectedRowKeys([]);
@@ -156,6 +159,21 @@ export default function PageContent() {
           onAdd={() => {
             mutationAdd.reset();
             setAddRoleModalOpen(true);
+          }}
+          onSearch={(value, _e, info) => {
+            if (info?.source === "clear") {
+              return;
+            }
+            const newUrl = setSearchParam(
+              window.location.href,
+              "search",
+              value
+            );
+            router.push(newUrl.href);
+          }}
+          onClearSearch={() => {
+            const newUrl = deleteSearchParam(window.location.href, "search");
+            router.push(newUrl.href);
           }}
           onRefresh={invalidateQueries}
           onDelete={() => {
@@ -337,8 +355,7 @@ export default function PageContent() {
           const tmpSelection = selectedRowKeys.map(
             (item, _index) => item as number
           );
-          console.log(tmpSelection)
-          mutationDeleteMultiple.mutate(tmpSelection);
+          mutationDeleteMultiple.mutate({list: tmpSelection});
           setDeleteRoleModalOpen(false);
         }}
         onCancel={() => setDeleteRoleModalOpen(false)}

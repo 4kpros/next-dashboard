@@ -1,6 +1,3 @@
-import { FilterRequest } from "../filter/request";
-import { PaginationRequest } from "../pagination/request";
-
 export interface ProfileRequest {
   username?: string | null;
   firstName?: string | null;

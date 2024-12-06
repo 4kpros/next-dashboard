@@ -10,3 +10,7 @@ export interface BasePaginatedResponse {
   pagination: PaginationResponse;
   filter: FilterResponse;
 }
+
+export interface SelectionRequest {
+  list?: number[];
+}

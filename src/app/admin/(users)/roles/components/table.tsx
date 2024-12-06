@@ -2,6 +2,7 @@ import { Table, TableColumnsType } from "antd";
 import DefaultTableProps from "@/components/tables/props/default-table-props";
 import {
   defaultColumnActionProps,
+  defaultColumnDateTimeProps,
   defaultColumnProps,
 } from "@/components/tables/props/default-column-props";
 import {
@@ -69,11 +70,11 @@ export default function RolesTable(props: {
       ...defaultColumnProps,
     },
     {
-      title: "Updated at",
+      title: "Updated",
       dataIndex: "updatedAt",
       key: "updated_at",
       sortOrder: props.orderBy && props.orderBy === "updated_at" ? props.sort : null,
-      ...defaultColumnProps,
+      ...defaultColumnDateTimeProps,
     },
     {
       // Column props for actions(update, delete, ...)

@@ -6,6 +6,7 @@ import {
   SyncOutlined,
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
+import { SearchProps } from "antd/es/input";
 
 const { Search } = Input;
 
@@ -16,7 +17,7 @@ export default function DefaultTableHeader(props: {
   selectedItemsCount?: number;
   searchKeyword?: string | null;
   onAdd?: () => void;
-  onSearch?: () => void;
+  onSearch?: SearchProps["onSearch"];
   onRefresh?: () => void;
   onDelete?: () => void;
   onPrint?: () => void;
@@ -34,11 +35,12 @@ export default function DefaultTableHeader(props: {
           Add
         </Button>
         <Search
-          placeholder="input search text"
+          allowClear
+          placeholder="Input search text"
           enterButton="Search"
           size="large"
           className="max-w-[500px] flex-1"
-          onSubmit={props.onSearch}
+          onSearch={props.onSearch}
         />
         {props.searchKeyword && props.searchKeyword?.length >= 1 ? (
           <div className="flex flex-wrap items-center gap-2">

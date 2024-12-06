@@ -1,5 +1,7 @@
 import { Popconfirm, Space, Tag, Tooltip } from "antd";
 import { ColumnType } from "antd/es/table";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 // Default column props for string
 export const defaultColumnProps = {
@@ -12,6 +14,21 @@ export const defaultColumnProps = {
       {value}
     </Tooltip>
   ),
+};
+
+export const defaultColumnDateTimeProps = {
+  sorter: true,
+  ellipsis: {
+    showTitle: false,
+  },
+  render: (value: string) => {
+    dayjs.extend(relativeTime);
+    return (
+      <Tooltip placement="topLeft" title={value}>
+        {dayjs(value).fromNow()}
+      </Tooltip>
+    );
+  },
 };
 
 // Default column props for boolean
@@ -59,4 +76,3 @@ export function defaultColumnActionProps<T>(props: {
     ),
   };
 }
-
