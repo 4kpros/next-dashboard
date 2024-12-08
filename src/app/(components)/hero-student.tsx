@@ -33,24 +33,26 @@ export default function HeroStudent() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 items-center lg:gap-6">
-          <div
-            style={{
-              backgroundColor: theme.colorBgContainer,
-              borderRadius: theme.borderRadius,
-            }}
-            className="w-full h-[200px]"
-          >
+          <MotionRevealFromRight>
             <div
               style={{
-                backgroundColor: theme.colorFillContent,
+                backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
               }}
-              className="w-full h-full border"
-            ></div>
-          </div>
+              className="w-full h-[200px]"
+            >
+              <div
+                style={{
+                  backgroundColor: theme.colorFillContent,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="w-full h-full border"
+              ></div>
+            </div>
+          </MotionRevealFromRight>
 
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <MotionRevealFromLeft>
+            <MotionRevealFromRight>
               <div
                 style={{
                   backgroundColor: theme.colorBgContainer,
@@ -67,9 +69,9 @@ export default function HeroStudent() {
                   details, schedules, and important updates all in one place.
                 </p>
               </div>
-            </MotionRevealFromLeft>
+            </MotionRevealFromRight>
 
-            <MotionRevealFromLeft delay={0.25}>
+            <MotionRevealFromRight delay={0.25}>
               <div
                 style={{
                   backgroundColor: theme.colorBgContainer,
@@ -86,7 +88,7 @@ export default function HeroStudent() {
                   materials, and updates to stay ahead in your studies.
                 </p>
               </div>
-            </MotionRevealFromLeft>
+            </MotionRevealFromRight>
           </div>
 
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -128,21 +130,23 @@ export default function HeroStudent() {
               </div>
             </MotionRevealFromLeft>
           </div>
-          <div
-            style={{
-              backgroundColor: theme.colorBgContainer,
-              borderRadius: theme.borderRadius,
-            }}
-            className="w-full h-[200px]"
-          >
+          <MotionRevealFromRight>
             <div
               style={{
-                backgroundColor: theme.colorFillContent,
+                backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
               }}
-              className="w-full h-full border"
-            ></div>
-          </div>
+              className="w-full h-[200px]"
+            >
+              <div
+                style={{
+                  backgroundColor: theme.colorFillContent,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="w-full h-full border"
+              ></div>
+            </div>
+          </MotionRevealFromRight>
         </div>
       </div>
     </section>

@@ -1,13 +1,9 @@
 "use client";
 
 import { theme as antdTheme } from "antd";
-import { SearchProps } from "antd/es/input/Search";
 import { useRouter } from "next/navigation";
 
-export default function SegmentPricing(props: {
-  onSearch?: SearchProps["onSearch"];
-  onSearchAudioRequested?: () => void;
-}) {
+export default function SegmentPricing() {
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
@@ -17,8 +13,11 @@ export default function SegmentPricing(props: {
 
   return (
     <div className="w-full mt-6">
-      <div className="w-full flex flex-col items-center justify-center gap-12">
-        PRICING
+      <div className="w-full min-h-[600px] flex flex-col items-center gap-12">
+        <h1 className="w-full max-w-screen-sm text-center text-4xl font-semibold">
+          Pricing
+        </h1>
+        <p>Coming soon!</p>
       </div>
     </div>
   );

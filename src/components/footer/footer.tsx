@@ -29,7 +29,7 @@ export default function Footer() {
                 className="me-2"
                 alt="Logo"
               />
-              <span className="self-center text-xl font-medium whitespace-nowrap text-primary">
+              <span className="self-center text-xl font-bold whitespace-nowrap text-primary">
                 Digitschool
               </span>
             </Link>
