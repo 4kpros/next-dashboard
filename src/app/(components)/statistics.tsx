@@ -17,20 +17,20 @@ export default function Statistics() {
       <CustomContainer>
         <div className="w-full flex flex-wrap -m-4 text-center">
           <div className="p-4 sm:w-1/4 w-1/2">
-            <h2 className="font-medium sm:text-4xl text-3xl">+10</h2>
-            <p className="leading-relaxed text-2xl">Schools</p>
+            <h2 className="font-bold sm:text-4xl text-3xl">+10</h2>
+            <p className="leading-relaxed font-bold text-2xl">Schools</p>
           </div>
           <div className="p-4 sm:w-1/4 w-1/2">
-            <h2 className="font-medium sm:text-4xl text-3xl">+145</h2>
-            <p className="leading-relaxed text-2xl">Teachers</p>
+            <h2 className="font-bold sm:text-4xl text-3xl">+145</h2>
+            <p className="leading-relaxed font-bold text-2xl">Teachers</p>
           </div>
           <div className="p-4 sm:w-1/4 w-1/2">
-            <h2 className="font-medium sm:text-4xl text-3xl">+8k</h2>
-            <p className="leading-relaxed text-2xl">Students</p>
+            <h2 className="font-bold sm:text-4xl text-3xl">+8k</h2>
+            <p className="leading-relaxed font-bold text-2xl">Students</p>
           </div>
           <div className="p-4 sm:w-1/4 w-1/2">
-            <h2 className="font-medium sm:text-4xl text-3xl">+200</h2>
-            <p className="leading-relaxed text-2xl">Parents</p>
+            <h2 className="font-bold sm:text-4xl text-3xl">+200</h2>
+            <p className="leading-relaxed font-bold text-2xl">Parents</p>
           </div>
         </div>
       </CustomContainer>

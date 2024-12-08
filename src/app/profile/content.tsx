@@ -12,7 +12,7 @@ import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import FormUpdateProfileInfo from "./(components)/form-update-profile-info";
 import { useState } from "react";
 import { CustomContainerMd } from "@/components/container/custom-container";
-import DashboardIcon from "@/components/icons/lucide/dashboard";
+import DashboardIcon from "@/components/icons/material/dashboard";
 
 export default function PageContent() {
   // Ant design theme
@@ -63,7 +63,7 @@ export default function PageContent() {
               <Button
                 htmlType="submit"
                 onClick={action}
-                icon={<DashboardIcon width={20} height={20} />}
+                icon={<DashboardIcon/>}
               >
                 Dashboard
               </Button>

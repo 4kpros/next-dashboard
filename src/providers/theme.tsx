@@ -18,9 +18,9 @@ const CustomThemeProvider = ({
         algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
           // Colors primary
-          colorPrimary: darkMode ? "#568274" : "#568274",
-          colorPrimaryBg: darkMode ? "#56827433" : "#56827433",
-          colorPrimaryBgHover: darkMode ? "#56827450" : "#56827450",
+          colorPrimary: darkMode ? "#3c8971" : "#3c8971",
+          colorPrimaryBg: darkMode ? "#3c897133" : "#3c897133",
+          colorPrimaryBgHover: darkMode ? "#3c897150" : "#3c897150",
           // Colors container & secondary
           colorBgContainer: darkMode ? "#0b0e0d" : "#ffffff", // Card, container
           colorBgBase: darkMode ? "#181d1b" : "#fcfdfd", // Body
@@ -45,7 +45,6 @@ const CustomThemeProvider = ({
 
           // Font
           fontFamily: roboto.style.fontFamily,
-          // fontSize: 15,
         },
       }}
     >

@@ -36,6 +36,7 @@ export default function RolesTable(props: {
     selectedRows: RoleResponse[],
     nativeEvent: Event
   ) => void;
+  onDetailsRequested?: (value: RoleResponse, index: number) => void;
   onUpdateRequested?: (value: RoleResponse, index: number) => void;
   onDeleteConfirmed?: (value: RoleResponse, index: number) => void;
 }) {
@@ -80,6 +81,7 @@ export default function RolesTable(props: {
       // Column props for actions(update, delete, ...)
       ...defaultColumnActionProps({
         deleteDescription: "this role",
+        onDetailsRequested: props.onDetailsRequested,
         onUpdateRequested: props.onUpdateRequested,
         onDeleteConfirmed: props.onDeleteConfirmed,
       }),

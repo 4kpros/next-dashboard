@@ -1,7 +1,17 @@
-import { theme as antdTheme } from "antd";
+import {
+  MotionRevealFromBottom,
+  MotionRevealFromLeft,
+  MotionRevealFromRight,
+  MotionRevealFromTop,
+} from "@/components/motion/reveal";
+import { theme as antdTheme, Button } from "antd";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function HeroStudent() {
+  // React hooks
+  const router = useRouter();
+
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
@@ -9,34 +19,130 @@ export default function HeroStudent() {
   return (
     <section>
       <div className="w-full flex flex-col items-center justify-center gap-8">
-        <div className="w-full flex flex-col items-center justify-center gap-6">
-          <p
+        <div className="w-full flex flex-col items-center justify-center">
+          <MotionRevealFromTop>
+            <p
+              style={{
+                color: theme.colorPrimary,
+              }}
+              className="text-center font-bold md:text-left underline underline-offset-8"
+            >
+              Students
+            </p>
+          </MotionRevealFromTop>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 items-center lg:gap-6">
+          <div
             style={{
-              color: theme.colorPrimary,
-            }}
-            className="text-center font-bold md:text-left"
-          >
-            Students
-          </p>
-          <Image
-            style={{
+              backgroundColor: theme.colorBgContainer,
               borderRadius: theme.borderRadius,
             }}
-            src={"/images/pages/home/student.jpg"}
-            alt=""
-            width={1024}
-            height={1024}
-            className="w-full h-[300px] object-cover object-center"
-          />
-        </div>
-        <div className="w-full max-w-[720px] flex flex-col items-center justify-center">
-          <p className="leading-relaxed text-lg text-center">
-            Our student management system is designed to revolutionize the way
-            students interact with their school. With a user-friendly interface
-            and intuitive features, our platform empowers students to take
-            control of their learning journey and engage with their education in
-            a more meaningful way.
-          </p>
+            className="w-full h-[200px]"
+          >
+            <div
+              style={{
+                backgroundColor: theme.colorFillContent,
+                borderRadius: theme.borderRadius,
+              }}
+              className="w-full h-full border"
+            ></div>
+          </div>
+
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <MotionRevealFromLeft>
+              <div
+                style={{
+                  backgroundColor: theme.colorBgContainer,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+              >
+                <h2 className="text-center md:text-left text-lg font-bold">
+                  Programs
+                </h2>
+
+                <p className="opacity-75 line-clamp-5 mt-2">
+                  Manage your academic programs with ease. Access course
+                  details, schedules, and important updates all in one place.
+                </p>
+              </div>
+            </MotionRevealFromLeft>
+
+            <MotionRevealFromLeft delay={0.25}>
+              <div
+                style={{
+                  backgroundColor: theme.colorBgContainer,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+              >
+                <h2 className="text-center md:text-left text-lg font-bold">
+                  Courses
+                </h2>
+
+                <p className="opacity-75 line-clamp-5 mt-2">
+                  Keep track of your courses with ease. Access schedules,
+                  materials, and updates to stay ahead in your studies.
+                </p>
+              </div>
+            </MotionRevealFromLeft>
+          </div>
+
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <MotionRevealFromLeft>
+              <div
+                style={{
+                  backgroundColor: theme.colorBgContainer,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+              >
+                <h2 className="text-center md:text-left text-lg font-bold">
+                  Meeting & forum
+                </h2>
+
+                <p className="opacity-75 line-clamp-5 mt-2">
+                  Never miss a session and stay updated on key discussions and
+                  announcements.
+                </p>
+              </div>
+            </MotionRevealFromLeft>
+
+            <MotionRevealFromLeft delay={0.25}>
+              <div
+                style={{
+                  backgroundColor: theme.colorBgContainer,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+              >
+                <h2 className="text-center md:text-left text-lg font-bold">
+                  Exams & results
+                </h2>
+
+                <p className="opacity-75 line-clamp-5 mt-2">
+                  Follow your exam schedules and results closely. Get timely
+                  updates on scores and progress to stay on top of your studies.
+                </p>
+              </div>
+            </MotionRevealFromLeft>
+          </div>
+          <div
+            style={{
+              backgroundColor: theme.colorBgContainer,
+              borderRadius: theme.borderRadius,
+            }}
+            className="w-full h-[200px]"
+          >
+            <div
+              style={{
+                backgroundColor: theme.colorFillContent,
+                borderRadius: theme.borderRadius,
+              }}
+              className="w-full h-full border"
+            ></div>
+          </div>
         </div>
       </div>
     </section>

@@ -29,6 +29,7 @@ import {
   setSearchParam,
 } from "@/helpers/url/search-param";
 import { SelectionRequest } from "@/lib/api/base-response";
+import RoleDetails from "./components/role-details";
 
 export default function PageContent() {
   // React hooks
@@ -43,6 +44,9 @@ export default function PageContent() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   // Add role states
   const [addRoleModalOpen, setAddRoleModalOpen] = useState(false);
+  // Show role states
+  const [showRoleModalOpen, setShowRoleModalOpen] = useState(false);
+  const [roleToShow, setRoleToShow] = useState<RoleResponse | null>(null);
   // Update role states
   const [updateRoleModalOpen, setUpdateRoleModalOpen] = useState(false);
   const [canSubmitUpdate, setCanSubmitUpdate] = useState(false);
@@ -237,6 +241,10 @@ export default function PageContent() {
             _selectedRows,
             _nativeEvent
           ) => {}}
+          onDetailsRequested={(value, _index) => {
+            setRoleToShow(value);
+            setShowRoleModalOpen(true);
+          }}
           onUpdateRequested={(value, _index) => {
             setCanSubmitUpdate(false);
             setRoleToUpdate(value);
@@ -250,7 +258,9 @@ export default function PageContent() {
         <div className="w-auto mt-6">
           <Pagination
             showQuickJumper
+            responsive
             align="center"
+            disabled={query.isFetching}
             current={query.data?.data?.pagination?.currentPage ?? 1}
             pageSize={query.data?.data?.pagination?.limit ?? 20}
             total={query.data?.data?.pagination.count ?? 0}
@@ -270,6 +280,23 @@ export default function PageContent() {
           />
         </div>
       </div>
+
+
+      {/* Show role modal */}
+      <CustomModalWithoutFooter
+        title="Role details"
+        content={
+          <RoleDetails
+            role={roleToShow}
+            onClose={() => setShowRoleModalOpen(false)}
+          />
+        }
+        modalOpen={showRoleModalOpen}
+        maskClosable={true}
+        width={800}
+        onOk={() => setShowRoleModalOpen(false)}
+        onCancel={() => setShowRoleModalOpen(false)}
+      />
 
       {/* Add new role modal */}
       <CustomModalWithoutFooter
@@ -297,6 +324,34 @@ export default function PageContent() {
         onOk={() => setAddRoleModalOpen(false)}
         onCancel={() => setAddRoleModalOpen(false)}
         maskClosable={false}
+      />
+
+      {/* Add new role modal */}
+      <CustomModalWithoutFooter
+        title="Add new role"
+        content={
+          <FormAddUpdateRole
+            isLoading={mutationAdd.isPending}
+            canSubmit={true}
+            errorMessage={
+              mutationAdd.isError
+                ? HttpMessageFromStatus(
+                    (mutationAdd.error as any)?.response?.data?.status ??
+                      HttpStatusCode.InternalServerError,
+                    "role name"
+                  )
+                : undefined
+            }
+            onSubmit={(item) => {
+              mutationAdd.mutate(item);
+            }}
+            onCancel={() => setAddRoleModalOpen(false)}
+          />
+        }
+        modalOpen={addRoleModalOpen}
+        maskClosable={false}
+        onOk={() => setAddRoleModalOpen(false)}
+        onCancel={() => setAddRoleModalOpen(false)}
       />
 
       {/* Update role modal */}
@@ -338,9 +393,9 @@ export default function PageContent() {
           />
         }
         modalOpen={updateRoleModalOpen}
+        maskClosable={false}
         onOk={() => setUpdateRoleModalOpen(false)}
         onCancel={() => setUpdateRoleModalOpen(false)}
-        maskClosable={false}
       />
 
       {/* Delete role modal */}
@@ -355,7 +410,7 @@ export default function PageContent() {
           const tmpSelection = selectedRowKeys.map(
             (item, _index) => item as number
           );
-          mutationDeleteMultiple.mutate({list: tmpSelection});
+          mutationDeleteMultiple.mutate({ list: tmpSelection });
           setDeleteRoleModalOpen(false);
         }}
         onCancel={() => setDeleteRoleModalOpen(false)}

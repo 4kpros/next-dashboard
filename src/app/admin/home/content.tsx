@@ -1,11 +1,10 @@
 "use client";
 
 import { theme as antdTheme } from "antd";
-import SmallCardsStats from "./components/small-cards-stats";
+import StatisticSection from "./components/statistic-section";
 import ChartLine from "./components/chart-line";
 import ChartColumn from "./components/chart-column";
 import ChartBidirectionalBar from "./components/chart-bidirectional-bar";
-import ChartGauge from "./components/chart-gauge";
 
 export default function PageContent() {
   // Ant design theme
@@ -22,7 +21,7 @@ export default function PageContent() {
         className="w-full grid grid-cols-1 xl:grid-cols-3 gap-2"
       >
         <div className="w-full h-full flex flex-col xl:col-span-2 gap-2">
-          <SmallCardsStats />
+          <StatisticSection />
           <div
             style={{
               backgroundColor: theme.colorBgContainer,

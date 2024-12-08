@@ -1,7 +1,7 @@
+import { formatDateTimeToSince } from "@/helpers/date/format";
+import { EyeOutlined } from "@ant-design/icons";
 import { Popconfirm, Space, Tag, Tooltip } from "antd";
 import { ColumnType } from "antd/es/table";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 
 // Default column props for string
 export const defaultColumnProps = {
@@ -22,10 +22,9 @@ export const defaultColumnDateTimeProps = {
     showTitle: false,
   },
   render: (value: string) => {
-    dayjs.extend(relativeTime);
     return (
       <Tooltip placement="topLeft" title={value}>
-        {dayjs(value).fromNow()}
+        {formatDateTimeToSince(value)}
       </Tooltip>
     );
   },
@@ -44,6 +43,7 @@ export const defaultColumnBooleanProps = {
 // Default column props for user actions
 export function defaultColumnActionProps<T>(props: {
   deleteDescription?: string | null;
+  onDetailsRequested?: (value: T, index: number) => void;
   onUpdateRequested?: (value: T, index: number) => void;
   onDeleteConfirmed?: (value: T, index: number) => void;
 }): ColumnType<T> {
@@ -53,6 +53,14 @@ export function defaultColumnActionProps<T>(props: {
     sorter: false,
     render: (_, record, index) => (
       <Space size="large">
+        <a
+          className="w-auto"
+          onClick={() => {
+            props.onDetailsRequested!(record, index);
+          }}
+        >
+          <EyeOutlined />
+        </a>
         <a
           onClick={() => {
             props.onUpdateRequested!(record, index);

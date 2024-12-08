@@ -2,6 +2,7 @@ import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, theme as antdTheme } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Image from "next/image";
+import HelpIcon from "../icons/material/help";
 
 export interface FormContact {
   name: string;
@@ -22,24 +23,24 @@ export default function Contact() {
       <h1 className="w-full text-4xl text-center font-semibold">Contact us</h1>
       <div
         style={{
-          backgroundColor: theme.colorFillContent,
+          backgroundColor: theme.colorBgContainer,
           borderRadius: theme.borderRadius,
         }}
-        className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 p-6"
+        className="w-full max-w-screen-lg grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 border p-6"
       >
-        <Image
+        <div
           style={{
+            backgroundColor: theme.colorPrimaryHover,
             borderRadius: theme.borderRadius,
+            color: theme.colorTextLightSolid,
           }}
-          src={"/images/pages/home/contact.jpg"}
-          alt=""
-          width={500}
-          height={500}
-          className="w-full max-w-[500px] h-[400px] object-cover object-center"
-        />
+          className="w-full h-[400px] flex items-center justify-center background-pattern-white"
+        >
+          <HelpIcon width={200} height={200} opacity={0.75} />
+        </div>
 
         <div className="w-full flex items-center justify-center">
-          <div className="w-full max-w-[500px]">
+          <div className="w-full">
             <Form name="cf" method="post" onFinish={onFinish} layout="vertical">
               <Form.Item
                 label="Don't fill this out"

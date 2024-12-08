@@ -15,10 +15,10 @@ export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
   return (
     <div
       style={{
-        backgroundColor: theme.colorFillContent,
+        backgroundColor: theme.colorBgContainer,
         borderRadius: theme.borderRadius,
       }}
-      className="w-full p-4"
+      className="w-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
     >
       <Image
         style={{
@@ -34,7 +34,7 @@ export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
         style={{
           color: theme.colorPrimary,
         }}
-        className="tracking-widest text-xs font-medium"
+        className="tracking-widest text-sm font-medium"
       >
         {props.item.title}
       </h3>

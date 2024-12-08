@@ -30,7 +30,7 @@ export default function DefaultTableProps<T extends object>(props: {
   ) => void;
 }): TableProps<T> {
   return {
-    bordered: false,
+    bordered: true,
     showHeader: true,
     showSorterTooltip: true,
     size: "middle",

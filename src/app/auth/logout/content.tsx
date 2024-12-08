@@ -44,6 +44,16 @@ export default function PageContent() {
           Login Again
         </Button>
       </div>
+      <div className="w-full flex item-center justify-center mt-4">
+        <Button
+          htmlType="submit"
+          color="primary"
+          variant="filled"
+          onClick={() => router.push("/")}
+        >
+          Back to website
+        </Button>
+      </div>
     </CustomContainerFullHeight>
   );
 }

@@ -1,10 +1,10 @@
 import { theme as antdTheme } from "antd";
-import Hero2Card, { Hero2CardType } from "./hero-2-card";
+import HeroBenefitsCard, { HeroBenefitsCardType } from "./hero-benefits-card";
 import ManagerIcon from "@/components/icons/hugeicons/manager";
 import MessageIcon from "@/components/icons/hugeicons/message";
 import ComputerVideoCallIcon from "@/components/icons/hugeicons/computer-video-call";
 
-export default function Hero2() {
+export default function HeroBenefits() {
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
@@ -17,21 +17,21 @@ export default function Hero2() {
             style={{
               color: theme.colorPrimary,
             }}
-            className="w-auto font-semibold"
+            className="w-auto font-semibold underline underline-offset-8"
           >
             Benefits
           </p>
           <h1 className="w-full max-w-[600px] text-4xl font-semibold">
             The smart choice for your school
           </h1>
-          <p className="w-auto max-w-[400px] leading-relaxed">
+          <p className="w-auto max-w-[400px]">
             Everything you need to simplify, boost productivity and keep your
             team aligned
           </p>
         </div>
         <div className="flex flex-wrap -m-4">
           {items.map((item, index) => (
-            <Hero2Card item={item} key={index} />
+            <HeroBenefitsCard item={item} key={index} />
           ))}
         </div>
       </div>
@@ -39,7 +39,7 @@ export default function Hero2() {
   );
 }
 
-const items: Hero2CardType[] = [
+const items: HeroBenefitsCardType[] = [
   {
     icon: <ManagerIcon className="text-white" />,
     title: "Management",

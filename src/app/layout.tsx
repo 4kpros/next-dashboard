@@ -20,22 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body>
-        <AntdRegistry>
-          <CustomThemeProvider>
-            <SessionProvider>
-              <GoogleOAuthProvider
-                clientId={process.env.GOOGLE_CLIENT_ID || ""}
-              >
-                <CustomQueryClientProvider>
-                  {children}
-                </CustomQueryClientProvider>
-              </GoogleOAuthProvider>
-            </SessionProvider>
-            ;
-          </CustomThemeProvider>
-        </AntdRegistry>
+        <SessionProvider>
+          <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID || ""}>
+            <CustomQueryClientProvider>
+              <AntdRegistry>
+                <CustomThemeProvider>{children}</CustomThemeProvider>
+              </AntdRegistry>
+            </CustomQueryClientProvider>
+          </GoogleOAuthProvider>
+        </SessionProvider>
       </body>
     </html>
   );

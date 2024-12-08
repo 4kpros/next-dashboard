@@ -3,7 +3,7 @@ import { theme as antdTheme } from "antd";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-export interface Hero2CardType {
+export interface HeroBenefitsCardType {
   icon: ReactNode | null;
   title: string | null;
   subtitle: string | null;
@@ -11,7 +11,9 @@ export interface Hero2CardType {
   actionHref: string | null;
 }
 
-export default function Hero2Card(props: { item: Hero2CardType }) {
+export default function HeroBenefitsCard(props: {
+  item: HeroBenefitsCardType;
+}) {
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
@@ -20,10 +22,10 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
     <div className="p-4 md:w-1/3">
       <div
         style={{
-          backgroundColor: theme.colorFillContent,
+          backgroundColor: theme.colorBgContainer,
           borderRadius: theme.borderRadius,
         }}
-        className="flex h-full p-8 flex-col"
+        className="w-full h-full flex flex-col border hover:scale-[1.02] transition-all duration-150 ease-in-out p-8"
       >
         <div className="flex items-center mb-3">
           <div
@@ -34,7 +36,7 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
           >
             {props.item.icon ?? <InfoCircleOutlined />}
           </div>
-          <h2 className="text-lg font-medium">{props.item.title ?? "Title"}</h2>
+          <h2 className="text-lg font-bold">{props.item.title ?? "Title"}</h2>
         </div>
         <div className="flex-grow">
           <p className="leading-relaxed text-base">
@@ -47,7 +49,10 @@ export default function Hero2Card(props: { item: Hero2CardType }) {
             href={props.item.actionHref ?? ""}
             className="mt-3 inline-flex items-center"
           >
-            {props.item.actionText ?? "Action text"} <ArrowRightOutlined />
+            <span className="mr-1">
+              {props.item.actionText ?? "Action text"}
+            </span>{" "}
+            <ArrowRightOutlined />
           </Link>
         </div>
       </div>

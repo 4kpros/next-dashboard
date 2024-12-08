@@ -2,7 +2,6 @@
 
 import { Breadcrumb, Layout, Badge, Button, theme as antdTheme } from "antd";
 import {
-  MessageOutlined,
   NodeCollapseOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
@@ -15,6 +14,12 @@ import {
 } from "@/components/motion/motion-page";
 import SideMenu from "@/components/sidemenu/side-menu";
 import getAdminSideMenuItems from "@/components/sidemenu/admin-side-menu-items";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  BreadcrumbItemType,
+  BreadcrumbSeparatorType,
+} from "antd/es/breadcrumb/Breadcrumb";
+import NotificationsIcon from "@/components/icons/material/notifications";
 
 const { Header, Content } = Layout;
 
@@ -23,6 +28,10 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // React hooks
+  const router = useRouter();
+  const pathName = usePathname();
+
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
@@ -41,7 +50,13 @@ export default function DashboardLayout({
         }}
       >
         <MotionPageTransitionFromLeft>
-          <SideMenu getItems={getAdminSideMenuItems} />
+          <SideMenu
+            menuLabel="Dashboard"
+            onMenuClicked={() => {
+              // TODO
+            }}
+            getItems={getAdminSideMenuItems}
+          />
         </MotionPageTransitionFromLeft>
         <Layout
           style={{
@@ -74,22 +89,14 @@ export default function DashboardLayout({
                 >
                   Hide
                 </Button>
-                <Breadcrumb
-                  separator="/"
-                  items={[
-                    {
-                      title: "Administration",
-                      href: "/admin/home",
-                    },
-                    {
-                      title: "Users",
-                      href: "/admin/users",
-                    },
-                  ]}
-                />
+                <Breadcrumb separator="/" items={breadcrumbItems(pathName)} />
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <Button size="large" icon={<QuestionCircleOutlined />}>
+                <Button
+                  size="large"
+                  icon={<QuestionCircleOutlined />}
+                  onClick={() => router.push("/help")}
+                >
                   Help
                 </Button>
                 <Button
@@ -101,7 +108,7 @@ export default function DashboardLayout({
                       offset={[-2, 1]}
                       style={{ cursor: "pointer" }}
                     >
-                      <MessageOutlined />
+                      <NotificationsIcon />
                     </Badge>
                   }
                 />
@@ -126,3 +133,45 @@ export default function DashboardLayout({
     </MotionLayout>
   );
 }
+
+const breadcrumbItems = (pathName: string) => {
+  let list: Partial<BreadcrumbItemType & BreadcrumbSeparatorType>[] = [];
+  if (pathName.startsWith("/admin/")) {
+    list = [
+      {
+        title: "Administration",
+        href: "/admin/home",
+      },
+    ];
+  } else if (pathName.startsWith("/director/")) {
+    list = [
+      {
+        title: "School direction",
+        href: "/director/home",
+      },
+    ];
+  } else if (pathName.startsWith("/teacher/")) {
+    list = [
+      {
+        title: "Professor & Teacher",
+        href: "/teacher/home",
+      },
+    ];
+  } else if (pathName.startsWith("/student/")) {
+    list = [
+      {
+        title: "Student & Pupil",
+        href: "/student/home",
+      },
+    ];
+  } else if (pathName.startsWith("/parent/")) {
+    list = [
+      {
+        title: "Parent",
+        href: "/parent/home",
+      },
+    ];
+  }
+
+  return list;
+};

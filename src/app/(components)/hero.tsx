@@ -7,12 +7,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  // React hooks
+  const router = useRouter();
+
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
-
-  // React hooks
-  const router = useRouter();
 
   // Next hooks
   const session = useSession();
@@ -57,34 +57,21 @@ export default function Hero() {
               ? "Go to the dashboard"
               : "Register now"}
           </Button>
-          <Button size="large" onClick={() => router.push("#contact")}>
-            Contact us
+          <Button size="large" onClick={() => router.push("/help")}>
+            Getting started
           </Button>
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-4">
           <Image
             style={{
               borderRadius: theme.borderRadius,
-              borderColor: theme.colorPrimary,
-              boxShadow: "",
+              borderColor: theme.colorPrimaryBg,
             }}
             src={"/images/pages/home/hero.png"}
             alt=""
             width={1800}
             height={1800}
-            className="w-full object-fill border"
-          />
-          <Image
-            style={{
-              borderRadius: theme.borderRadius,
-              borderColor: theme.colorPrimary,
-              boxShadow: "",
-            }}
-            src={"/images/pages/home/hero-b.png"}
-            alt=""
-            width={1800}
-            height={1800}
-            className="w-full object-fill border"
+            className="w-full object-fill border-2"
           />
         </div>
       </div>
