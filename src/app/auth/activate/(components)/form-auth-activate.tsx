@@ -1,71 +1,31 @@
+import React from "react";
 import { Form, Input, Button, Alert } from "antd";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { SignInEmailRequest } from "@/lib/api/auth/request";
+import { ActivateRequest } from "@/lib/api/auth/request";
 
-export default function FormRegister(props: {
+export default function FormActivateAccount(props: {
   isLoading?: boolean;
   errorMessage?: string;
-  onSubmit?: (values: SignInEmailRequest) => void;
+  onSubmit?: (values: ActivateRequest) => void;
 }) {
   return (
-    <Form<SignInEmailRequest>
-      name="login-form"
+    <Form<ActivateRequest>
+      name="activate-form"
       layout={"vertical"}
       onFinish={props.onSubmit}
       autoComplete="on"
-      className="w-full"
+      className="w-full text-center"
     >
       <Form.Item
-        name="email"
+        name="code"
         rules={[
           {
             required: true,
-            message: "Please input your email!",
+            message: "Please input your code!",
           },
         ]}
       >
-        <Input
-          disabled={props.isLoading}
-          size="large"
-          prefix={<MailOutlined />}
-          type="email"
-          placeholder="Email"
-        />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "Please input your password!",
-          },
-        ]}
-      >
-        <Input.Password
-          disabled={props.isLoading}
-          size="large"
-          prefix={<LockOutlined />}
-          type="password"
-          placeholder="Password"
-        />
-      </Form.Item>
-      <Form.Item
-        name="confirmPassword"
-        rules={[
-          {
-            required: true,
-            message: "Please input your password!",
-          },
-        ]}
-      >
-        <Input.Password
-          disabled={props.isLoading}
-          size="large"
-          prefix={<LockOutlined />}
-          type="password"
-          placeholder="Confirm password"
-        />
+        <Input.OTP size="large" length={6}></Input.OTP>
       </Form.Item>
       <br />
       <Alert
@@ -102,7 +62,7 @@ export default function FormRegister(props: {
           htmlType="submit"
           className="w-full"
         >
-          Register
+          Activate
         </Button>
       </Form.Item>
       <div className="w-full flex justify-center items-center gap-2">

@@ -2,7 +2,7 @@
 
 import { getDashboardPath } from "@/lib/links/dashboard";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, theme as antdTheme } from "antd";
+import { Button, theme as antdTheme, message } from "antd";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -13,23 +13,55 @@ import FormUpdateProfileInfo from "./(components)/form-update-profile-info";
 import { useState } from "react";
 import { CustomContainerMd } from "@/components/container/custom-container";
 import DashboardIcon from "@/components/icons/material/dashboard";
+import { getProfile, updateProfile } from "@/lib/api/profile/routes";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ProfileRequest } from "@/lib/api/profile/request";
+import { NoticeType } from "antd/es/message/interface";
 
 export default function PageContent() {
-  // Ant design theme
-  const { useToken } = antdTheme;
-  const { token: theme } = useToken();
-
   // React hooks
   const router = useRouter();
-  const [updateInfoModalOpen, setUpdateInfoModalOpen] = useState(false);
+  // Update profile states
+  const [updateProfileModalOpen, setUpdateProfileModalOpen] = useState(false);
+  const [canSubmitUpdate, setCanSubmitUpdate] = useState(false);
+
+  // Ant design hooks
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+  const [messageApi] = message.useMessage();
+  const toastMessage = (type: NoticeType, message: string) => {
+    messageApi.open({
+      type: type,
+      content: message,
+    });
+  };
 
   // Next hooks
   const session = useSession();
 
-  const action = () => {
-    if (session.status == "authenticated") {
-      router.push(getDashboardPath(session?.data?.user?.feature ?? ""));
-    }
+  // Tanstack hooks
+  const queryClient = useQueryClient();
+  const queryKeyData = "profile-data";
+  const query = useQuery({
+    queryKey: [queryKeyData],
+    queryFn: async () => getProfile(),
+  });
+  const mutationUpdate = useMutation({
+    mutationFn: async (profile: ProfileRequest) => updateProfile(profile),
+    onSuccess(_data, _variables, _context) {
+      setCanSubmitUpdate(false);
+      invalidateQueries();
+      toastMessage("success", "Successful updated!");
+    },
+    onError(_error, _variables, _context) {
+      console.log(_error);
+      toastMessage("error", "Failed to update profile!");
+    },
+  });
+  const invalidateQueries = () => {
+    queryClient.invalidateQueries({
+      queryKey: [queryKeyData],
+    });
   };
 
   return (
@@ -47,11 +79,8 @@ export default function PageContent() {
               backgroundColor: theme.colorPrimary,
               borderTopLeftRadius: theme.borderRadius,
               borderTopRightRadius: theme.borderRadius,
-              backgroundImage:
-                "radial-gradient(#ffffff4f 1.25px, transparent 1.25px)",
-              backgroundSize: "25px 25px",
             }}
-            className="w-full"
+            className="w-full background-pattern-white-low"
           >
             <div className="w-full flex flex-wrap justify-between gap-4 p-4">
               <Button
@@ -62,8 +91,12 @@ export default function PageContent() {
               </Button>
               <Button
                 htmlType="submit"
-                onClick={action}
-                icon={<DashboardIcon/>}
+                onClick={() =>
+                  router.push(
+                    getDashboardPath(session?.data?.user?.feature ?? "")
+                  )
+                }
+                icon={<DashboardIcon />}
               >
                 Dashboard
               </Button>
@@ -71,13 +104,16 @@ export default function PageContent() {
             <div className="w-full flex flex-col items-center justify-center gap-4 my-4">
               <Image
                 style={{
-                  backgroundColor: theme.colorWhite,
+                  backgroundColor: theme.colorBgContainer,
                 }}
-                src={"/images/pages/auth/register.jpg"}
+                src={
+                  session.data?.user?.image ??
+                  "/images/common/profile-placeholder.png"
+                }
                 width={256}
                 height={256}
                 alt={""}
-                className="w-32 h-32 object-cover rounded-full ring-4 ring-gray-400"
+                className="w-32 h-32 object-cover rounded-full shadow-md"
               />
               <div
                 style={{
@@ -86,7 +122,8 @@ export default function PageContent() {
                 className="w-full flex flex-col items-center justify-center"
               >
                 <h3 className="text-2xl font-semibold leading-normal">
-                  John Doe
+                  {query.data?.data?.info?.firstName}{" "}
+                  {query.data?.data?.info?.lastName}
                 </h3>
                 <p className="text-lg leading-normal opacity-75">
                   {session.status == "loading"
@@ -105,7 +142,8 @@ export default function PageContent() {
             >
               <UserProfile
                 isLoading={false}
-                onClickEdit={() => setUpdateInfoModalOpen(true)}
+                item={query.data?.data ?? undefined}
+                onClickEdit={() => setUpdateProfileModalOpen(true)}
               />
             </div>
             <div
@@ -135,13 +173,32 @@ export default function PageContent() {
         title="Update profile"
         content={
           <FormUpdateProfileInfo
-            onSubmit={() => setUpdateInfoModalOpen(false)}
-            onCancel={() => setUpdateInfoModalOpen(false)}
+            isLoading={query.isPending}
+            canSubmit={canSubmitUpdate}
+            profile={query.data?.data ?? undefined}
+            onValuesChange={(values) => {
+              setCanSubmitUpdate(
+                !(
+                  query.data?.data?.info?.firstName === values?.firstName &&
+                  query.data?.data?.info?.lastName === values?.lastName &&
+                  query.data?.data?.info?.birthday === values?.birthday &&
+                  query.data?.data?.info?.birthLocation ===
+                    values?.birthLocation &&
+                  query.data?.data?.info?.address === values?.address &&
+                  query.data?.data?.info?.language === values?.language
+                )
+              );
+            }}
+            onSubmit={(values) => {
+              mutationUpdate.mutate(values);
+              setUpdateProfileModalOpen(false);
+            }}
+            onCancel={() => setUpdateProfileModalOpen(false)}
           />
         }
-        modalOpen={updateInfoModalOpen}
-        onOk={() => setUpdateInfoModalOpen(false)}
-        onCancel={() => setUpdateInfoModalOpen(false)}
+        modalOpen={updateProfileModalOpen}
+        onOk={() => setUpdateProfileModalOpen(false)}
+        onCancel={() => setUpdateProfileModalOpen(false)}
         maskClosable={false}
       />
     </>

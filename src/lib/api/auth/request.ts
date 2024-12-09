@@ -18,16 +18,18 @@ export interface SignInProviderRequest {
 export interface SignUpEmailRequest {
   email: string;
   password: string;
+  confirmPassword?: string;
 }
 export interface SignUpPhoneNumberRequest {
   phoneNumber: number;
   password: string;
+  confirmPassword?: string;
 }
 
 // Activate
 export interface ActivateRequest {
   code: number;
-  token: string;
+  token?: string;
 }
 
 // Forgot
@@ -39,10 +41,12 @@ export interface ForgotInitPhoneNumberRequest {
 }
 export interface ForgotCodeRequest {
   code: number;
+  token?: string;
 }
 export interface ForgotNewPasswordRequest {
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
+  token?: string;
 }
 
 // Logout

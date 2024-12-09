@@ -1,16 +1,18 @@
 import { DELETE, GET, PUT } from "@/lib/http/http";
-import { ProfileLoggedResponse, ProfileResponse } from "./response";
+import { ProfileResponse } from "./response";
 import { ProfileRequest } from "./request";
 
-export function getProfile() {
-  return GET<ProfileResponse, undefined>(`/profile`);
+export async function getProfileServer(token?: string) {
+  return GET<ProfileResponse, null>(`/profile`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 }
-export function getProfileLogged() {
-  return GET<ProfileLoggedResponse, undefined>(`/profile/logged`);
+export async function getProfile() {
+  return GET<ProfileResponse, null>(`/profile`);
 }
-export function updateProfile(item: ProfileRequest) {
-  return PUT<ProfileResponse, ProfileRequest>(`/profile`);
+export async function updateProfile(item: ProfileRequest) {
+  return PUT<ProfileResponse, ProfileRequest>(`/profile/info`, item);
 }
-export function deleteProfile() {
-  return DELETE<ProfileResponse, undefined>(`/profile`);
+export async function deleteProfile() {
+  return DELETE<ProfileResponse, null>(`/profile`);
 }

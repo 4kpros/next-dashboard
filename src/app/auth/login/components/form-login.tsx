@@ -6,22 +6,13 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useGoogleLogin } from "@react-oauth/google";
+import { SignInEmailRequest } from "@/lib/api/auth/request";
 
-interface FormLoginType {
-  email: string;
-  password: string;
-  remember: boolean;
-}
-
-export { type FormLoginType };
 export default function FormLogin(props: {
-  onSubmitCredentials?: (formData: FormLoginType) => void;
+  onSubmitCredentials?: (values: SignInEmailRequest) => void;
   onSubmitGoogle?: () => void;
   isLoading: boolean;
 }) {
-  const signInWithCredentials = async (formData: FormLoginType) => {
-    props.onSubmitCredentials!(formData);
-  };
   const googleLogin = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async () => {
@@ -30,24 +21,26 @@ export default function FormLogin(props: {
   });
 
   return (
-    <Form
+    <Form<SignInEmailRequest>
       name="login-form"
-      className="w-full"
+      layout={"vertical"}
       initialValues={{
-        remember: true,
+        stayConnected: true,
       }}
-      onFinish={signInWithCredentials}
+      onFinish={props.onSubmitCredentials}
+      autoComplete="on"
+      className="w-full"
     >
       <Form.Item
         name="email"
         rules={[
           {
             type: "email",
-            message: "The input is not valid Email!",
+            message: "The input is not valid email!",
           },
           {
             required: true,
-            message: "Please input your Email!",
+            message: "Please input your email!",
           },
         ]}
       >
@@ -64,11 +57,11 @@ export default function FormLogin(props: {
         rules={[
           {
             required: true,
-            message: "Please input your Password!",
+            message: "Please input your password!",
           },
         ]}
       >
-        <Input
+        <Input.Password
           disabled={props.isLoading}
           size="large"
           prefix={<LockOutlined />}
@@ -77,7 +70,7 @@ export default function FormLogin(props: {
         />
       </Form.Item>
       <div className="w-full flex flex-wrap gap-2 justify-between">
-        <Form.Item name="remember" valuePropName="checked">
+        <Form.Item name="stayConnected" valuePropName="checked">
           <Checkbox disabled={props.isLoading}>Remember me</Checkbox>
         </Form.Item>
 

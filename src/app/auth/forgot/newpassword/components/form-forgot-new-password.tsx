@@ -1,23 +1,20 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { ForgotNewPasswordRequest } from "@/lib/api/auth/request";
 
-interface FormForgotNewPasswordType {
-  password: string;
-  confirmPassword: string;
-}
-
-export default function FormForgotNewPassword() {
-  const onFinish = (values: FormForgotNewPasswordType) => {
-    console.log("Received values of form: ", values);
-  };
-
+export default function FormForgotNewPassword(props: {
+  isLoading?: boolean;
+  errorMessage?: string;
+  onSubmit?: (values: ForgotNewPasswordRequest) => void;
+}) {
   return (
-    <Form
-      name="login-form"
-      className="w-full"
-      initialValues={{}}
-      onFinish={onFinish}
+    <Form<ForgotNewPasswordRequest>
+      name="forgot-newpassword-form"
+      layout={"vertical"}
+      onFinish={props.onSubmit}
+      autoComplete="on"
+      className="w-full text-center"
     >
       <Form.Item
         name="password"
@@ -28,7 +25,7 @@ export default function FormForgotNewPassword() {
           },
         ]}
       >
-        <Input
+        <Input.Password
           size="large"
           prefix={<LockOutlined />}
           type="password"
@@ -44,21 +41,49 @@ export default function FormForgotNewPassword() {
           },
         ]}
       >
-        <Input
+        <Input.Password
           size="large"
           prefix={<LockOutlined />}
           type="password"
           placeholder="Confirm new password"
         />
       </Form.Item>
+      <br />
+      <Alert
+        showIcon={false}
+        style={{
+          height:
+            props.errorMessage && props.errorMessage.length > 0
+              ? "auto"
+              : "0px",
+          padding:
+            props.errorMessage && props.errorMessage.length > 0
+              ? "8px 12px"
+              : "0px",
+          borderWidth:
+            props.errorMessage && props.errorMessage.length > 0 ? "1px" : "0px",
+          marginBottom:
+            props.errorMessage && props.errorMessage.length > 0
+              ? "10px"
+              : "0px",
+        }}
+        message={
+          props.errorMessage && props.errorMessage.length > 0
+            ? props.errorMessage
+            : undefined
+        }
+        type="error"
+        className="transition-all duration-150 ease-in-out"
+      />
       <Form.Item>
         <Button
+          loading={props.isLoading}
           size="large"
           type="primary"
           htmlType="submit"
           className="w-full"
         >
-          Save
+          Validate
         </Button>
       </Form.Item>
       <div className="w-full flex justify-center items-center gap-2">

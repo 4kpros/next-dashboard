@@ -1,7 +1,10 @@
+import { formatDateTime } from "@/helpers/date/format";
+import { ProfileResponse } from "@/lib/api/profile/response";
 import { EditOutlined } from "@ant-design/icons";
 import { theme as antdTheme, Button } from "antd";
 
 export default function UserProfile(props: {
+  item?: ProfileResponse;
   isLoading?: boolean;
   onClickEdit?: () => void;
 }) {
@@ -37,38 +40,41 @@ export default function UserProfile(props: {
       <div className="px-4 py-5 sm:p-0">
         <dl className="">
           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
-            <dt className="text-sm font-medium  opacity-75">Full name</dt>
-            <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">John Doe</dd>
-          </div>
-          <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
-            <dt className="text-sm font-medium  opacity-75">Email address</dt>
+            <dt className="text-sm font-medium  opacity-75">Email</dt>
             <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
-              johndoe@example.com
+              {props.item?.email}
             </dd>
           </div>
           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
             <dt className="text-sm font-medium  opacity-75">Phone number</dt>
             <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
-              (123) 456-7890
+              {props.item?.phoneNumber}
+            </dd>
+          </div>
+          <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
+            <dt className="text-sm font-medium  opacity-75">Full name</dt>
+            <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
+              {props.item?.info?.firstName} {props.item?.info?.lastName}
             </dd>
           </div>
           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
             <dt className="text-sm font-medium  opacity-75">Address</dt>
             <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
-              123 Main St
-              <br />
-              Anytown, USA 12345
+              {props.item?.info?.address}
             </dd>
           </div>
           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
             <dt className="text-sm font-medium  opacity-75">Birth</dt>
             <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
-              15-10-2002 at Cameroon
+              {props.item?.info?.birthday ? formatDateTime(props.item?.info?.birthday?.toString()) : ""}{" "}
+              {props.item?.info?.birthLocation}
             </dd>
           </div>
           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border-t">
             <dt className="text-sm font-medium  opacity-75">Language</dt>
-            <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">English</dd>
+            <dd className="mt-1 text-sm sm:mt-0 sm:col-span-2">
+              {props.item?.info?.language}
+            </dd>
           </div>
         </dl>
       </div>

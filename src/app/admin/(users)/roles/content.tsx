@@ -55,7 +55,7 @@ export default function PageContent() {
   const [deleteRoleModalOpen, setDeleteRoleModalOpen] = useState(false);
 
   // Ant design hooks
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi] = message.useMessage();
   const toastMessage = (type: NoticeType, message: string) => {
     messageApi.open({
       type: type,
@@ -85,9 +85,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: (role: RoleRequest) => {
-      return postRole(role);
-    },
+    mutationFn: async (role: RoleRequest) => postRole(role),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddRoleModalOpen(false);
@@ -95,9 +93,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: (role: RoleRequest) => {
-      return updateRole(role);
-    },
+    mutationFn: async (role: RoleRequest) => updateRole(role),
     onSuccess(_data, _variables, _context) {
       setRoleToUpdate(null);
       setCanSubmitUpdate(false);
@@ -107,9 +103,7 @@ export default function PageContent() {
     },
   });
   const mutationDelete = useMutation({
-    mutationFn: (roleID: number) => {
-      return deleteRole(roleID);
-    },
+    mutationFn: async (roleID: number) => deleteRole(roleID),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       toastMessage("success", "Successful deleted role!");
@@ -119,9 +113,8 @@ export default function PageContent() {
     },
   });
   const mutationDeleteMultiple = useMutation({
-    mutationFn: (selection: SelectionRequest) => {
-      return deleteMultipleRole(selection);
-    },
+    mutationFn: async (selection: SelectionRequest) =>
+      deleteMultipleRole(selection),
     onSuccess(_data, _variables, _context) {
       setSelectedRowKeys([]);
       invalidateQueries();
@@ -147,7 +140,6 @@ export default function PageContent() {
 
   return (
     <>
-      {contextHolder}
       <div
         style={{
           padding: "15px",
@@ -281,7 +273,6 @@ export default function PageContent() {
         </div>
       </div>
 
-
       {/* Show role modal */}
       <CustomModalWithoutFooter
         title="Role details"
@@ -324,34 +315,6 @@ export default function PageContent() {
         onOk={() => setAddRoleModalOpen(false)}
         onCancel={() => setAddRoleModalOpen(false)}
         maskClosable={false}
-      />
-
-      {/* Add new role modal */}
-      <CustomModalWithoutFooter
-        title="Add new role"
-        content={
-          <FormAddUpdateRole
-            isLoading={mutationAdd.isPending}
-            canSubmit={true}
-            errorMessage={
-              mutationAdd.isError
-                ? HttpMessageFromStatus(
-                    (mutationAdd.error as any)?.response?.data?.status ??
-                      HttpStatusCode.InternalServerError,
-                    "role name"
-                  )
-                : undefined
-            }
-            onSubmit={(item) => {
-              mutationAdd.mutate(item);
-            }}
-            onCancel={() => setAddRoleModalOpen(false)}
-          />
-        }
-        modalOpen={addRoleModalOpen}
-        maskClosable={false}
-        onOk={() => setAddRoleModalOpen(false)}
-        onCancel={() => setAddRoleModalOpen(false)}
       />
 
       {/* Update role modal */}

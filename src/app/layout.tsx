@@ -8,6 +8,7 @@ import "../styles/modal.scss";
 import CustomQueryClientProvider from "@/providers/tanstack";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { SessionProvider } from "next-auth/react";
+import ToastMessageContext from "@/providers/toast-message";
 
 export const metadata: Metadata = {
   title: "Digitschool",
@@ -26,7 +27,9 @@ export default function RootLayout({
           <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID || ""}>
             <CustomQueryClientProvider>
               <AntdRegistry>
-                <CustomThemeProvider>{children}</CustomThemeProvider>
+                <CustomThemeProvider>
+                  <ToastMessageContext>{children}</ToastMessageContext>
+                </CustomThemeProvider>
               </AntdRegistry>
             </CustomQueryClientProvider>
           </GoogleOAuthProvider>

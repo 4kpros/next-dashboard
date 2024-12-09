@@ -34,12 +34,6 @@ export default auth(async (req: NextRequest) => {
     if (accessToken) {
       newHeaders.set("Authorization", `Bearer ${accessToken}`);
     }
-    const newUrl = `${process.env.API_BASE_URL}${pathname.substring(
-      ROUTE_API_BASE_URL_INTERNAL.length
-    )}`;
-    console.log("AAAAAAAAAAAAAAAAAAA");
-    console.log(newUrl);
-    console.log("ZZZZZZZZZZZZZZZZZZZ");
     return NextResponse.rewrite(req.nextUrl, {
       request: {
         headers: newHeaders,
@@ -60,37 +54,37 @@ export default auth(async (req: NextRequest) => {
 
     // Check permission feature
     const feature = getRoleFeature(jwt);
-    const invalidUrl = new URL(
+    const invalidPermissionUrl = new URL(
       ROUTE_INVALID_FEATURE_PERMISSION,
       process.env.WEBSITE_URL
     );
     if (ROUTE_PROTECTED_ADMIN.some((path) => pathname.startsWith(path))) {
       if (feature != FEATURE_ADMIN) {
-        return NextResponse.redirect(invalidUrl);
+        return NextResponse.redirect(invalidPermissionUrl);
       }
     } else if (
       ROUTE_PROTECTED_DIRECTOR.some((path) => pathname.startsWith(path))
     ) {
       if (feature != FEATURE_DIRECTOR) {
-        return NextResponse.redirect(invalidUrl);
+        return NextResponse.redirect(invalidPermissionUrl);
       }
     } else if (
       ROUTE_PROTECTED_TEACHER.some((path) => pathname.startsWith(path))
     ) {
       if (feature != FEATURE_TEACHER) {
-        return NextResponse.redirect(invalidUrl);
+        return NextResponse.redirect(invalidPermissionUrl);
       }
     } else if (
       ROUTE_PROTECTED_STUDENT.some((path) => pathname.startsWith(path))
     ) {
       if (feature != FEATURE_STUDENT) {
-        return NextResponse.redirect(invalidUrl);
+        return NextResponse.redirect(invalidPermissionUrl);
       }
     } else if (
       ROUTE_PROTECTED_PARENT.some((path) => pathname.startsWith(path))
     ) {
       if (feature != FEATURE_PARENT) {
-        return NextResponse.redirect(invalidUrl);
+        return NextResponse.redirect(invalidPermissionUrl);
       }
     }
   }

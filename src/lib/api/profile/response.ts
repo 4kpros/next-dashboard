@@ -1,23 +1,30 @@
+import { RoleResponse } from '@/lib/api/role/response';
 import { BaseResponse } from "../base-response";
 
 export interface ProfileResponse extends BaseResponse {
-  username?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  birthday?: Date | null;
-  birthLocation?: string | null;
-  address?: string | null;
-  language?: string | null;
-  image?: string | null;
-}
+  email?: string | null;
+  phoneNumber?: number | null;
 
-export interface ProfileLoggedResponse {
   loginMethod?: string | null;
   provider?: string | null;
-  role?: string | null;
-  feature?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  username?: string | null;
-  image?: string | null;
+  providerUserID?: string | null;
+  isActivated?: boolean | null;
+  activatedAt?: Date | null;
+
+  role?: RoleResponse;
+  info?: {
+    username?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    birthday?: Date | null;
+    birthLocation?: string | null;
+    address?: string | null;
+    language?: string | null;
+    image?: string | null;
+  };
+  mfa?: {
+    email?: boolean | null;
+    phoneNumber?: boolean | null;
+    authenticator?: boolean | null;
+  };
 }

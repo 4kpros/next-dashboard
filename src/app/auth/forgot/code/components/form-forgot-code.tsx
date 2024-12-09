@@ -1,22 +1,20 @@
-import { Form, Input, Button } from "antd";
-import { LockOutlined } from "@ant-design/icons";
+import React from "react";
+import { Form, Input, Button, Alert } from "antd";
 import Link from "next/link";
+import { ForgotCodeRequest } from "@/lib/api/auth/request";
 
-export interface FormForgotCodeType {
-  code: number;
-}
-
-export default function FormForgotCode() {
-  const onFinish = (values: FormForgotCodeType) => {
-    console.log("Received values of form: ", values);
-  };
-
+export default function FormForgotCode(props: {
+  isLoading?: boolean;
+  errorMessage?: string;
+  onSubmit?: (values: ForgotCodeRequest) => void;
+}) {
   return (
-    <Form
-      name="login-form"
-      className="w-full"
-      initialValues={{}}
-      onFinish={onFinish}
+    <Form<ForgotCodeRequest>
+      name="forgot-code-form"
+      layout={"vertical"}
+      onFinish={props.onSubmit}
+      autoComplete="on"
+      className="w-full text-center"
     >
       <Form.Item
         name="code"
@@ -27,21 +25,44 @@ export default function FormForgotCode() {
           },
         ]}
       >
-        <Input
-          size="large"
-          prefix={<LockOutlined />}
-          type="number"
-          placeholder="Code"
-        />
+        <Input.OTP size="large" length={6}></Input.OTP>
       </Form.Item>
+      <br />
+      <Alert
+        showIcon={false}
+        style={{
+          height:
+            props.errorMessage && props.errorMessage.length > 0
+              ? "auto"
+              : "0px",
+          padding:
+            props.errorMessage && props.errorMessage.length > 0
+              ? "8px 12px"
+              : "0px",
+          borderWidth:
+            props.errorMessage && props.errorMessage.length > 0 ? "1px" : "0px",
+          marginBottom:
+            props.errorMessage && props.errorMessage.length > 0
+              ? "10px"
+              : "0px",
+        }}
+        message={
+          props.errorMessage && props.errorMessage.length > 0
+            ? props.errorMessage
+            : undefined
+        }
+        type="error"
+        className="transition-all duration-150 ease-in-out"
+      />
       <Form.Item>
         <Button
+          loading={props.isLoading}
           size="large"
           type="primary"
           htmlType="submit"
           className="w-full"
         >
-          Check
+          Validate
         </Button>
       </Form.Item>
       <div className="w-full flex justify-center items-center gap-2">

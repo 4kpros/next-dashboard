@@ -1,10 +1,10 @@
+import { hashPassword } from "@/helpers/security/hash";
 import {
-  SignInEmailRequest,
-  SignInProviderRequest,
-} from "@/lib/api/auth/request";
-import { SignInResponse } from "@/lib/api/auth/response";
-import { ProfileLoggedResponse } from "@/lib/api/profile/response";
-import { GET, POST } from "@/lib/http/http";
+  signInWithCredentialsEmail,
+  signInWithProvider,
+} from "@/lib/api/auth/routes";
+import { getProfileServer } from "@/lib/api/profile/routes";
+import { HttpStatusCode } from "axios";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Facebook from "next-auth/providers/facebook";
@@ -53,14 +53,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // Sign in to the backend
         var resData = null;
         try {
-          resData = await signInWithCredentials(
-            "email",
-            (credentials?.email as string | null) ?? "",
-            pwHash
-            // (credentials?.stayConnected as boolean | null) ?? false
-          );
+          resData = await signInWithCredentialsEmail({
+            email: (credentials?.email as string | null) ?? "",
+            password: pwHash,
+            // stayConnected:
+            //   (credentials?.stayConnected as boolean | null) ?? false,
+          });
+          return {
+            ...resData?.data,
+          };
         } catch (error: any) {
-          throw new Error(`Invalid credentials`);
+          return {
+            ...{
+              code: error?.code,
+              error: "my custom error",
+              ok: false,
+              status: error?.status,
+              response: error?.response,
+            },
+          };
         }
 
         return {
@@ -85,6 +96,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account?.type === "credentials") {
+        const resData = user as any;
+        const activateToken = resData?.activateAccountToken as string | null;
+        const accessToken = resData?.accessToken as string | null;
+        if ((accessToken ?? "").length < 1) {
+          if ((activateToken ?? "").length > 0) {
+            return `/auth/activate?token=${activateToken}`;
+          } else {
+            return false;
+          }
+        }
+      }
+      return true;
+    },
     async jwt({ token, user, account }) {
       if (account) {
         let newToken = user?.accessToken ?? "";
@@ -105,22 +131,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error(`No access token provided!`);
 
         try {
-          const respData = await getProfileLogged(newToken);
-          const usernameTrunc = (respData?.data?.username ?? "").substring(
-            0,
-            2
-          );
+          const respData = await getProfileServer(newToken);
+          const usernameTrunc = (
+            respData?.data?.info?.username ?? ""
+          ).substring(0, 2);
           const fullNameTrunc =
-            (respData?.data?.lastName ?? "").substring(0, 1) +
+            (respData?.data?.info?.firstName ?? "").substring(0, 1) +
             "" +
-            (respData?.data?.firstName ?? "").substring(0, 1);
+            (respData?.data?.info?.lastName ?? "").substring(0, 1);
           token.loginMethod = respData?.data?.loginMethod;
           token.provider = respData?.data?.provider;
-          token.role = respData?.data?.role;
-          token.feature = respData?.data?.feature;
+          token.role = respData?.data?.role?.name;
+          token.feature = respData?.data?.role?.feature;
           token.nameTrunc =
             usernameTrunc.length >= 2 ? usernameTrunc : fullNameTrunc;
-          token.image = respData?.data?.image;
+          token.image = respData?.data?.info?.image;
         } catch (error) {
           throw new Error(`Error when getting profile information!`);
         }
@@ -151,36 +176,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   debug: false,
 });
-
-const hashPassword = async (password: string): Promise<string> => {
-  const newPassword = password;
-  return newPassword;
-};
-
-const signInWithProvider = async (provider: string, token: string) => {
-  return POST<SignInResponse, SignInProviderRequest>("/auth/login/provider", {
-    provider: provider,
-    token: token,
-  });
-};
-
-const getProfileLogged = async (token: string) => {
-  return GET<ProfileLoggedResponse, {}>("/profile/logged", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-const signInWithCredentials = async (
-  type: "email" | "phone",
-  email: string,
-  password: string,
-  stayConnected?: boolean
-) => {
-  return POST<SignInResponse, SignInEmailRequest>("/auth/login/" + type, {
-    email: email,
-    password: password,
-    stayConnected: stayConnected,
-  });
-};

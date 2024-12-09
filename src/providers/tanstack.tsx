@@ -26,8 +26,12 @@ function makeQueryClient(messageApi: MessageInstance) {
       onError: (_error, _query) => {
         messageApi.open({
           type: "error",
-          content: "Failed to fetch data! Please check your connection and try again.",
+          content:
+            "Failed to fetch data! Please check your connection and try again.",
         });
+      },
+      onSuccess(data, query) {
+        console.log(data);
       },
     }),
   });
@@ -67,28 +71,3 @@ export default function CustomQueryClientProvider({
     </>
   );
 }
-
-// "use client";
-
-// import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-// import { useState } from "react";
-
-// export default function CustomQueryClientProvider({
-//   children,
-// }: Readonly<{ children: React.ReactNode }>) {
-//   const [client] = useState(
-//     new QueryClient({
-//       defaultOptions: {
-//         queries: {
-//           refetchOnWindowFocus: false,
-//           refetchOnMount: true,
-//           refetchOnReconnect: true,
-//           retry: 1,
-//           staleTime: 5 * 1000,
-//         },
-//       },
-//     })
-//   );
-
-//   return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
-// }

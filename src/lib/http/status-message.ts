@@ -3,6 +3,9 @@ import { HttpStatusCode } from "axios";
 const HttpStatusFoundMessage = (model?: string) =>
   `This ${model} already exists! Please enter valid information.`;
 
+const HttpStatusBadRequestMessage = () =>
+  `Invalid inputs! Please enter valid information.`;
+
 const HttpStatusBadNetworkMessage = () =>
   `Network connection bad! Please check your internet connection and retry again.`;
 const HttpStatusInternalServerErrorMessage = () =>
@@ -16,7 +19,14 @@ export function HttpMessageFromStatus(
   switch (status) {
     case HttpStatusCode.Found:
       message = HttpStatusFoundMessage(details);
+      break;
 
+    case HttpStatusCode.BadRequest:
+      message = HttpStatusBadRequestMessage();
+      break;
+
+    case HttpStatusCode.UnprocessableEntity:
+      message = HttpStatusBadRequestMessage();
       break;
 
     default:

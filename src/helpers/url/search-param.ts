@@ -1,3 +1,9 @@
+// get
+export const getSearchParam = (url: string, param: string) => {
+  const newUrl = new URL(url);
+  return newUrl.searchParams.get(param);
+};
+
 // Set
 export const setSearchParam = (url: string, param: string, value: string) => {
   const newUrl = new URL(url);
