@@ -53,7 +53,7 @@ export default function PageContent() {
             style={{
               borderRadius: theme.borderRadius,
               backgroundColor: theme.colorBgContainer,
-              boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px"
+              boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
             }}
             className="w-full border my-2 px-6"
           >
@@ -61,15 +61,17 @@ export default function PageContent() {
           </div>
         </CustomContainerXl>
       </div>
-      <div className="w-full min-h-screen flex flex-col gap-40">
+      <div className="w-full min-h-screen flex flex-col gap-16">
         <CustomContainerXl>
           <Hero />
         </CustomContainerXl>
         <CustomContainer>
           <div className="w-full flex flex-col gap-16">
-            <MotionRevealFromBottom>
-              <HeroBenefits />
-            </MotionRevealFromBottom>
+            <div className="pt-24">
+              <MotionRevealFromBottom>
+                <HeroBenefits />
+              </MotionRevealFromBottom>
+            </div>
             <div id="directors" className="pt-24">
               <HeroDirector />
             </div>
@@ -78,10 +80,12 @@ export default function PageContent() {
             </div>
           </div>
         </CustomContainer>
-        <Statistics />
+        <div className="pt-24">
+          <Statistics />
+        </div>
         <CustomContainer>
           <div className="w-full flex flex-col gap-16">
-            <div id="students" className="">
+            <div id="students" className="pt-24">
               <HeroStudent />
             </div>
             <div id="parents" className="pt-24">

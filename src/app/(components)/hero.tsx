@@ -65,14 +65,14 @@ export default function Hero() {
           <Image
             style={{
               borderRadius: theme.borderRadius,
-              borderColor: theme.colorPrimaryBg,
+              // borderColor: theme.colorPrimaryBg,
               boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
             }}
             src={"/images/pages/home/hero.png"}
             alt=""
             width={1800}
             height={1800}
-            className="w-full object-fill border-2"
+            className="w-full object-fill"
           />
         </div>
       </div>

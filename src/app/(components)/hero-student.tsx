@@ -1,17 +1,12 @@
 import {
-  MotionRevealFromBottom,
   MotionRevealFromLeft,
   MotionRevealFromRight,
   MotionRevealFromTop,
 } from "@/components/motion/reveal";
-import { theme as antdTheme, Button } from "antd";
-import Image from "next/image";
+import { theme as antdTheme } from "antd";
 import { useRouter } from "next/navigation";
 
 export default function HeroStudent() {
-  // React hooks
-  const router = useRouter();
-
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
@@ -41,15 +36,7 @@ export default function HeroStudent() {
                 boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
               }}
               className="w-full h-[200px] border"
-            >
-              <div
-                style={{
-                  backgroundColor: theme.colorFillContent,
-                  borderRadius: theme.borderRadius,
-                }}
-                className="w-full h-full"
-              ></div>
-            </div>
+            ></div>
           </MotionRevealFromRight>
 
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -143,15 +130,7 @@ export default function HeroStudent() {
                 boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
               }}
               className="w-full h-[200px] border"
-            >
-              <div
-                style={{
-                  backgroundColor: theme.colorFillContent,
-                  borderRadius: theme.borderRadius,
-                }}
-                className="w-full h-full border"
-              ></div>
-            </div>
+            ></div>
           </MotionRevealFromRight>
         </div>
       </div>
