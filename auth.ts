@@ -144,7 +144,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.role = respData?.data?.role?.name;
           token.feature = respData?.data?.role?.feature;
           token.nameTrunc =
-            usernameTrunc.length >= 2 ? usernameTrunc : fullNameTrunc;
+            fullNameTrunc.length >= 2 ? fullNameTrunc : usernameTrunc;
           token.image = respData?.data?.info?.image;
         } catch (error) {
           throw new Error(`Error when getting profile information!`);

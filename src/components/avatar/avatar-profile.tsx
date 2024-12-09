@@ -37,7 +37,7 @@ export default function AvatarProfile() {
   return (
     <>
       {session.status === "loading" ? (
-        <Avatar size={"large"} className="opacity-0">
+        <Avatar size={"large"} className="opacity-50">
           <span className="font-medium text-base">...</span>
         </Avatar>
       ) : (
@@ -77,10 +77,10 @@ export default function AvatarProfile() {
         >
           <Avatar
             size={"large"}
+            src={session.data?.user?.image}
             style={{
               cursor: "pointer",
               backgroundColor: theme.colorPrimary,
-              backgroundImage: session.data?.user?.image ?? "",
             }}
           >
             <span className="font-medium text-base">

@@ -156,7 +156,7 @@ export default function HeroParent() {
                     alt=""
                     width={500}
                     height={500}
-                    className="w-full object-contain object-center"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
               </div>

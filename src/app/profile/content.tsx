@@ -108,7 +108,7 @@ export default function PageContent() {
                 }}
                 src={
                   session.data?.user?.image ??
-                  "/images/common/profile-placeholder.png"
+                  "/images/common/avatar.png"
                 }
                 width={256}
                 height={256}
@@ -141,7 +141,7 @@ export default function PageContent() {
               className="w-full h-full flex flex-col border"
             >
               <UserProfile
-                isLoading={false}
+                isLoading={query.isFetching}
                 item={query.data?.data ?? undefined}
                 onClickEdit={() => setUpdateProfileModalOpen(true)}
               />
@@ -153,7 +153,7 @@ export default function PageContent() {
               className="w-full h-full flex flex-col border"
             >
               <UserSettings
-                isLoading={false}
+                isLoading={query.isFetching}
                 isNotificationsEnabled={false}
                 is2FAEnabled={false}
                 onToggleNotifications={(isChecked) => {
