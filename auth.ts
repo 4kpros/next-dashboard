@@ -132,19 +132,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         try {
           const respData = await getProfileServer(newToken);
-          const usernameTrunc = (
-            respData?.data?.info?.username ?? ""
-          ).substring(0, 2);
+
+          const userName: string = respData?.data?.info?.username ?? "";
+          const firstName: String = respData?.data?.info?.firstName ?? "";
+          const lastName: string = respData?.data?.info?.lastName ?? "";
+
+          const usernameTrunc = userName.substring(0, 2);
           const fullNameTrunc =
-            (respData?.data?.info?.firstName ?? "").substring(0, 1) +
-            "" +
-            (respData?.data?.info?.lastName ?? "").substring(0, 1);
+            firstName.substring(0, 1) + "" + lastName.substring(0, 1);
+
           token.loginMethod = respData?.data?.loginMethod;
           token.provider = respData?.data?.provider;
           token.role = respData?.data?.role?.name;
           token.feature = respData?.data?.role?.feature;
           token.nameTrunc =
-            fullNameTrunc.length >= 2 ? fullNameTrunc : usernameTrunc;
+            fullNameTrunc.length > 1 ? fullNameTrunc : usernameTrunc;
+          token.firstName = firstName.length > 0 ? firstName : usernameTrunc;
           token.image = respData?.data?.info?.image;
         } catch (error) {
           throw new Error(`Error when getting profile information!`);
@@ -170,6 +173,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.role = token.role as string | null | undefined;
       session.user.feature = token.feature as string | null | undefined;
       session.user.nameTrunc = token.nameTrunc as string | null | undefined;
+      session.user.firstName = token.firstName as string | null | undefined;
       session.user.image = token.image as string | null | undefined;
       return session;
     },

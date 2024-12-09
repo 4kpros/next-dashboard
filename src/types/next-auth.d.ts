@@ -12,12 +12,14 @@ declare module "next-auth" {
       role?: string | null;
       feature?: string | null;
       nameTrunc?: string | null;
+      firstName?: string | null;
       image?: string | null;
     };
     token: {
       role?: string | null;
       feature?: string | null;
       nameTrunc?: string | null;
+      firstName?: string | null;
       image?: string | null;
     };
   }
