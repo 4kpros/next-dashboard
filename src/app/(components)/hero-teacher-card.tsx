@@ -17,6 +17,7 @@ export default function HeroTeacherCard(props: { item: HeroTeacherCardType }) {
       style={{
         backgroundColor: theme.colorBgContainer,
         borderRadius: theme.borderRadius,
+        boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
       }}
       className="w-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
     >

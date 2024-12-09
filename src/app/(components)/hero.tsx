@@ -57,7 +57,7 @@ export default function Hero() {
               ? "Go to the dashboard"
               : "Register now"}
           </Button>
-          <Button size="large" onClick={() => router.push("/help")}>
+          <Button size="large" onClick={() => router.push("/common/help")}>
             Getting started
           </Button>
         </div>
@@ -66,6 +66,7 @@ export default function Hero() {
             style={{
               borderRadius: theme.borderRadius,
               borderColor: theme.colorPrimaryBg,
+              boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
             }}
             src={"/images/pages/home/hero.png"}
             alt=""

@@ -53,8 +53,9 @@ export default function PageContent() {
             style={{
               borderRadius: theme.borderRadius,
               backgroundColor: theme.colorBgContainer,
+              boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px"
             }}
-            className="w-full border shadow-md my-2 px-6"
+            className="w-full border my-2 px-6"
           >
             <Navbar />
           </div>

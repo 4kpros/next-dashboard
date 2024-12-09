@@ -24,8 +24,9 @@ export default function HeroBenefitsCard(props: {
         style={{
           backgroundColor: theme.colorBgContainer,
           borderRadius: theme.borderRadius,
+          boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
         }}
-        className="w-full h-full flex flex-col border hover:scale-[1.02] transition-all duration-150 ease-in-out p-8"
+        className="w-full h-full border flex flex-col hover:scale-[1.02] transition-all duration-150 ease-in-out p-8"
       >
         <div className="flex items-center mb-3">
           <div

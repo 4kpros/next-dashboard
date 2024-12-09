@@ -38,15 +38,16 @@ export default function HeroStudent() {
               style={{
                 backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
+                boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
               }}
-              className="w-full h-[200px]"
+              className="w-full h-[200px] border"
             >
               <div
                 style={{
                   backgroundColor: theme.colorFillContent,
                   borderRadius: theme.borderRadius,
                 }}
-                className="w-full h-full border"
+                className="w-full h-full"
               ></div>
             </div>
           </MotionRevealFromRight>
@@ -57,8 +58,9 @@ export default function HeroStudent() {
                 style={{
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
                 }}
-                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+                className="w-full h-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
               >
                 <h2 className="text-center md:text-left text-lg font-bold">
                   Programs
@@ -76,8 +78,9 @@ export default function HeroStudent() {
                 style={{
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
                 }}
-                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+                className="w-full h-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
               >
                 <h2 className="text-center md:text-left text-lg font-bold">
                   Courses
@@ -97,8 +100,9 @@ export default function HeroStudent() {
                 style={{
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
                 }}
-                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+                className="w-full h-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
               >
                 <h2 className="text-center md:text-left text-lg font-bold">
                   Meeting & forum
@@ -116,8 +120,9 @@ export default function HeroStudent() {
                 style={{
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
                 }}
-                className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+                className="w-full h-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
               >
                 <h2 className="text-center md:text-left text-lg font-bold">
                   Exams & results
@@ -135,8 +140,9 @@ export default function HeroStudent() {
               style={{
                 backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
+                boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
               }}
-              className="w-full h-[200px]"
+              className="w-full h-[200px] border"
             >
               <div
                 style={{

@@ -31,8 +31,9 @@ export default function HeroDirector() {
               style={{
                 backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
+                boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
               }}
-              className="w-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+              className="w-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
             >
               <h2 className="text-center md:text-left text-lg font-bold">
                 Manage schools
@@ -54,8 +55,9 @@ export default function HeroDirector() {
               style={{
                 backgroundColor: theme.colorBgContainer,
                 borderRadius: theme.borderRadius,
+                boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
               }}
-              className="w-full h-full border hover:shadow-md hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
+              className="w-full h-full border hover:scale-[1.02] transition-all duration-150 ease-in-out p-4"
             >
               <h2 className="text-center md:text-left text-lg font-bold">
                 Manage teachers
@@ -86,7 +88,7 @@ export default function HeroDirector() {
               alt=""
               width={1080}
               height={1080}
-              className="w-full object-contain object-center"
+              className="w-full object-contain hover:scale-[1.02] transition-all duration-150 ease-in-out object-center"
             />
           </div>
         </MotionRevealFromBottom>

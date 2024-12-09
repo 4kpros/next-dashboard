@@ -61,36 +61,33 @@ export default function Navbar() {
                   <Link
                     href={item.link}
                     aria-current="page"
-                    className="py-2 px-3 font-bold opacity-75 transition-all"
+                    className="py-2 px-3 text-sm font-semibold opacity-75 transition-all"
                   >
                     {item.label}
                   </Link>
                 </li>
               );
             })}
-            <li className="z-40">
-              {session.status === "loading" ||
-              session.status === "authenticated" ? (
-                <AvatarProfile />
-              ) : (
-                <div className="w-auto flex gap-1">
-                  <Button
-                    size="large"
-                    onClick={() => router.push("/auth/login")}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    size="large"
-                    type="primary"
-                    onClick={() => router.push("/auth/register")}
-                  >
-                    Sign up
-                  </Button>
-                </div>
-              )}
-            </li>
           </ul>
+        </div>
+        <div className="w-auto flex flex-wrap items-center">
+          {session.status === "loading" ||
+          session.status === "authenticated" ? (
+            <AvatarProfile />
+          ) : (
+            <div className="w-auto flex gap-1">
+              <Button size="large" onClick={() => router.push("/auth/login")}>
+                Login
+              </Button>
+              <Button
+                size="large"
+                type="primary"
+                onClick={() => router.push("/auth/register")}
+              >
+                Sign up
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

@@ -20,6 +20,6 @@ export const getDashboardPath = (feature: string) => {
       return "/parent/home";
 
     default:
-      return "/unknown";
+      return "/common/unknown";
   }
 };

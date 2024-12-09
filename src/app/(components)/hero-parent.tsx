@@ -36,8 +36,9 @@ export default function HeroParent() {
                 style={{
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
                 }}
-                className="w-full h-full grid grid-cols-2 gap-2 border hover:scale-[1.02] transition-all duration-150 ease-in-out p-6"
+                className="w-full h-full border grid grid-cols-2 gap-2 hover:scale-[1.02] transition-all duration-150 ease-in-out p-6"
               >
                 <div className="w-full flex flex-col justify-between gap-2">
                   <div className="w-full flex flex-col gap-2">
@@ -69,7 +70,7 @@ export default function HeroParent() {
                   <div>
                     <Button
                       size="large"
-                      onClick={() => router.push("/help")}
+                      onClick={() => router.push("/common/help")}
                       className="w-auto"
                     >
                       Learn more
@@ -101,8 +102,9 @@ export default function HeroParent() {
                 style={{
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  boxShadow: "rgba(0, 0, 0, 0.04) 0px 10px 50px",
                 }}
-                className="w-full h-full grid grid-cols-2 gap-2 border hover:scale-[1.02] transition-all duration-150 ease-in-out p-6"
+                className="w-full h-full border grid grid-cols-2 gap-2 hover:scale-[1.02] transition-all duration-150 ease-in-out p-6"
               >
                 <div className="w-full flex flex-col justify-between gap-2">
                   <div className="w-full flex flex-col gap-2">
@@ -134,7 +136,7 @@ export default function HeroParent() {
                   <div>
                     <Button
                       size="large"
-                      onClick={() => router.push("/help")}
+                      onClick={() => router.push("/common/help")}
                       className="w-auto"
                     >
                       Learn more

@@ -25,8 +25,9 @@ export default function Contact() {
         style={{
           backgroundColor: theme.colorBgContainer,
           borderRadius: theme.borderRadius,
+          boxShadow: "rgba(0, 0, 0, 0.05) 0px 10px 50px",
         }}
-        className="w-full max-w-screen-lg grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 border p-6"
+        className="w-full max-w-screen-lg border grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12 p-6"
       >
         <div
           style={{
