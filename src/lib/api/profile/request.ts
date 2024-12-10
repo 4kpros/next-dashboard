@@ -8,3 +8,7 @@ export interface ProfileRequest {
   language?: string | null;
   image?: string | null;
 }
+
+export interface RoleChoiceRequest {
+  role?: string | null;
+}

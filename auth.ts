@@ -96,7 +96,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account }) {
       if (account?.type === "credentials") {
         const resData = user as any;
         const activateToken = resData?.activateAccountToken as string | null;
@@ -147,7 +147,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.feature = respData?.data?.role?.feature;
           token.nameTrunc =
             fullNameTrunc.length > 1 ? fullNameTrunc : usernameTrunc;
-          token.firstName = firstName.length > 0 ? firstName : usernameTrunc;
+          token.firstName = firstName.length > 0 ? firstName : userName;
           token.image = respData?.data?.info?.image;
         } catch (error) {
           throw new Error(`Error when getting profile information!`);

@@ -8,9 +8,9 @@ const roboto = Roboto({
   style: "normal",
 });
 
-const CustomThemeProvider = ({
+export default function AntdTheme({
   children,
-}: Readonly<{ children: ReactNode }>) => {
+}: Readonly<{ children: ReactNode }>) {
   const darkMode = false;
   return (
     <ConfigProvider
@@ -51,6 +51,4 @@ const CustomThemeProvider = ({
       {children}
     </ConfigProvider>
   );
-};
-
-export default CustomThemeProvider;
+}

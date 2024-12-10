@@ -6,6 +6,7 @@ import { Avatar, Dropdown, theme as antdTheme } from "antd";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import ImageWithFallback from "../image/image-fallback";
 
 const items = [
   {
@@ -37,9 +38,7 @@ export default function AvatarProfile() {
   return (
     <>
       {session.status === "loading" ? (
-        <Avatar size={"large"} className="opacity-50">
-          <span className="font-medium text-base">...</span>
-        </Avatar>
+        <Avatar size={"large"} className="opacity-50" />
       ) : (
         <Dropdown
           menu={{
@@ -77,18 +76,18 @@ export default function AvatarProfile() {
         >
           <Avatar
             size={"large"}
-            src={session.data?.user?.image}
+            src={
+              <ImageWithFallback
+                alt=""
+                src={session.data?.user?.image ?? undefined}
+                fallback={<>{session.data?.user?.nameTrunc?.toUpperCase() ?? "NA"}</>}
+              />
+            }
             style={{
               cursor: "pointer",
               backgroundColor: theme.colorPrimary,
             }}
-          >
-            <span className="font-medium text-base">
-              {(session.data?.user?.nameTrunc?.length ?? 0) < 2
-                ? "NA"
-                : session.data?.user?.nameTrunc ?? "NA"}
-            </span>
-          </Avatar>
+          />
         </Dropdown>
       )}
     </>

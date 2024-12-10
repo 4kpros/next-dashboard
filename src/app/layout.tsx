@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-
-import CustomThemeProvider from "../providers/theme";
-
-import "../styles/globals.css";
-import "../styles/modal.scss";
 import CustomQueryClientProvider from "@/providers/tanstack";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { SessionProvider } from "next-auth/react";
-import ToastMessageContext from "@/providers/toast-message";
+import "../styles/globals.css";
+import "../styles/modal.scss";
+import AntdApp from "@/providers/antd-app";
+import AntdTheme from "@/providers/antd-theme";
 
 export const metadata: Metadata = {
   title: "Digitschool",
@@ -25,13 +23,15 @@ export default function RootLayout({
       <body>
         <SessionProvider>
           <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID || ""}>
-            <CustomQueryClientProvider>
-              <AntdRegistry>
-                <CustomThemeProvider>
-                  <ToastMessageContext>{children}</ToastMessageContext>
-                </CustomThemeProvider>
-              </AntdRegistry>
-            </CustomQueryClientProvider>
+            <AntdRegistry>
+              <AntdApp>
+                <AntdTheme>
+                  <CustomQueryClientProvider>
+                    {children}
+                  </CustomQueryClientProvider>
+                </AntdTheme>
+              </AntdApp>
+            </AntdRegistry>
           </GoogleOAuthProvider>
         </SessionProvider>
       </body>

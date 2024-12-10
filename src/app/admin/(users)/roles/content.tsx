@@ -18,7 +18,7 @@ import {
 } from "@/lib/api/role/routes";
 import { RoleRequest } from "@/lib/api/role/request";
 import { RoleResponse } from "@/lib/api/role/response";
-import { message, Pagination } from "antd";
+import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
 import { HttpMessageFromStatus } from "@/lib/http/status-message";
@@ -55,9 +55,9 @@ export default function PageContent() {
   const [deleteRoleModalOpen, setDeleteRoleModalOpen] = useState(false);
 
   // Ant design hooks
-  const [messageApi] = message.useMessage();
+  const { message: messageInst } = App.useApp();
   const toastMessage = (type: NoticeType, message: string) => {
-    messageApi.open({
+    messageInst.open({
       type: type,
       content: message,
     });

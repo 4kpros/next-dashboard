@@ -1,35 +1,52 @@
-import { Form, Input, Button, Alert } from "antd";
-import { MailOutlined } from "@ant-design/icons";
-import Link from "next/link";
-import { ForgotInitEmailRequest } from "@/lib/api/auth/request";
+"use client";
 
-export default function FormForgotInit(props: {
+import { RoleChoiceRequest } from "@/lib/api/profile/request";
+import { Alert, Button, Form, Radio } from "antd";
+
+const options = [
+  {
+    label: "Parent",
+    value: "parent",
+    description: "",
+    icon: "",
+  },
+  {
+    label: "Student",
+    value: "student",
+    description: "",
+    icon: "",
+  },
+];
+
+export default function FormRoleChoice(props: {
   isLoading?: boolean;
   errorMessage?: string;
-  onSubmit?: (values: ForgotInitEmailRequest) => void;
+  onSubmit?: (values: RoleChoiceRequest) => void;
 }) {
   return (
-    <Form<ForgotInitEmailRequest>
-      name="forgot-init-form"
+    <Form<RoleChoiceRequest>
+      name="role-choice-form"
       layout={"vertical"}
       onFinish={props.onSubmit}
       autoComplete="on"
-      className="w-full text-center"
+      className="w-auto text-center"
     >
       <Form.Item
-        name="email"
+        name="role"
         rules={[
           {
             required: true,
-            message: "Please input your email!",
+            message: "Please input your role!",
           },
         ]}
       >
-        <Input
+        <Radio.Group
+          block
+          options={options}
+          defaultValue="parent"
+          // optionType="button"
+          buttonStyle="solid"
           size="large"
-          prefix={<MailOutlined />}
-          type="email"
-          placeholder="Email"
         />
       </Form.Item>
       <br />
@@ -70,9 +87,6 @@ export default function FormForgotInit(props: {
           Validate
         </Button>
       </Form.Item>
-      <div className="w-full flex justify-center items-center gap-2">
-        Already have an account? <Link href="/auth/login">Login</Link>
-      </div>
     </Form>
   );
 }

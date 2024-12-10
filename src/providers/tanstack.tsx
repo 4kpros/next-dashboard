@@ -7,11 +7,11 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { message } from "antd";
+import { App } from "antd";
 import { MessageInstance } from "antd/es/message/interface";
 import { ReactNode } from "react";
 
-function makeQueryClient(messageApi: MessageInstance) {
+function makeQueryClient(message: MessageInstance) {
   return new QueryClient({
     defaultOptions: {
       queries: {
@@ -24,14 +24,9 @@ function makeQueryClient(messageApi: MessageInstance) {
     },
     queryCache: new QueryCache({
       onError: (_error, _query) => {
-        messageApi.open({
-          type: "error",
-          content:
-            "Failed to fetch data! Please check your connection and try again.",
-        });
-      },
-      onSuccess(data, query) {
-        console.log(data);
+        message.error(
+          "Failed to fetch data! Please check your connection and try again."
+        );
       },
     }),
   });
@@ -39,16 +34,16 @@ function makeQueryClient(messageApi: MessageInstance) {
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-function getQueryClient(messageApi: MessageInstance) {
+function getQueryClient(message: MessageInstance) {
   if (isServer) {
     // Server: always make a new query client
-    return makeQueryClient(messageApi);
+    return makeQueryClient(message);
   } else {
     // Browser: make a new query client if we don't already have one
     // This is very important, so we don't re-make a new client if React
     // suspends during the initial render. This may not be needed if we
     // have a suspense boundary BELOW the creation of the query client
-    if (!browserQueryClient) browserQueryClient = makeQueryClient(messageApi);
+    if (!browserQueryClient) browserQueryClient = makeQueryClient(message);
     return browserQueryClient;
   }
 }
@@ -56,17 +51,16 @@ export default function CustomQueryClientProvider({
   children,
 }: Readonly<{ children: ReactNode }>) {
   // Toast message
-  const [messageApi, contextHolder] = message.useMessage();
+  const { message } = App.useApp();
 
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
   //       render if it suspends and there is no boundary
-  const queryClient = getQueryClient(messageApi);
+  const queryClient = getQueryClient(message);
 
   return (
     <>
-      {contextHolder}
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </>
   );

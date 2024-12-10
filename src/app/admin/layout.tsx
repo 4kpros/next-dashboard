@@ -1,11 +1,6 @@
 "use client";
 
-import { Breadcrumb, Layout, Badge, Button, theme as antdTheme } from "antd";
-import {
-  NodeCollapseOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
-import AvatarProfile from "@/components/avatar/avatar-profile";
+import { Layout, theme as antdTheme } from "antd";
 import MotionLayout from "@/components/motion/motion-layout";
 import {
   MotionPageTransitionFromBottom,
@@ -14,14 +9,19 @@ import {
 } from "@/components/motion/motion-page";
 import SideMenu from "@/components/sidemenu/side-menu";
 import getAdminSideMenuItems from "@/components/sidemenu/admin-side-menu-items";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   BreadcrumbItemType,
   BreadcrumbSeparatorType,
 } from "antd/es/breadcrumb/Breadcrumb";
-import NotificationsIcon from "@/components/icons/material/notifications";
+import DashboardHeader from "@/components/header/dashboard-header";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getNotificationList } from "@/lib/api/notifications/routes";
+import { useState } from "react";
+import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
+import NotificationList from "@/components/notifications/notification-list";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 export default function DashboardLayout({
   children,
@@ -29,108 +29,107 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   // React hooks
-  const router = useRouter();
   const pathName = usePathname();
+  const paramPage = "1";
+  const paramLimit = "1";
+  // Show role states
+  const [showNotificationsModalOpen, setShowNotificationsModalOpen] =
+    useState(false);
 
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
 
-  const toggleSidebar = () => {
-    // TODO
-  };
+  // Tanstack hooks
+  const queryClient = useQueryClient();
+  const queryKeyData = "notifications-data";
+  const queryNotification = useQuery({
+    queryKey: [queryKeyData],
+    queryFn: async () =>
+      getNotificationList({
+        page: paramPage ?? undefined,
+        limit: paramLimit ?? undefined,
+      }),
+  });
 
   return (
-    <MotionLayout>
-      <Layout
-        style={{
-          backgroundColor: "transparent",
-          scrollbarWidth: "thin",
-          minHeight: "100vh",
-        }}
-      >
-        <MotionPageTransitionFromLeft>
-          <SideMenu
-            menuLabel="Dashboard"
-            onMenuClicked={() => {
-              // TODO
-            }}
-            getItems={getAdminSideMenuItems}
-          />
-        </MotionPageTransitionFromLeft>
+    <>
+      <MotionLayout>
         <Layout
           style={{
-            marginLeft: 210,
-            scrollbarWidth: "thin",
-            gap: 10,
-            marginTop: "10px",
-            marginRight: "10px",
             backgroundColor: "transparent",
+            scrollbarWidth: "thin",
+            minHeight: "100vh",
           }}
         >
-          <MotionPageTransitionFromTop>
-            <Header
-              style={{
-                padding: "10px 15px 10px 15px",
-                backgroundColor: theme.colorBgContainer,
-                borderRadius: theme.borderRadius,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 20,
+          <MotionPageTransitionFromLeft>
+            <SideMenu
+              menuLabel="Dashboard"
+              onMenuClicked={() => {
+                // TODO
               }}
-              className="border"
-            >
-              <div className="flex flex-wrap justify-center items-center gap-5">
-                <Button
-                  size="large"
-                  icon={<NodeCollapseOutlined />}
-                  onClick={toggleSidebar}
-                >
-                  Hide
-                </Button>
-                <Breadcrumb separator="/" items={breadcrumbItems(pathName)} />
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Button
-                  size="large"
-                  icon={<QuestionCircleOutlined />}
-                  onClick={() => router.push("/help")}
-                >
-                  Help
-                </Button>
-                <Button
-                  size="large"
-                  icon={
-                    <Badge
-                      size="small"
-                      count={5}
-                      offset={[-2, 1]}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <NotificationsIcon />
-                    </Badge>
-                  }
-                />
-                <AvatarProfile />
-              </div>
-            </Header>
-          </MotionPageTransitionFromTop>
-          <MotionPageTransitionFromBottom>
-            <Content
-              style={{
-                overflow: "initial",
-                backgroundColor: theme.colorBgContainer,
-                borderRadius: theme.borderRadius,
-              }}
-              className="border p-0 m-0"
-            >
-              {children}
-            </Content>
-          </MotionPageTransitionFromBottom>
+              getItems={getAdminSideMenuItems}
+            />
+          </MotionPageTransitionFromLeft>
+          <Layout
+            style={{
+              marginLeft: 210,
+              scrollbarWidth: "thin",
+              gap: 10,
+              marginTop: "10px",
+              marginRight: "10px",
+              backgroundColor: "transparent",
+            }}
+          >
+            <MotionPageTransitionFromTop>
+              <DashboardHeader
+                notificationsCount={
+                  queryNotification.data?.data?.pagination.count ?? undefined
+                }
+                breadcrumbItems={breadcrumbItems(pathName)}
+                toggleSidebar={() => {
+                  // TODO
+                }}
+                onClickNotifications={() => {
+                  queryClient.fetchQuery({
+                    queryKey: [queryKeyData, "1", "1"],
+                  });
+                  setShowNotificationsModalOpen(true);
+                }}
+              />
+            </MotionPageTransitionFromTop>
+            <MotionPageTransitionFromBottom>
+              <Content
+                style={{
+                  overflow: "initial",
+                  backgroundColor: theme.colorBgContainer,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="border p-0 m-0"
+              >
+                {children}
+              </Content>
+            </MotionPageTransitionFromBottom>
+          </Layout>
         </Layout>
-      </Layout>
-    </MotionLayout>
+      </MotionLayout>
+
+      {/* Show role modal */}
+      <CustomModalWithoutFooter
+        title="Notifications"
+        content={
+          <NotificationList
+            items={queryNotification.data?.data ?? undefined}
+            onClose={() => setShowNotificationsModalOpen(false)}
+          />
+        }
+        modalOpen={showNotificationsModalOpen}
+        maskClosable={true}
+        width={800}
+        onOk={() => setShowNotificationsModalOpen(false)}
+        onCancel={() => setShowNotificationsModalOpen(false)}
+      />
+    </>
   );
 }
 
