@@ -39,7 +39,7 @@ export default function HeroDirector() {
                 Manage schools
               </h2>
 
-              <p className="opacity-75 line-clamp-5 mt-2">
+              <p className="line-clamp-5 mt-2">
                 Our platform allows school principals to securely log in and
                 efficiently manage their institutions. With a user-friendly
                 interface, they can oversee administrative tasks, track
@@ -63,7 +63,7 @@ export default function HeroDirector() {
                 Manage teachers
               </h2>
 
-              <p className="opacity-75 line-clamp-5 mt-2">
+              <p className="leading-relaxed text-base line-clamp-5 mt-2">
                 Manage staff, including teachers, with ease. They can monitor
                 schedules, track performance, and handle staff assignments
                 efficiently. This feature streamlines administrative workflows

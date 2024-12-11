@@ -58,7 +58,7 @@ export default function PageContent() {
                 : undefined
             }
             onSubmit={(values) => {
-              let newValues = values;
+              const newValues = values;
               newValues.code = Number(values.code);
               newValues.token =
                 getSearchParam(window.location.href, "token") ?? undefined;

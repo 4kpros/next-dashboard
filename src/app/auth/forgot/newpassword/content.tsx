@@ -28,9 +28,6 @@ export default function PageContent() {
     onSuccess(_data, _variables, _context) {
       router.push(`/auth/forgot/success`);
     },
-    onError(error, variables, context) {
-      console.log(error);
-    },
   });
 
   return (
@@ -59,7 +56,7 @@ export default function PageContent() {
               : undefined
           }
           onSubmit={(values) => {
-            let newValues = values;
+            const newValues = values;
             newValues.token =
               getSearchParam(window.location.href, "token") ?? undefined;
             mutationForgot.mutate(newValues);

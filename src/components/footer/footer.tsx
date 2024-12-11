@@ -20,7 +20,13 @@ export default function Footer() {
       <CustomContainer>
         <div className="w-full flex flex-col gap-12 py-12">
           <div className="sm:flex sm:items-center sm:justify-between">
-            <Link href="/" className="flex items-center space-x-0">
+            <Link
+              style={{
+                color: theme.colorText,
+              }}
+              href="/"
+              className="flex items-center space-x-0"
+            >
               <Image
                 style={{ width: "40px", height: "40px", objectFit: "contain" }}
                 width={40}
@@ -35,6 +41,9 @@ export default function Footer() {
             </Link>
             <div className="flex mt-4 sm:justify-center sm:mt-0">
               <Link
+                style={{
+                  color: theme.colorText,
+                }}
                 href="https://www.facebook.com/"
                 className="hover:text-gray-600"
               >
@@ -54,6 +63,9 @@ export default function Footer() {
                 <span className="sr-only">Facebook page</span>
               </Link>
               <Link
+                style={{
+                  color: theme.colorText,
+                }}
                 href="https://www.discord.com/"
                 className="hover:text-gray-600 ms-5"
               >
@@ -69,6 +81,9 @@ export default function Footer() {
                 <span className="sr-only">Discord community</span>
               </Link>
               <Link
+                style={{
+                  color: theme.colorText,
+                }}
                 href="https://www.x.com/"
                 className="hover:text-gray-600 ms-5"
               >
@@ -91,7 +106,13 @@ export default function Footer() {
           </div>
           <span className="block text-sm sm:text-center">
             © 2024{" "}
-            <Link href="/" className="hover:underline">
+            <Link
+              style={{
+                color: theme.colorText,
+              }}
+              href="/"
+              className="hover:underline"
+            >
               Digitschool
             </Link>
             . All Rights Reserved.

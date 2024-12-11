@@ -6,7 +6,7 @@ export default function Hero() {
           <h1 className="w-full text-4xl font-semibold">
             Role Pending Activation
           </h1>
-          <p className="w-auto leading-relaxed">
+          <p className="w-auto leading-relaxed text-base">
             Your account is registered but currently set to anonymous. Complete
             the required steps to activate your role and access personalized
             features.

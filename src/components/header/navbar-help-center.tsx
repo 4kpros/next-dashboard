@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { CustomContainer } from "../container/custom-container";
 import { Button } from "antd";
 import { useSession } from "next-auth/react";
+import { theme as antdTheme } from "antd";
 import AvatarProfile from "../avatar/avatar-profile";
 
 export default function NavbarHelpCenter() {
@@ -15,11 +16,21 @@ export default function NavbarHelpCenter() {
   // Next hooks
   const session = useSession();
 
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
   return (
     <nav className="w-full z-40">
       <CustomContainer>
         <div className="w-full flex flex-wrap items-center justify-between py-4">
-          <Link href="/" className="flex items-center space-x-0">
+          <Link
+            style={{
+              color: theme.colorText,
+            }}
+            href="/"
+            className="flex items-center space-x-0"
+          >
             <Image
               style={{ width: "40px", height: "40px", objectFit: "contain" }}
               width={40}

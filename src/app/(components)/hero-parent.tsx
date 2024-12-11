@@ -53,7 +53,7 @@ export default function HeroParent() {
                     <h1 className="text-xl font-semibold">
                       Children, program and courses
                     </h1>
-                    <ul className="list-disc ml-4">
+                    <ul className="list-disc leading-relaxed text-base ml-4">
                       <li>
                         Sign up to access your personalized parent dashboard
                       </li>
@@ -62,7 +62,7 @@ export default function HeroParent() {
                       </li>
                       <li>View all their academic details in one place</li>
                       <li>
-                        Stay informed about each child's unique progress and
+                        Stay informed about each child&lsquo;s unique progress and
                         activities
                       </li>
                     </ul>
@@ -119,9 +119,9 @@ export default function HeroParent() {
                     <h1 className="text-xl font-semibold">
                       Exams, quiz and results
                     </h1>
-                    <ul className="list-disc ml-4">
+                    <ul className="list-disc leading-relaxed text-base ml-4">
                       <li>
-                        Follow your child's exam and quiz schedules effortlessly
+                        Follow your child&lsquo;s exam and quiz schedules effortlessly
                       </li>
                       <li>
                         Instantly access their results and performance reports

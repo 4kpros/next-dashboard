@@ -1,8 +1,18 @@
 import Image from "next/image";
 import React from "react";
 
-export default function LogoHeader() {
+interface LogoHeaderType {
+  height?: number;
+  width?: number;
+}
+
+export default function LogoHeader({ height = 50, width = 50 }: LogoHeaderType) {
   return (
-    <Image src={"/images/logo/logo-xs.png"} alt="" width={50} height={50} />
+    <Image
+      src={"/images/logo/logo-xs.png"}
+      alt=""
+      width={height}
+      height={width}
+    />
   );
 }

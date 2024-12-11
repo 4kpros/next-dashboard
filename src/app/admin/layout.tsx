@@ -7,8 +7,7 @@ import {
   MotionPageTransitionFromLeft,
   MotionPageTransitionFromTop,
 } from "@/components/motion/motion-page";
-import SideMenu from "@/components/sidemenu/side-menu";
-import getAdminSideMenuItems from "@/components/sidemenu/admin-side-menu-items";
+import sideMenuItems from "@/app/admin/(components)/side-menu-items";
 import { usePathname } from "next/navigation";
 import {
   BreadcrumbItemType,
@@ -20,6 +19,7 @@ import { getNotificationList } from "@/lib/api/notifications/routes";
 import { useState } from "react";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import NotificationList from "@/components/notifications/notification-list";
+import DashboardSideMenu from "@/components/menu/dashboard-side-menu";
 
 const { Content } = Layout;
 
@@ -63,12 +63,12 @@ export default function DashboardLayout({
           }}
         >
           <MotionPageTransitionFromLeft>
-            <SideMenu
+            <DashboardSideMenu
               menuLabel="Dashboard"
               onMenuClicked={() => {
                 // TODO
               }}
-              getItems={getAdminSideMenuItems}
+              getItems={sideMenuItems}
             />
           </MotionPageTransitionFromLeft>
           <Layout

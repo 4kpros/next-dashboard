@@ -18,7 +18,7 @@ import {
 } from "./response";
 
 export async function signUpWithCredentialsEmail(data: SignUpEmailRequest) {
-  let newData = data;
+  const newData = data;
   newData.confirmPassword = undefined;
   return POST<SignInResponse, SignInEmailRequest>(
     "/auth/register/email",
@@ -67,7 +67,7 @@ export async function forgotPasswordCode(data: ForgotCodeRequest) {
 export async function forgotPasswordNewPassword(
   data: ForgotNewPasswordRequest
 ) {
-  let newData = data;
+  const newData = data;
   newData.confirmPassword = undefined;
   return POST<ForgotNewPasswordResponse, ForgotNewPasswordRequest>(
     "/auth/forgot/newpassword",

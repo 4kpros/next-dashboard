@@ -24,7 +24,7 @@ export default function HeroBenefits() {
           <h1 className="w-full max-w-[600px] text-4xl font-semibold">
             The smart choice for your school
           </h1>
-          <p className="w-auto max-w-[400px]">
+          <p className="w-auto max-w-[400px] leading-relaxed text-base">
             Everything you need to simplify, boost productivity and keep your
             team aligned
           </p>

@@ -53,7 +53,7 @@ export default function HeroStudent() {
                   Programs
                 </h2>
 
-                <p className="opacity-75 line-clamp-5 mt-2">
+                <p className="line-clamp-5 leading-relaxed text-base mt-2">
                   Manage your academic programs with ease. Access course
                   details, schedules, and important updates all in one place.
                 </p>
@@ -73,7 +73,7 @@ export default function HeroStudent() {
                   Courses
                 </h2>
 
-                <p className="opacity-75 line-clamp-5 mt-2">
+                <p className="line-clamp-5 leading-relaxed text-base mt-2">
                   Keep track of your courses with ease. Access schedules,
                   materials, and updates to stay ahead in your studies.
                 </p>
@@ -95,7 +95,7 @@ export default function HeroStudent() {
                   Meeting & forum
                 </h2>
 
-                <p className="opacity-75 line-clamp-5 mt-2">
+                <p className="line-clamp-5 leading-relaxed text-base mt-2">
                   Never miss a session and stay updated on key discussions and
                   announcements.
                 </p>
@@ -115,7 +115,7 @@ export default function HeroStudent() {
                   Exams & results
                 </h2>
 
-                <p className="opacity-75 line-clamp-5 mt-2">
+                <p className="line-clamp-5 leading-relaxed text-base mt-2">
                   Follow your exam schedules and results closely. Get timely
                   updates on scores and progress to stay on top of your studies.
                 </p>

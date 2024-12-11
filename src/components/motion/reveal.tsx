@@ -17,7 +17,7 @@ export function MotionRevealFromBottom({
       mainControls.start("visible");
     }
     return () => {};
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   return (
     <motion.div
@@ -52,7 +52,7 @@ export function MotionRevealFromTop({
       mainControls.start("visible");
     }
     return () => {};
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   return (
     <motion.div
@@ -87,7 +87,7 @@ export function MotionRevealFromLeft({
       mainControls.start("visible");
     }
     return () => {};
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   return (
     <motion.div
@@ -122,7 +122,7 @@ export function MotionRevealFromRight({
       mainControls.start("visible");
     }
     return () => {};
-  }, [isInView]);
+  }, [isInView, mainControls]);
 
   return (
     <motion.div

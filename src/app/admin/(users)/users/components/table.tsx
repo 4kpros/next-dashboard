@@ -70,9 +70,7 @@ export default function UsersTable(props: {
           isLoading: props.isLoading,
           data: props.data,
           columns: columns,
-          pageSize: props.pageSize,
           selectedRowKeys: props.selectedRowKeys,
-          onPaginationChanged: props.onPaginationChanged,
           onFilterSortChanged: props.onFilterSortChanged,
           onRowSelectionChanged: props.onRowSelectionChanged
         })}

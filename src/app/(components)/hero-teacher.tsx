@@ -29,7 +29,7 @@ export default function HeroTeacher() {
           </div>
           <div className="w-full lg:w-1/2">
             <MotionRevealFromRight>
-              <p className="opacity-75">
+              <p className="leading-relaxed text-base">
                 Teachers can easily log in to the platform to access a wide
                 range of tools designed to enhance their classroom management
                 and interaction with students. Once logged in, they can view

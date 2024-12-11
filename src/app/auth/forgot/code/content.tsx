@@ -2,7 +2,7 @@
 
 import Title from "antd/es/typography/Title";
 import { CustomContainerFullHeight } from "@/components/container/custom-container";
-import { theme as antdTheme, message } from "antd";
+import { theme as antdTheme, App, message } from "antd";
 import { useMutation } from "@tanstack/react-query";
 import { HttpMessageFromStatus } from "@/lib/http/status-message";
 import { HttpStatusCode } from "axios";
@@ -21,9 +21,9 @@ export default function PageContent() {
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
-  const [messageApi] = message.useMessage();
+  const { message: messageInst } = App.useApp();
   const toastMessage = (type: NoticeType, message: string) => {
-    messageApi.open({
+    messageInst.open({
       type: type,
       content: message,
     });
@@ -37,7 +37,6 @@ export default function PageContent() {
         "success",
         "Code checked! Now you will need to set a new password."
       );
-      console.log(data);
       router.push(`/auth/forgot/newpassword?token=${data.data?.token}`);
     },
   });
@@ -71,7 +70,7 @@ export default function PageContent() {
                 : undefined
             }
             onSubmit={(values) => {
-              let newValues = values;
+              const newValues = values;
               newValues.code = Number(values.code);
               newValues.token =
                 getSearchParam(window.location.href, "token") ?? undefined;

@@ -38,7 +38,7 @@ export default function Hero() {
           <h1 className="w-full max-w-[600px] text-4xl font-semibold">
             Effortless school management, anytime, anywhere
           </h1>
-          <p className="w-auto max-w-[400px] leading-relaxed">
+          <p className="w-auto max-w-[400px] leading-relaxed text-base">
             Manage schools easily with an all-in-one platform designed for
             seamless education
           </p>

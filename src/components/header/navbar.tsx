@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "antd";
 import { useSession } from "next-auth/react";
+import { theme as antdTheme } from "antd";
 import AvatarProfile from "../avatar/avatar-profile";
 
 const menus = [
@@ -36,11 +37,21 @@ export default function Navbar() {
   // Next hooks
   const session = useSession();
 
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
   return (
     <nav className="w-full z-40">
       <div className="w-full flex flex-wrap items-center justify-between py-4">
         <div className="w-full max-w-44">
-          <Link href="/" className="flex items-center space-x-0 line-clamp-1">
+          <Link
+            style={{
+              color: theme.colorText,
+            }}
+            href="/"
+            className="flex items-center space-x-0 line-clamp-1"
+          >
             <Image
               style={{ width: "40px", height: "40px", objectFit: "contain" }}
               width={40}
@@ -60,6 +71,9 @@ export default function Navbar() {
               return (
                 <li key={item.label}>
                   <Link
+                    style={{
+                      color: theme.colorText,
+                    }}
                     href={item.link}
                     aria-current="page"
                     className="py-2 px-3 text-sm font-semibold opacity-75 transition-all"

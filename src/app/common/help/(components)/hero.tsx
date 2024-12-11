@@ -6,7 +6,7 @@ export default function Hero() {
           <h1 className="w-full text-4xl font-semibold">
             Hello, and welcome to Digitchool. How can we help ?
           </h1>
-          <p className="w-auto leading-relaxed">
+          <p className="w-auto leading-relaxed text-base">
             Manage schools easily with an all-in-one platform designed for
             seamless education
           </p>
