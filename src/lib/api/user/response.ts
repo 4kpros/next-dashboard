@@ -1,6 +1,5 @@
-import { BaseResponse } from "../base-response";
-import { FilterResponse } from "../filter/response";
-import { PaginationResponse } from "../pagination/response";
+import { BasePaginatedResponse, BaseResponse } from "../base-response";
+import { RoleResponse } from "../role/response";
 
 export interface UserResponse extends BaseResponse {
   email?: string | null;
@@ -11,7 +10,7 @@ export interface UserResponse extends BaseResponse {
   providerUserID?: string | null;
   isActivated?: boolean | null;
 
-  role?: UserRoleResponse | null;
+  role?: RoleResponse | null;
   info?: UserInfoResponse | null;
   mfa: UserMfaResponse | null;
 }
@@ -35,11 +34,6 @@ export interface UserMfaResponse {
   authenticator?: boolean | null;
 }
 
-export interface UserRoleResponse {
-  userID?: number | null;
-  roleID?: number | null;
-}
-
-export interface UserListResponse extends FilterResponse, PaginationResponse {
+export interface UserListResponse extends BasePaginatedResponse {
   data?: UserResponse[];
 }

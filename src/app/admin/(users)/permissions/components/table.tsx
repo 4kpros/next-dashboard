@@ -2,11 +2,9 @@ import { Table, TableColumnsType, Tooltip } from "antd";
 import DefaultTableProps from "@/components/tables/props/default-table-props";
 import {
   defaultColumnActionProps,
-  defaultColumnBooleanProps,
   defaultColumnBooleanPropsWithoutSorter,
   defaultColumnDateTimeProps,
   defaultColumnProps,
-  defaultColumnPropsWithoutSorter,
 } from "@/components/tables/props/default-column-props";
 import {
   FilterValue,
@@ -14,63 +12,49 @@ import {
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { UserResponse } from "@/lib/api/user/response";
+import { PermissionResponse } from "@/lib/api/permission/response";
 import { RoleResponse } from "@/lib/api/role/response";
 
-export default function UsersTable(props: {
+export default function PermissionsTable(props: {
   isLoading?: boolean;
-  data?: UserResponse[];
+  data?: PermissionResponse[];
   orderBy?: string;
   sort?: SortOrder;
   selectedRowKeys?: React.Key[];
   onFilterSortChanged?: (
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<UserResponse> | SorterResult<UserResponse>[]
+    sorter: SorterResult<PermissionResponse> | SorterResult<PermissionResponse>[]
   ) => void;
   onRowSelectionChanged?: (
     selectedRowKeys: React.Key[],
-    selectedRows: UserResponse[],
+    selectedRows: PermissionResponse[],
     info: {
       type: RowSelectMethod;
     }
   ) => void;
   onRowSelectionSelected?: (
-    record: UserResponse,
+    record: PermissionResponse,
     selected: boolean,
-    selectedRows: UserResponse[],
+    selectedRows: PermissionResponse[],
     nativeEvent: Event
   ) => void;
-  onDetailsRequested?: (value: UserResponse, index: number) => void;
-  onUpdateRequested?: (value: UserResponse, index: number) => void;
-  onDeleteConfirmed?: (value: UserResponse, index: number) => void;
+  onDetailsRequested?: (value: PermissionResponse, index: number) => void;
+  onUpdateRequested?: (value: PermissionResponse, index: number) => void;
+  onDeleteConfirmed?: (value: PermissionResponse, index: number) => void;
 }) {
   // Table columns. dataIndex represents the field name(case sensitive) of the model(RecordType)
-  const columns: TableColumnsType<UserResponse> = [
+  const columns: TableColumnsType<PermissionResponse> = [
     {
       title: "ID",
       dataIndex: "id",
-      key: "id",
-      ...defaultColumnProps,
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      sortOrder: props.orderBy && props.orderBy === "email" ? props.sort : null,
-      ...defaultColumnProps,
-    },
-    {
-      title: "Phone number",
-      dataIndex: "phoneNumber",
-      key: "phone_number",
-      sortOrder:
-        props.orderBy && props.orderBy === "phone_number" ? props.sort : null,
+      key: "id", // Useful for row selection
+      sortOrder: props.orderBy && props.orderBy === "id" ? props.sort : null,
       ...defaultColumnProps,
     },
     {
       title: "Role",
       dataIndex: "role",
-      key: "role",
+      key: "role_id",
       sorter: false,
       ellipsis: {
         showTitle: false,
@@ -82,35 +66,48 @@ export default function UsersTable(props: {
       ),
     },
     {
-      title: "Login method",
-      dataIndex: "loginMethod",
-      key: "login_method",
-      ...defaultColumnPropsWithoutSorter,
+      title: "Table name",
+      dataIndex: "tableName",
+      key: "table_name",
+      sortOrder: props.orderBy && props.orderBy === "table_name" ? props.sort : null,
+      ...defaultColumnProps,
     },
     {
-      title: "Provider",
-      dataIndex: "provider",
-      key: "provider",
-      ...defaultColumnPropsWithoutSorter,
+      title: "Create",
+      dataIndex: "create",
+      key: "create",
+      ...defaultColumnBooleanPropsWithoutSorter,
     },
     {
-      title: "Is activated",
-      dataIndex: "isActivated",
-      key: "is_activated",
+      title: "Read",
+      dataIndex: "read",
+      key: "read",
+      ...defaultColumnBooleanPropsWithoutSorter,
+    },
+    {
+      title: "Update",
+      dataIndex: "update",
+      key: "update",
+      ...defaultColumnBooleanPropsWithoutSorter,
+    },
+    {
+      title: "Delete",
+      dataIndex: "delete",
+      key: "delete",
       ...defaultColumnBooleanPropsWithoutSorter,
     },
     {
       title: "Updated",
       dataIndex: "updatedAt",
       key: "updated_at",
-      sortOrder:
-        props.orderBy && props.orderBy === "updated_at" ? props.sort : null,
+      sortOrder: props.orderBy && props.orderBy === "updated_at" ? props.sort : null,
       ...defaultColumnDateTimeProps,
     },
     {
       // Column props for actions(update, delete, ...)
       ...defaultColumnActionProps({
-        deleteDescription: "this user",
+        deleteDescription: "this permission",
+        onDetailsRequested: props.onDetailsRequested,
         onUpdateRequested: props.onUpdateRequested,
         onDeleteConfirmed: props.onDeleteConfirmed,
       }),
@@ -118,7 +115,7 @@ export default function UsersTable(props: {
   ];
   return (
     <div className="w-full mt-2">
-      <Table<UserResponse>
+      <Table<PermissionResponse>
         {...DefaultTableProps({
           isLoading: props.isLoading,
           data: props.data,

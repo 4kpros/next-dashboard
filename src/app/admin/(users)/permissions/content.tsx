@@ -5,19 +5,19 @@ import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
 import DefaultTableHeader from "@/components/tables/headers/default-header";
-import RolesTable from "./components/table";
+import PermissionsTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import FormAddUpdateRole from "./components/form-add-update";
+import FormAddUpdatePermission from "./components/form-add-update";
 import {
-  deleteMultipleRole,
-  deleteRole,
-  getRoleList,
-  postRole,
-  updateRole,
-} from "@/lib/api/role/routes";
-import { RoleRequest } from "@/lib/api/role/request";
-import { RoleResponse } from "@/lib/api/role/response";
+  deleteMultiplePermission,
+  deletePermission,
+  getPermissionList,
+  postPermission,
+  updatePermission,
+} from "@/lib/api/permission/routes";
+import { PermissionRequest } from "@/lib/api/permission/request";
+import { PermissionResponse } from "@/lib/api/permission/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -29,7 +29,7 @@ import {
   setSearchParam,
 } from "@/helpers/url/search-param";
 import { SelectionRequest } from "@/lib/api/base-response";
-import RoleDetails from "./components/details";
+import PermissionDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
 import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
@@ -49,17 +49,21 @@ export default function PageContent() {
   const paramSort = searchParams.get("sort");
   // Table row selection states
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  // Add role states
-  const [addRoleModalOpen, setAddRoleModalOpen] = useState(false);
-  // Show role states
-  const [showRoleModalOpen, setShowRoleModalOpen] = useState(false);
-  const [roleToShow, setRoleToShow] = useState<RoleResponse | null>(null);
-  // Update role states
-  const [updateRoleModalOpen, setUpdateRoleModalOpen] = useState(false);
+  // Add permission states
+  const [addPermissionModalOpen, setAddPermissionModalOpen] = useState(false);
+  // Show permission states
+  const [showPermissionModalOpen, setShowPermissionModalOpen] = useState(false);
+  const [permissionToShow, setPermissionToShow] =
+    useState<PermissionResponse | null>(null);
+  // Update permission states
+  const [updatePermissionModalOpen, setUpdatePermissionModalOpen] =
+    useState(false);
   const [canSubmitUpdate, setCanSubmitUpdate] = useState(false);
-  const [roleToUpdate, setRoleToUpdate] = useState<RoleResponse | null>(null);
-  // Delete role states
-  const [deleteRoleModalOpen, setDeleteRoleModalOpen] = useState(false);
+  const [permissionToUpdate, setPermissionToUpdate] =
+    useState<PermissionResponse | null>(null);
+  // Delete permission states
+  const [deletePermissionModalOpen, setDeletePermissionModalOpen] =
+    useState(false);
   // Uploads & downloads
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
@@ -77,7 +81,7 @@ export default function PageContent() {
 
   // Tanstack hooks
   const queryClient = useQueryClient();
-  const queryKeyData = "roles-data";
+  const queryKeyData = "permissions-data";
   const query = useQuery({
     queryKey: [
       queryKeyData,
@@ -88,7 +92,7 @@ export default function PageContent() {
       paramSort,
     ],
     queryFn: async () =>
-      getRoleList({
+      getPermissionList({
         search: paramSearch ?? undefined,
         orderBy: paramOrderBy ?? undefined,
         sort: paramSort ?? undefined,
@@ -97,48 +101,50 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (role: RoleRequest) => postRole(role),
+    mutationFn: async (permission: PermissionRequest) =>
+      postPermission(permission),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
-      setAddRoleModalOpen(false);
-      toastMessage("success", "Successful added role!");
+      setAddPermissionModalOpen(false);
+      toastMessage("success", "Successful added permission!");
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (role: RoleRequest) => updateRole(role),
+    mutationFn: async (permission: PermissionRequest) =>
+      updatePermission(permission),
     onSuccess(_data, _variables, _context) {
-      setRoleToUpdate(null);
+      setPermissionToUpdate(null);
       setCanSubmitUpdate(false);
       invalidateQueries();
-      setUpdateRoleModalOpen(false);
-      toastMessage("success", "Successful updated role!");
+      setUpdatePermissionModalOpen(false);
+      toastMessage("success", "Successful updated permission!");
     },
   });
   const mutationDelete = useMutation({
-    mutationFn: async (roleID: number) => deleteRole(roleID),
+    mutationFn: async (permissionID: number) => deletePermission(permissionID),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
-      toastMessage("success", "Successful deleted role!");
+      toastMessage("success", "Successful deleted permission!");
     },
     onError(_error, _variables, _context) {
-      toastMessage("error", "Failed to delete role!");
+      toastMessage("error", "Failed to delete permission!");
     },
   });
   const mutationDeleteMultiple = useMutation({
     mutationFn: async (selection: SelectionRequest) =>
-      deleteMultipleRole(selection),
+      deleteMultiplePermission(selection),
     onSuccess(_data, _variables, _context) {
       setSelectedRowKeys([]);
       invalidateQueries();
-      toastMessage("success", "Successful deleted role selection!");
+      toastMessage("success", "Successful deleted permission selection!");
     },
     onError(_error, _variables, _context) {
       console.log(_error);
-      toastMessage("error", "Failed to delete role selection!");
+      toastMessage("error", "Failed to delete permission selection!");
     },
   });
   const mutationUpload = useMutation({
-    mutationFn: async (item: UploadRequest) => uploadData("roles", item),
+    mutationFn: async (item: UploadRequest) => uploadData("permissions", item),
     onSuccess(_data, _variables, _context) {
       console.log(_data);
     },
@@ -148,7 +154,8 @@ export default function PageContent() {
     },
   });
   const mutationDownload = useMutation({
-    mutationFn: async (item: DownloadRequest) => downloadData("roles", item),
+    mutationFn: async (item: DownloadRequest) =>
+      downloadData("permissions", item),
     onSuccess(_data, _variables, _context) {
       console.log(_data);
     },
@@ -186,7 +193,7 @@ export default function PageContent() {
           searchKeyword={paramSearch}
           onAdd={() => {
             mutationAdd.reset();
-            setAddRoleModalOpen(true);
+            setAddPermissionModalOpen(true);
           }}
           onSearch={(value, _e, info) => {
             if (info?.source === "clear") {
@@ -205,7 +212,7 @@ export default function PageContent() {
           }}
           onRefresh={invalidateQueries}
           onDelete={() => {
-            setDeleteRoleModalOpen(true);
+            setDeletePermissionModalOpen(true);
           }}
           canUpload={canUpload}
           canDownload={canDownload}
@@ -221,7 +228,7 @@ export default function PageContent() {
           currentPage={query.data?.data?.pagination.currentPage ?? 0}
           totalPages={query.data?.data?.pagination.totalPages ?? 0}
         />
-        <RolesTable
+        <PermissionsTable
           isLoading={
             query.isFetching ||
             mutationDelete.isPending ||
@@ -273,14 +280,14 @@ export default function PageContent() {
             _nativeEvent
           ) => {}}
           onDetailsRequested={(value, _index) => {
-            setRoleToShow(value);
-            setShowRoleModalOpen(true);
+            setPermissionToShow(value);
+            setShowPermissionModalOpen(true);
           }}
           onUpdateRequested={(value, _index) => {
             setCanSubmitUpdate(false);
-            setRoleToUpdate(value);
+            setPermissionToUpdate(value);
             mutationUpdate.reset();
-            setUpdateRoleModalOpen(true);
+            setUpdatePermissionModalOpen(true);
           }}
           onDeleteConfirmed={(value, _index) => {
             mutationDelete.mutate(value.id ?? -1);
@@ -312,11 +319,11 @@ export default function PageContent() {
         </div>
       </div>
 
-      {/* Add new role modal */}
+      {/* Add new permission modal */}
       <CustomModalWithoutFooter
-        title="Add new role"
+        title="Add new permission"
         content={
-          <FormAddUpdateRole
+          <FormAddUpdatePermission
             isLoading={mutationAdd.isPending}
             canSubmit={true}
             errorMessage={
@@ -324,27 +331,27 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationAdd.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "role name"
+                    "permission name"
                   )
                 : undefined
             }
             onSubmit={(item) => {
               mutationAdd.mutate(item);
             }}
-            onCancel={() => setAddRoleModalOpen(false)}
+            onCancel={() => setAddPermissionModalOpen(false)}
           />
         }
-        modalOpen={addRoleModalOpen}
-        onOk={() => setAddRoleModalOpen(false)}
-        onCancel={() => setAddRoleModalOpen(false)}
+        modalOpen={addPermissionModalOpen}
+        onOk={() => setAddPermissionModalOpen(false)}
+        onCancel={() => setAddPermissionModalOpen(false)}
         maskClosable={false}
       />
 
-      {/* Update role modal */}
+      {/* Update permission modal */}
       <CustomModalWithoutFooter
-        title="Update role"
+        title="Update permission"
         content={
-          <FormAddUpdateRole
+          <FormAddUpdatePermission
             isLoading={mutationUpdate.isPending}
             canSubmit={canSubmitUpdate}
             canSubmitMessage={"Add some changes in order to update!"}
@@ -353,69 +360,67 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationUpdate.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "role name"
+                    "permission name"
                   )
                 : undefined
             }
-            role={roleToUpdate}
+            permission={permissionToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
-                  roleToUpdate?.name === values?.name &&
-                  roleToUpdate?.feature === values?.feature &&
-                  roleToUpdate?.description === values?.description
+                  permissionToUpdate?.roleID === values?.roleID &&
+                  permissionToUpdate?.tableName === values?.tableName &&
+                  permissionToUpdate?.create === values?.create &&
+                  permissionToUpdate?.read === values?.read &&
+                  permissionToUpdate?.update === values?.update &&
+                  permissionToUpdate?.delete === values?.delete
                 )
               );
             }}
             onSubmit={(item) => {
-              mutationUpdate.mutate({
-                id: roleToUpdate?.id ?? -1,
-                name: item.name,
-                feature: item.feature,
-                description: item.description,
-              });
+              mutationUpdate.mutate(item);
             }}
-            onCancel={() => setUpdateRoleModalOpen(false)}
+            onCancel={() => setUpdatePermissionModalOpen(false)}
           />
         }
-        modalOpen={updateRoleModalOpen}
+        modalOpen={updatePermissionModalOpen}
         maskClosable={false}
-        onOk={() => setUpdateRoleModalOpen(false)}
-        onCancel={() => setUpdateRoleModalOpen(false)}
+        onOk={() => setUpdatePermissionModalOpen(false)}
+        onCancel={() => setUpdatePermissionModalOpen(false)}
       />
 
-      {/* Show role modal */}
+      {/* Show permission modal */}
       <CustomModalWithoutFooter
-        title="Role details"
+        title="Permission details"
         content={
-          <RoleDetails
-            role={roleToShow}
-            onClose={() => setShowRoleModalOpen(false)}
+          <PermissionDetails
+            permission={permissionToShow}
+            onClose={() => setShowPermissionModalOpen(false)}
           />
         }
-        modalOpen={showRoleModalOpen}
+        modalOpen={showPermissionModalOpen}
         maskClosable={true}
         width={800}
-        onOk={() => setShowRoleModalOpen(false)}
-        onCancel={() => setShowRoleModalOpen(false)}
+        onOk={() => setShowPermissionModalOpen(false)}
+        onCancel={() => setShowPermissionModalOpen(false)}
       />
 
-      {/* Delete role modal */}
+      {/* Delete permission modal */}
       <DeleteModal
         description={`Do you really want to delete all selected ${
           selectedRowKeys.length
-        } selected role${
+        } selected permission${
           selectedRowKeys.length > 1 ? "s" : ""
         } ? This is not a reversible action!`}
-        modalOpen={deleteRoleModalOpen}
+        modalOpen={deletePermissionModalOpen}
         onOk={() => {
           const tmpSelection = selectedRowKeys.map(
             (item, _index) => item as number
           );
           mutationDeleteMultiple.mutate({ list: tmpSelection });
-          setDeleteRoleModalOpen(false);
+          setDeletePermissionModalOpen(false);
         }}
-        onCancel={() => setDeleteRoleModalOpen(false)}
+        onCancel={() => setDeletePermissionModalOpen(false)}
       />
 
       {/* Upload data modal */}
@@ -430,7 +435,7 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationUpload.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "role name"
+                    "permission name"
                   )
                 : undefined
             }
@@ -458,7 +463,7 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationDownload.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "role name"
+                    "permission name"
                   )
                 : undefined
             }

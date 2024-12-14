@@ -28,6 +28,9 @@ function makeQueryClient(message: MessageInstance) {
           "Failed to fetch data! Please check your connection and try again."
         );
       },
+      onSuccess(data, query) {
+          console.log(data)
+      },
     }),
   });
 }

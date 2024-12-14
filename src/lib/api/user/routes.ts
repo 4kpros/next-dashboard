@@ -6,9 +6,10 @@ import {
 } from "@/lib/api/user/request";
 import { UserListResponse, UserResponse } from "@/lib/api/user/response";
 import { DELETE, GET, POST, PUT } from "@/lib/http/http";
+import { SelectionRequest } from "../base-response";
 
-export async function getUser(userID: number) {
-  return GET<UserResponse, number>(`/users/${userID}`);
+export async function getUser(id: number) {
+  return GET<UserResponse, UserRequest>(`/users/${id}`);
 }
 export async function getUserList(params: UserListRequest) {
   return GET<UserListResponse, UserListRequest>("/users", {
@@ -21,17 +22,37 @@ export async function getUserList(params: UserListRequest) {
     },
   });
 }
-export async function postUserWithEmail(item: UserWithEmailRequest) {
+export async function postUser(item: UserRequest) {
+  if (item.addMethod === "email") {
+    return postUserWithEmail({
+      email: item.email,
+      roleID: item.roleID,
+    });
+  } else {
+    return postUserWithPhoneNumber({
+      phoneNumber: item.phoneNumber,
+      roleID: item.roleID,
+    });
+  }
+}
+async function postUserWithEmail(item: UserWithEmailRequest) {
   return POST<UserResponse, UserWithEmailRequest>(`/users/email`);
 }
-export async function postUserWithPhoneNumber(
+async function postUserWithPhoneNumber(
   item: UserWithPhoneNumberRequest
 ) {
   return POST<UserResponse, UserWithPhoneNumberRequest>(`/users/phone`);
 }
 export async function updateUser(item: UserRequest) {
-  return PUT<UserResponse, UserRequest>(`/users`);
+  const id = item.id;
+  item.id = undefined;
+  return PUT<UserResponse, UserRequest>(`/users/${id}`, item);
 }
-export async function deleteUser(userID: number) {
-  return DELETE<UserResponse, number>(`/users/${userID}`);
+export async function deleteUser(id: number) {
+  return DELETE<UserResponse, UserRequest>(`/users/${id}`);
+}
+export async function deleteMultipleUser(selection: SelectionRequest) {
+  return DELETE<number, SelectionRequest>(`/users/multiple/delete`, {
+    data: selection,
+  });
 }

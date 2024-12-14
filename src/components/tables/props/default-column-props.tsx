@@ -3,9 +3,20 @@ import { EyeOutlined } from "@ant-design/icons";
 import { Popconfirm, Space, Tag, Tooltip } from "antd";
 import { ColumnType } from "antd/es/table";
 
-// Default column props for string
 export const defaultColumnProps = {
   sorter: true,
+  ellipsis: {
+    showTitle: false,
+  },
+  render: (value: string) => (
+    <Tooltip placement="topLeft" title={value}>
+      {value}
+    </Tooltip>
+  ),
+};
+
+export const defaultColumnPropsWithoutSorter = {
+  sorter: false,
   ellipsis: {
     showTitle: false,
   },
@@ -30,9 +41,18 @@ export const defaultColumnDateTimeProps = {
   },
 };
 
-// Default column props for boolean
+
 export const defaultColumnBooleanProps = {
   sorter: true,
+  ellipsis: {
+    showTitle: false,
+  },
+  render: (value: boolean) =>
+    value ? <Tag color="green">Yes</Tag> : <Tag color="orange">No</Tag>,
+};
+
+export const defaultColumnBooleanPropsWithoutSorter = {
+  sorter: false,
   ellipsis: {
     showTitle: false,
   },

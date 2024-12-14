@@ -2,18 +2,20 @@ import { FilterRequest } from "../filter/request";
 import { PaginationRequest } from "../pagination/request";
 
 export interface UserRequest {
-  userID: number;
+  id?: number;
   email: string;
   phoneNumber: number;
   roleID: number;
+
+  addMethod?: string;
 }
 export interface UserWithEmailRequest {
   email: string;
-  roleID: string;
+  roleID: number;
 }
 export interface UserWithPhoneNumberRequest {
   phoneNumber: number;
-  roleID: string;
+  roleID: number;
 }
 
 export interface UserInfoRequest {
@@ -33,11 +35,6 @@ export interface UserMfaRequest {
   email?: boolean | null;
   phoneNumber?: boolean | null;
   authenticator?: boolean | null;
-}
-
-export interface UserRoleRequest {
-  userID: number;
-  roleID: number;
 }
 
 export interface UserListRequest extends FilterRequest, PaginationRequest {}

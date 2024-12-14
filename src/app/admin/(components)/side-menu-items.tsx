@@ -114,13 +114,6 @@ export default function sideMenuItems(
       type: "group",
       children: [
         {
-          key: "/admin/users",
-          icon: <UserIcon />,
-          label: "Users",
-          style: { gap: 5 },
-          onClick: onClick,
-        },
-        {
           key: "/admin/roles",
           icon: <UserSwitchIcon />,
           label: "Roles",
@@ -131,6 +124,13 @@ export default function sideMenuItems(
           key: "/admin/permissions",
           icon: <ShieldIcon />,
           label: "Permissions",
+          style: { gap: 5 },
+          onClick: onClick,
+        },
+        {
+          key: "/admin/users",
+          icon: <UserIcon />,
+          label: "Users",
           style: { gap: 5 },
           onClick: onClick,
         },
