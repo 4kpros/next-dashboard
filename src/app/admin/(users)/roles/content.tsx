@@ -30,6 +30,13 @@ import {
 } from "@/helpers/url/search-param";
 import { SelectionRequest } from "@/lib/api/base-response";
 import RoleDetails from "./components/role-details";
+import UploadModal from "@/components/modal/upload-modal";
+import DownloadModal from "@/components/modal/download-modal";
+import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
+import {
+  DownloadRequest,
+  UploadRequest,
+} from "@/lib/api/upload-download/request";
 
 export default function PageContent() {
   // React hooks
@@ -53,6 +60,11 @@ export default function PageContent() {
   const [roleToUpdate, setRoleToUpdate] = useState<RoleResponse | null>(null);
   // Delete role states
   const [deleteRoleModalOpen, setDeleteRoleModalOpen] = useState(false);
+  // Uploads & downloads
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [downloadModalOpen, setDownloadModalOpen] = useState(false);
+  const canUpload = true;
+  const canDownload = true;
 
   // Ant design hooks
   const { message: messageInst } = App.useApp();
@@ -125,6 +137,26 @@ export default function PageContent() {
       toastMessage("error", "Failed to delete role selection!");
     },
   });
+  const mutationUpload = useMutation({
+    mutationFn: async (item: UploadRequest) => uploadData("roles", item),
+    onSuccess(_data, _variables, _context) {
+      console.log(_data);
+    },
+    onError(_error, _variables, _context) {
+      console.log(_error);
+      toastMessage("error", "Failed to upload data!");
+    },
+  });
+  const mutationDownload = useMutation({
+    mutationFn: async (item: DownloadRequest) => downloadData("roles", item),
+    onSuccess(_data, _variables, _context) {
+      console.log(_data);
+    },
+    onError(_error, _variables, _context) {
+      console.log(_error);
+      toastMessage("error", "Failed to download data!");
+    },
+  });
   const invalidateQueries = () => {
     queryClient.invalidateQueries({
       queryKey: [
@@ -175,7 +207,14 @@ export default function PageContent() {
           onDelete={() => {
             setDeleteRoleModalOpen(true);
           }}
-          onPrint={() => {}}
+          canUpload={canUpload}
+          canDownload={canDownload}
+          onUpload={() => {
+            setUploadModalOpen(true);
+          }}
+          onDownload={() => {
+            setDownloadModalOpen(true);
+          }}
         />
         <DefaultTableHeaderInfo
           selectedItemsCount={selectedRowKeys.length}
@@ -273,22 +312,6 @@ export default function PageContent() {
         </div>
       </div>
 
-      {/* Show role modal */}
-      <CustomModalWithoutFooter
-        title="Role details"
-        content={
-          <RoleDetails
-            role={roleToShow}
-            onClose={() => setShowRoleModalOpen(false)}
-          />
-        }
-        modalOpen={showRoleModalOpen}
-        maskClosable={true}
-        width={800}
-        onOk={() => setShowRoleModalOpen(false)}
-        onCancel={() => setShowRoleModalOpen(false)}
-      />
-
       {/* Add new role modal */}
       <CustomModalWithoutFooter
         title="Add new role"
@@ -361,6 +384,22 @@ export default function PageContent() {
         onCancel={() => setUpdateRoleModalOpen(false)}
       />
 
+      {/* Show role modal */}
+      <CustomModalWithoutFooter
+        title="Role details"
+        content={
+          <RoleDetails
+            role={roleToShow}
+            onClose={() => setShowRoleModalOpen(false)}
+          />
+        }
+        modalOpen={showRoleModalOpen}
+        maskClosable={true}
+        width={800}
+        onOk={() => setShowRoleModalOpen(false)}
+        onCancel={() => setShowRoleModalOpen(false)}
+      />
+
       {/* Delete role modal */}
       <DeleteModal
         description={`Do you really want to delete all selected ${
@@ -377,6 +416,62 @@ export default function PageContent() {
           setDeleteRoleModalOpen(false);
         }}
         onCancel={() => setDeleteRoleModalOpen(false)}
+      />
+
+      {/* Upload data modal */}
+      <CustomModalWithoutFooter
+        title="Upload data"
+        content={
+          <UploadModal
+            isLoading={mutationUpload.isPending}
+            canSubmit={true}
+            errorMessage={
+              mutationUpload.isError
+                ? HttpMessageFromStatus(
+                    (mutationUpload.error as any)?.response?.data?.status ??
+                      HttpStatusCode.InternalServerError,
+                    "role name"
+                  )
+                : undefined
+            }
+            onSubmit={(item) => {
+              mutationUpload.mutate(item);
+            }}
+            onCancel={() => setUploadModalOpen(false)}
+          />
+        }
+        modalOpen={uploadModalOpen}
+        maskClosable={true}
+        onOk={() => setUploadModalOpen(false)}
+        onCancel={() => setUploadModalOpen(false)}
+      />
+
+      {/* Download data modal */}
+      <CustomModalWithoutFooter
+        title="Download data"
+        content={
+          <DownloadModal
+            isLoading={mutationDownload.isPending}
+            canSubmit={true}
+            errorMessage={
+              mutationDownload.isError
+                ? HttpMessageFromStatus(
+                    (mutationDownload.error as any)?.response?.data?.status ??
+                      HttpStatusCode.InternalServerError,
+                    "role name"
+                  )
+                : undefined
+            }
+            onSubmit={(item) => {
+              mutationDownload.mutate(item);
+            }}
+            onCancel={() => setDownloadModalOpen(false)}
+          />
+        }
+        modalOpen={downloadModalOpen}
+        maskClosable={true}
+        onOk={() => setDownloadModalOpen(false)}
+        onCancel={() => setDownloadModalOpen(false)}
       />
     </>
   );

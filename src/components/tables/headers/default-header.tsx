@@ -1,9 +1,10 @@
 import {
   ClearOutlined,
   DeleteOutlined,
+  DownloadOutlined,
   PlusOutlined,
-  PrinterOutlined,
   SyncOutlined,
+  UploadOutlined,
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { SearchProps } from "antd/es/input";
@@ -13,6 +14,8 @@ const { Search } = Input;
 export default function DefaultTableHeader(props: {
   isLoading?: boolean;
   isFetching?: boolean;
+  canUpload?: boolean;
+  canDownload?: boolean;
   isDeletingSelection?: boolean;
   selectedItemsCount?: number;
   searchKeyword?: string | null;
@@ -20,7 +23,8 @@ export default function DefaultTableHeader(props: {
   onSearch?: SearchProps["onSearch"];
   onRefresh?: () => void;
   onDelete?: () => void;
-  onPrint?: () => void;
+  onUpload?: () => void;
+  onDownload?: () => void;
   onClearSearch?: () => void;
 }) {
   return (
@@ -75,13 +79,24 @@ export default function DefaultTableHeader(props: {
         >
           Delete
         </Button>
-        <Button
-          disabled={props.isLoading}
-          icon={<PrinterOutlined />}
-          onClick={props.onPrint}
-        >
-          Print
-        </Button>
+        {props.canUpload === true ? (
+          <Button
+            disabled={props.isLoading}
+            icon={<UploadOutlined />}
+            onClick={props.onUpload}
+          >
+            Import
+          </Button>
+        ) : null}
+        {props.canDownload === true ? (
+          <Button
+            disabled={props.isLoading}
+            icon={<DownloadOutlined />}
+            onClick={props.onDownload}
+          >
+            Export
+          </Button>
+        ) : null}
       </div>
     </div>
   );

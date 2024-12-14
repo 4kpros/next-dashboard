@@ -42,7 +42,8 @@ export default function PageContent() {
           onDelete={() => {
             setDeleteUserModalOpen(true);
           }}
-          onPrint={() => {}}
+          onUpload={() => {}}
+          onDownload={() => {}}
         />
         <DefaultTableHeaderInfo totalPages={5} />
         <UsersTable

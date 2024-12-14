@@ -1,4 +1,4 @@
-import { ConfigProvider, theme } from "antd";
+import { App, ConfigProvider, theme } from "antd";
 import { Roboto } from "next/font/google";
 import { ReactNode } from "react";
 
@@ -48,7 +48,8 @@ export default function AntdTheme({
         },
       }}
     >
-      {children}
+      {/* {children} */}
+      <App>{children}</App>
     </ConfigProvider>
   );
 }
