@@ -63,8 +63,6 @@ export default function PageContent() {
   // Uploads & downloads
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
-  const canUpload = true;
-  const canDownload = true;
 
   // Ant design hooks
   const { message: messageInst } = App.useApp();
@@ -184,6 +182,10 @@ export default function PageContent() {
           isDeletingSelection={mutationDeleteMultiple.isPending}
           selectedItemsCount={selectedRowKeys.length}
           searchKeyword={paramSearch}
+          canAdd={true}
+          canDeleteMultiple={true}
+          canUpload={true}
+          canDownload={true}
           onAdd={() => {
             mutationAdd.reset();
             setAddRoleModalOpen(true);
@@ -207,8 +209,6 @@ export default function PageContent() {
           onDelete={() => {
             setDeleteRoleModalOpen(true);
           }}
-          canUpload={canUpload}
-          canDownload={canDownload}
           onUpload={() => {
             setUploadModalOpen(true);
           }}
@@ -217,6 +217,7 @@ export default function PageContent() {
           }}
         />
         <DefaultTableHeaderInfo
+          showSelection={true}
           selectedItemsCount={selectedRowKeys.length}
           currentPage={query.data?.data?.pagination.currentPage ?? 0}
           totalPages={query.data?.data?.pagination.totalPages ?? 0}

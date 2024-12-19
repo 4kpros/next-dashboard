@@ -111,6 +111,7 @@ export default function UsersTable(props: {
       // Column props for actions(update, delete, ...)
       ...defaultColumnActionProps({
         deleteDescription: "this user",
+        onDetailsRequested: props.onDetailsRequested,
         onUpdateRequested: props.onUpdateRequested,
         onDeleteConfirmed: props.onDeleteConfirmed,
       }),

@@ -3,7 +3,7 @@ import { PaginationRequest } from "../pagination/request";
 
 export interface PermissionRequest {
   id?: number;
-  roleID: number;
+  roleID?: string;
   tableName: string;
   create: boolean;
   read: boolean;

@@ -13,7 +13,6 @@ import {
   deleteMultiplePermission,
   deletePermission,
   getPermissionList,
-  postPermission,
   updatePermission,
 } from "@/lib/api/permission/routes";
 import { PermissionRequest } from "@/lib/api/permission/request";
@@ -67,8 +66,6 @@ export default function PageContent() {
   // Uploads & downloads
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
-  const canUpload = true;
-  const canDownload = true;
 
   // Ant design hooks
   const { message: messageInst } = App.useApp();
@@ -102,7 +99,7 @@ export default function PageContent() {
   });
   const mutationAdd = useMutation({
     mutationFn: async (permission: PermissionRequest) =>
-      postPermission(permission),
+      updatePermission(permission),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddPermissionModalOpen(false);
@@ -191,6 +188,10 @@ export default function PageContent() {
           isDeletingSelection={mutationDeleteMultiple.isPending}
           selectedItemsCount={selectedRowKeys.length}
           searchKeyword={paramSearch}
+          canAdd={true}
+          canDeleteMultiple={true}
+          canUpload={true}
+          canDownload={true}
           onAdd={() => {
             mutationAdd.reset();
             setAddPermissionModalOpen(true);
@@ -214,8 +215,6 @@ export default function PageContent() {
           onDelete={() => {
             setDeletePermissionModalOpen(true);
           }}
-          canUpload={canUpload}
-          canDownload={canDownload}
           onUpload={() => {
             setUploadModalOpen(true);
           }}
@@ -224,6 +223,7 @@ export default function PageContent() {
           }}
         />
         <DefaultTableHeaderInfo
+          showSelection={true}
           selectedItemsCount={selectedRowKeys.length}
           currentPage={query.data?.data?.pagination.currentPage ?? 0}
           totalPages={query.data?.data?.pagination.totalPages ?? 0}
@@ -368,12 +368,18 @@ export default function PageContent() {
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
-                  permissionToUpdate?.roleID === values?.roleID &&
-                  permissionToUpdate?.tableName === values?.tableName &&
-                  permissionToUpdate?.create === values?.create &&
-                  permissionToUpdate?.read === values?.read &&
-                  permissionToUpdate?.update === values?.update &&
-                  permissionToUpdate?.delete === values?.delete
+                  (permissionToUpdate?.role?.id?.toString() ?? "") as string ===
+                    (values?.roleID ?? "") as string &&
+                  (permissionToUpdate?.tableName ?? "") as string ===
+                    (values?.tableName ?? "") as string &&
+                  (permissionToUpdate?.create ?? false) as boolean ===
+                    (values?.create ?? false) as boolean &&
+                  (permissionToUpdate?.read ?? false) as boolean ===
+                    (values?.read ?? false) as boolean &&
+                  (permissionToUpdate?.update ?? false) as boolean ===
+                    (values?.update ?? false) as boolean &&
+                  (permissionToUpdate?.delete ?? false) as boolean ===
+                    (values?.delete ?? false) as boolean
                 )
               );
             }}

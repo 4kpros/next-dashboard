@@ -1,6 +1,12 @@
-import { PermissionListRequest, PermissionRequest } from "@/lib/api/permission/request";
-import { PermissionListResponse, PermissionResponse } from "@/lib/api/permission/response";
-import { DELETE, GET, POST, PUT } from "@/lib/http/http";
+import {
+  PermissionListRequest,
+  PermissionRequest,
+} from "@/lib/api/permission/request";
+import {
+  PermissionListResponse,
+  PermissionResponse,
+} from "@/lib/api/permission/response";
+import { DELETE, GET, PUT } from "@/lib/http/http";
 import { SelectionRequest } from "../base-response";
 
 export async function getPermission(id: number) {
@@ -17,13 +23,18 @@ export async function getPermissionList(params: PermissionListRequest) {
     },
   });
 }
-export async function postPermission(item: PermissionRequest) {
-  return POST<PermissionResponse, PermissionRequest>(`/permissions`, item);
-}
 export async function updatePermission(item: PermissionRequest) {
-  const id = item.id;
-  item.id = undefined;
-  return PUT<PermissionResponse, PermissionRequest>(`/permissions/${id}`, item);
+  const id = item.roleID;
+  item.roleID = undefined;
+  item.create = item.create === true;
+  item.read = item.read === true;
+  item.update = item.update === true;
+  item.delete = item.delete === true;
+  console.log(item);
+  return PUT<PermissionResponse, PermissionRequest>(
+    `/permissions/role/${id}`,
+    item
+  );
 }
 export async function deletePermission(id: number) {
   return DELETE<PermissionResponse, PermissionRequest>(`/permissions/${id}`);

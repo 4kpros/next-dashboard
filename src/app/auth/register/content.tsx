@@ -55,6 +55,7 @@ export default function PageContent() {
           <div
             style={{
               borderRadius: theme.borderRadius,
+              backgroundColor: theme.colorFill,
             }}
             className="w-full"
           >

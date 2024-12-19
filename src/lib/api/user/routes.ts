@@ -7,11 +7,12 @@ import {
 import { UserListResponse, UserResponse } from "@/lib/api/user/response";
 import { DELETE, GET, POST, PUT } from "@/lib/http/http";
 import { SelectionRequest } from "../base-response";
+import { GenericAbortSignal } from "axios";
 
 export async function getUser(id: number) {
   return GET<UserResponse, UserRequest>(`/users/${id}`);
 }
-export async function getUserList(params: UserListRequest) {
+export async function getUserList(params: UserListRequest, signal?: GenericAbortSignal) {
   return GET<UserListResponse, UserListRequest>("/users", {
     params: {
       search: params.search,
@@ -20,6 +21,7 @@ export async function getUserList(params: UserListRequest) {
       page: params.page,
       limit: params.limit,
     },
+    signal: signal,
   });
 }
 export async function postUser(item: UserRequest) {

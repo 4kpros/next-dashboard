@@ -14,6 +14,8 @@ const { Search } = Input;
 export default function DefaultTableHeader(props: {
   isLoading?: boolean;
   isFetching?: boolean;
+  canAdd?: boolean;
+  canDeleteMultiple?: boolean;
   canUpload?: boolean;
   canDownload?: boolean;
   isDeletingSelection?: boolean;
@@ -30,14 +32,16 @@ export default function DefaultTableHeader(props: {
   return (
     <div className="w-full flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        <Button
-          type="primary"
-          size="large"
-          icon={<PlusOutlined />}
-          onClick={props.onAdd}
-        >
-          Add
-        </Button>
+        {props.canAdd === true ? (
+          <Button
+            type="primary"
+            size="large"
+            icon={<PlusOutlined />}
+            onClick={props.onAdd}
+          >
+            Add
+          </Button>
+        ) : null}
         <Search
           allowClear
           placeholder="Input search text"
@@ -69,16 +73,18 @@ export default function DefaultTableHeader(props: {
         >
           Refresh
         </Button>
-        <Button
-          loading={props.isDeletingSelection}
-          disabled={
-            (props.selectedItemsCount ?? 0) < 1 || props.isLoading == true
-          }
-          icon={<DeleteOutlined />}
-          onClick={props.onDelete}
-        >
-          Delete
-        </Button>
+        {props.canDeleteMultiple === true ? (
+          <Button
+            loading={props.isDeletingSelection}
+            disabled={
+              (props.selectedItemsCount ?? 0) < 1 || props.isLoading == true
+            }
+            icon={<DeleteOutlined />}
+            onClick={props.onDelete}
+          >
+            Delete
+          </Button>
+        ) : null}
         {props.canUpload === true ? (
           <Button
             disabled={props.isLoading}

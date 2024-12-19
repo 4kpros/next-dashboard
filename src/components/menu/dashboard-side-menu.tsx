@@ -52,7 +52,7 @@ export default function DashboardSideMenu(props: {
     >
       <Header
         style={{
-          backgroundColor: theme.colorPrimary,
+          backgroundColor: "transparent",
           borderRadius: theme.borderRadius,
           padding: "15px 10px",
           display: "flex",
@@ -60,7 +60,7 @@ export default function DashboardSideMenu(props: {
           justifyContent: "space-between",
           gap: 20,
         }}
-        className="border"
+        className=""
       >
         <Button
           size="large"

@@ -2,11 +2,15 @@ import { RoleListRequest, RoleRequest } from "@/lib/api/role/request";
 import { RoleListResponse, RoleResponse } from "@/lib/api/role/response";
 import { DELETE, GET, POST, PUT } from "@/lib/http/http";
 import { SelectionRequest } from "../base-response";
+import { GenericAbortSignal } from "axios";
 
 export async function getRole(id: number) {
   return GET<RoleResponse, RoleRequest>(`/roles/${id}`);
 }
-export async function getRoleList(params: RoleListRequest) {
+export async function getRoleList(
+  params: RoleListRequest,
+  signal?: GenericAbortSignal
+) {
   return GET<RoleListResponse, RoleListRequest>("/roles", {
     params: {
       search: params.search,
@@ -15,6 +19,7 @@ export async function getRoleList(params: RoleListRequest) {
       page: params.page,
       limit: params.limit,
     },
+    signal: signal,
   });
 }
 export async function postRole(item: RoleRequest) {

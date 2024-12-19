@@ -1,23 +1,35 @@
-import { MailOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, theme as antdTheme } from "antd";
-import TextArea from "antd/es/input/TextArea";
-import Image from "next/image";
-import HelpIcon from "../icons/material/help";
+"use client";
 
-export interface FormContact {
-  name: string;
-  email: string;
-  message: string;
-}
+import { Alert, App, Button, Form, Input, theme as antdTheme } from "antd";
+import TextArea from "antd/es/input/TextArea";
+import HelpIcon from "../icons/material/help";
+import { ContactRequest } from "@/lib/api/contact/request";
+import { useMutation } from "@tanstack/react-query";
+import { NoticeType } from "antd/es/message/interface";
+import { postContact } from "@/lib/api/contact/routes";
 
 export default function Contact() {
   // Ant design theme
   const { useToken } = antdTheme;
   const { token: theme } = useToken();
 
-  const onFinish = (values: FormContact) => {
-    console.log("Received values of form: ", values);
+  // Ant design hooks
+  const { message: messageInst } = App.useApp();
+  const toastMessage = (type: NoticeType, message: string) => {
+    messageInst.open({
+      type: type,
+      content: message,
+    });
   };
+
+  // Tanstack hooks
+  const mutationAdd = useMutation({
+    mutationFn: async (contact: ContactRequest) => postContact(contact),
+    onSuccess(_data, _variables, _context) {
+      toastMessage("success", "Successful sent!");
+    },
+  });
+
   return (
     <section className="w-full flex flex-col items-center gap-8">
       <h1 className="w-full text-4xl text-center font-semibold">Contact us</h1>
@@ -42,7 +54,15 @@ export default function Contact() {
 
         <div className="w-full flex items-center justify-center">
           <div className="w-full">
-            <Form name="cf" method="post" onFinish={onFinish} layout="vertical">
+            <Form<ContactRequest>
+              name="form-add-contact"
+              layout={"vertical"}
+              style={{ maxWidth: 600 }}
+              onFinish={(item: ContactRequest) => {
+                mutationAdd.mutate(item);
+              }}
+              autoComplete="on"
+            >
               <Form.Item
                 label="Don't fill this out"
                 className={`hidden`}
@@ -53,14 +73,16 @@ export default function Contact() {
               </Form.Item>
 
               <Form.Item
-                name="name"
-                label="Name"
-                rules={[{ required: true, message: `Please enter your name.` }]}
+                name="subject"
+                label="Subject"
+                rules={[
+                  { required: true, message: `Please enter the subject.` },
+                ]}
               >
                 <Input
+                  disabled={mutationAdd.isPending}
                   size="large"
-                  placeholder="Name"
-                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  placeholder="Subject"
                 />
               </Form.Item>
 
@@ -76,9 +98,9 @@ export default function Contact() {
                 ]}
               >
                 <Input
+                  disabled={mutationAdd.isPending}
                   size="large"
                   placeholder="Your Email"
-                  prefix={<MailOutlined className="site-form-item-icon" />}
                 />
               </Form.Item>
 
@@ -89,19 +111,58 @@ export default function Contact() {
                   { required: true, message: `Please enter your message.` },
                 ]}
               >
-                <TextArea placeholder="Your Message" rows={5} />
+                <TextArea
+                  disabled={mutationAdd.isPending}
+                  placeholder="Your Message"
+                  rows={5}
+                />
               </Form.Item>
 
               <Form.Item>
                 <Button
+                  loading={mutationAdd.isPending}
                   type="primary"
                   size="large"
                   htmlType="submit"
-                  disabled={false}
                 >
                   Send
                 </Button>
               </Form.Item>
+
+              <br />
+              <Alert
+                showIcon={false}
+                style={{
+                  height:
+                    mutationAdd.isError &&
+                    (mutationAdd.error?.message?.length ?? 0) > 0
+                      ? "auto"
+                      : "0px",
+                  padding:
+                    mutationAdd.isError &&
+                    (mutationAdd.error?.message?.length ?? 0) > 0
+                      ? "8px 12px"
+                      : "0px",
+                  borderWidth:
+                    mutationAdd.isError &&
+                    (mutationAdd.error?.message?.length ?? 0) > 0
+                      ? "1px"
+                      : "0px",
+                  marginBottom:
+                    mutationAdd.isError &&
+                    (mutationAdd.error?.message?.length ?? 0) > 0
+                      ? "10px"
+                      : "0px",
+                }}
+                message={
+                  mutationAdd.isError &&
+                  (mutationAdd.error?.message?.length ?? 0) > 0
+                    ? mutationAdd.error?.message
+                    : undefined
+                }
+                type="error"
+                className="transition-all duration-150 ease-in-out"
+              />
             </Form>
           </div>
         </div>

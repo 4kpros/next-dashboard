@@ -10,9 +10,9 @@ import CustomerSupportIcon from "@/components/icons/hugeicons/customer-support";
 import SchoolIcon from "@/components/icons/hugeicons/school";
 import ClockHistoryIcon from "@/components/icons/hugeicons/clock-history";
 import ManagerIcon from "../../../components/icons/hugeicons/manager";
-import StudentIcon from "@/components/icons/material/student";
 import UniversityIcon from "@/components/icons/hugeicons/university";
 import FlagIcon from "@/components/icons/hugeicons/flag";
+import CalendarIcon from "@/components/icons/hugeicons/calendar";
 
 export default function sideMenuItems(
   onClick?: (info: { key: string }) => void
@@ -30,6 +30,13 @@ export default function sideMenuItems(
       label: "School",
       type: "group",
       children: [
+        {
+          key: "/admin/years",
+          icon: <CalendarIcon />,
+          label: "Years",
+          style: { gap: 5 },
+          onClick: onClick,
+        },
         {
           key: "/admin/schools",
           icon: <FlagIcon />,
@@ -149,7 +156,7 @@ export default function sideMenuItems(
           onClick: onClick,
         },
         {
-          key: "/admin/helpcenter",
+          key: "/admin/contact",
           icon: <CustomerSupportIcon />,
           label: "Help center",
           style: { gap: 5 },

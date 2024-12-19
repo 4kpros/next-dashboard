@@ -34,8 +34,8 @@ function getDescription(
     },
     {
       key: "2",
-      label: "Role ID",
-      children: item?.roleID,
+      label: "Role",
+      children: item?.role?.name,
     },
     {
       key: "3",
@@ -45,22 +45,22 @@ function getDescription(
     {
       key: "4",
       label: "Create",
-      children: item?.create,
+      children: item?.create === true ? "True" : "False",
     },
     {
       key: "5",
       label: "Read",
-      children: item?.read,
+      children: item?.read === true ? "True" : "False",
     },
     {
       key: "5",
       label: "Update",
-      children: item?.update,
+      children: item?.update === true ? "True" : "False",
     },
     {
       key: "5",
       label: "Delete",
-      children: item?.delete,
+      children: item?.delete === true ? "True" : "False",
     },
   ];
 }

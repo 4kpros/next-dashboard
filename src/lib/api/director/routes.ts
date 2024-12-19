@@ -1,0 +1,40 @@
+
+import { DELETE, GET, POST, PUT } from "@/lib/http/http";
+import { SelectionRequest } from "../base-response";
+import { GenericAbortSignal } from "axios";
+import { DirectorListResponse, DirectorResponse } from "./response";
+import { DirectorListRequest, DirectorRequest } from "./request";
+import { SchoolListRequest } from "../school/request";
+
+// Director
+export async function getDirector(id: number) {
+  return GET<DirectorResponse, DirectorRequest>(`/schools/directors/${id}`);
+}
+export async function getDirectorList(params: SchoolListRequest, signal?: GenericAbortSignal) {
+  return GET<DirectorListResponse, DirectorListRequest>("/schools/directors", {
+    params: {
+      search: params.search,
+      orderBy: params.orderBy,
+      sort: params.sort,
+      page: params.page,
+      limit: params.limit,
+    },
+    signal: signal,
+  });
+}
+export async function postDirector(item: DirectorRequest) {
+  return POST<DirectorResponse, DirectorRequest>(`/schools/directors`, item);
+}
+export async function updateDirector(item: DirectorRequest) {
+  const id = item.id;
+  item.id = undefined;
+  return PUT<DirectorResponse, DirectorRequest>(`/schools/directors/${id}`, item);
+}
+export async function deleteDirector(id: number) {
+  return DELETE<DirectorResponse, DirectorRequest>(`/schools/directors/${id}`);
+}
+export async function deleteMultipleDirector(selection: SelectionRequest) {
+  return DELETE<number, SelectionRequest>(`/schools/directors/multiple/delete`, {
+    data: selection,
+  });
+}
