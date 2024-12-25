@@ -8,8 +8,6 @@ import { Header } from "antd/es/layout/layout";
 import LogoHeader from "../header/logo-header";
 import "../../styles/menu.css";
 
-const { Sider } = Layout;
-
 export default function DashboardSideMenu(props: {
   menuLabel?: string;
   onMenuClicked?: () => void;
@@ -28,7 +26,7 @@ export default function DashboardSideMenu(props: {
   });
 
   return (
-    <Sider
+    <Layout.Sider
       breakpoint={"lg"}
       collapsedWidth={0}
       onBreakpoint={(broken) => {
@@ -49,6 +47,7 @@ export default function DashboardSideMenu(props: {
       collapsible={true}
       collapsed={false}
       className="border-r"
+      width={270}
     >
       <Header
         style={{
@@ -94,6 +93,6 @@ export default function DashboardSideMenu(props: {
         }}
         className="custom-side-menu"
       />
-    </Sider>
+    </Layout.Sider>
   );
 }

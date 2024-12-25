@@ -1,13 +1,13 @@
-import { DownloadRequest } from "@/lib/api/upload-download/request";
 import { Alert, Form, Radio, Space } from "antd";
 import FormModalFooter from "../form/form-modal-footer";
+import { DownloadRequest } from "@/lib/api/common/upload-download/request";
 
 export default function DownloadModal(props: {
   isLoading?: boolean;
   canSubmit?: boolean;
   canSubmitMessage?: string;
   errorMessage?: string;
-  onSubmit: (role: DownloadRequest) => void;
+  onSubmit: (data: DownloadRequest) => void;
   onValuesChange?: (values: DownloadRequest) => void;
   onCancel?: () => void;
 }) {

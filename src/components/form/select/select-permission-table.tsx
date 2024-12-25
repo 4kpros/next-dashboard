@@ -1,4 +1,4 @@
-import { TABLES } from "@/lib/permission-tables";
+import { TABLES } from "@/lib/constants/permission-table";
 import { Empty, Form, Select } from "antd";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 

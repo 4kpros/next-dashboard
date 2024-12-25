@@ -80,7 +80,11 @@ export default function AvatarProfile() {
               <ImageWithFallback
                 alt=""
                 src={session.data?.user?.image ?? undefined}
-                fallback={<>{session.data?.user?.nameTrunc?.toUpperCase() ?? "NA"}</>}
+                fallback={
+                  <span className="text-lg">
+                    {session.data?.user?.nameTrunc?.toUpperCase() ?? "NA"}
+                  </span>
+                }
               />
             }
             style={{

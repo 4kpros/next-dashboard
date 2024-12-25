@@ -1,34 +1,25 @@
 "use client";
 
 import FormAlertDefaultError from "@/components/form/alert/default-error";
+import FormItemCheckbox from "@/components/form/checkbox/checkbox";
 import FormModalFooter from "@/components/form/form-modal-footer";
 import FormItemInputEmail from "@/components/form/input/input-email";
 import FormItemInputPhone from "@/components/form/input/input-phone";
 import FormItemSelectRole from "@/components/form/select/select-role";
-import { UserRequest } from "@/lib/api/user/request";
-import { UserResponse } from "@/lib/api/user/response";
+import { UserRequest } from "@/lib/api/user/user/request";
 import { MailFilled, PhoneFilled } from "@ant-design/icons";
 import { Form, Segmented } from "antd";
 import { useState } from "react";
 
 export default function FormAddUser(props: {
   isLoading?: boolean;
-  user?: UserResponse | null;
   canSubmit?: boolean;
   errorMessage?: string;
   onValuesChange?: (values: UserRequest) => void;
-  onSubmit: (user: UserRequest) => void;
+  onSubmit: (data: UserRequest) => void;
   onCancel: () => void;
 }) {
   const [addMethod, setAddMethod] = useState("email");
-
-  const onFormValuesChange = (values: UserRequest) => {
-    const newMethod = values?.addMethod ?? null;
-    if (newMethod != null && newMethod != addMethod) {
-      setAddMethod(newMethod);
-      props.onValuesChange!(values);
-    }
-  };
 
   return (
     <Form
@@ -36,7 +27,13 @@ export default function FormAddUser(props: {
       layout={"vertical"}
       onFinish={props.onSubmit}
       onValuesChange={(_changed, values) => {
-        onFormValuesChange!(values);
+        if (props.onValuesChange) {
+          props.onValuesChange(values);
+        }
+        const newMethod = values?.addMethod ?? null;
+        if (newMethod != null && newMethod != addMethod) {
+          setAddMethod(newMethod);
+        }
       }}
       autoComplete="on"
     >
@@ -57,12 +54,31 @@ export default function FormAddUser(props: {
       <br />
 
       {addMethod == "email" ? (
-        <FormItemInputEmail isLoading={props.isLoading} size="middle" />
+        <FormItemInputEmail
+          label="Email"
+          name={"email"}
+          isLoading={props.isLoading}
+          required={true}
+          size="middle"
+        />
       ) : (
-        <FormItemInputPhone isLoading={props.isLoading} size="middle" />
+        <FormItemInputPhone
+          label="Phone number"
+          name={"phoneNumber"}
+          isLoading={props.isLoading}
+          required={true}
+          size="middle"
+        />
       )}
 
       <FormItemSelectRole isLoading={props.isLoading} size="middle" />
+
+      <FormItemCheckbox
+        required={true}
+        isLoading={props.isLoading}
+        label="Is activated"
+        name="isActivated"
+      />
 
       <br />
       <FormAlertDefaultError errorMessage={props.errorMessage} />

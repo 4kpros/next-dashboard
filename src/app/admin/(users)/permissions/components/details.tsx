@@ -1,10 +1,10 @@
 import ModalInfoFooter from "@/components/form/modal-info-footer";
 import { formatDateTime } from "@/helpers/date/format";
-import { PermissionResponse } from "@/lib/api/permission/response";
+import { PermissionListResponse, PermissionResponse } from "@/lib/api/user/permission/response";
 import { Descriptions, DescriptionsProps } from "antd";
 
 export default function PermissionDetails(props: {
-  permission?: PermissionResponse | null;
+  permission?: PermissionResponse;
   onClose: () => void;
 }) {
   return (
@@ -22,45 +22,55 @@ export default function PermissionDetails(props: {
 }
 
 function getDescription(
-  item?: PermissionResponse | null
+  item?: PermissionResponse
 ): DescriptionsProps["items"] {
   const createdAt = formatDateTime(item?.createdAt?.toString());
   const updatedAt = formatDateTime(item?.updatedAt?.toString());
   return [
     {
-      key: "1",
+      key: "id",
       label: "ID",
       children: item?.id,
     },
     {
-      key: "2",
+      key: "name",
       label: "Role",
       children: item?.role?.name,
     },
     {
-      key: "3",
+      key: "tableName",
       label: "Table name",
       children: item?.tableName,
     },
     {
-      key: "4",
+      key: "create",
       label: "Create",
       children: item?.create === true ? "True" : "False",
     },
     {
-      key: "5",
+      key: "read",
       label: "Read",
       children: item?.read === true ? "True" : "False",
     },
     {
-      key: "5",
+      key: "update",
       label: "Update",
       children: item?.update === true ? "True" : "False",
     },
     {
-      key: "5",
+      key: "delete",
       label: "Delete",
       children: item?.delete === true ? "True" : "False",
+    },
+    {
+      key: "createdAt",
+      label: "Created at",
+      children: createdAt,
+    },
+    {
+      key: "updatedAt",
+      label: "Updated at",
+      children: updatedAt,
     },
   ];
 }

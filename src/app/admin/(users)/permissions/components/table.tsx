@@ -1,19 +1,19 @@
 import { Table, TableColumnsType, Tooltip } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnActionProps,
   defaultColumnBooleanPropsWithoutSorter,
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { PermissionResponse } from "@/lib/api/permission/response";
-import { RoleResponse } from "@/lib/api/role/response";
+import { PermissionResponse } from "@/lib/api/user/permission/response";
+import { RoleResponse } from "@/lib/api/user/role/response";
 
 export default function PermissionsTable(props: {
   isLoading?: boolean;

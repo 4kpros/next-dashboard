@@ -6,8 +6,8 @@ import { CustomContainerFullHeight } from "@/components/container/custom-contain
 import { theme as antdTheme, message } from "antd";
 import FormActivateAccount from "./(components)/form-auth-activate";
 import { useMutation } from "@tanstack/react-query";
-import { ActivateRequest } from "@/lib/api/auth/request";
-import { activateAccount } from "@/lib/api/auth/routes";
+import { ActivateRequest } from "@/lib/api/user/auth/request";
+import { activateAccount } from "@/lib/api/user/auth/routes";
 import { HttpMessageFromStatus } from "@/lib/http/status-message";
 import { HttpStatusCode } from "axios";
 import { useRouter } from "next/navigation";

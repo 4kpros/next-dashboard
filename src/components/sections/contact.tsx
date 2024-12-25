@@ -3,10 +3,10 @@
 import { Alert, App, Button, Form, Input, theme as antdTheme } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import HelpIcon from "../icons/material/help";
-import { ContactRequest } from "@/lib/api/contact/request";
+import { ContactRequest } from "@/lib/api/others/contact/request";
 import { useMutation } from "@tanstack/react-query";
 import { NoticeType } from "antd/es/message/interface";
-import { postContact } from "@/lib/api/contact/routes";
+import { postContact } from "@/lib/api/others/contact/routes";
 
 export default function Contact() {
   // Ant design theme

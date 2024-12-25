@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDateTime } from "@/helpers/date/format";
-import { ProfileResponse } from "@/lib/api/profile/response";
+import { ProfileResponse } from "@/lib/api/user/profile/response";
 import { EditOutlined } from "@ant-design/icons";
 import { theme as antdTheme, Button } from "antd";
 

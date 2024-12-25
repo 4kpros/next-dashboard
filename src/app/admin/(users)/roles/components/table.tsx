@@ -1,17 +1,17 @@
 import { Table, TableColumnsType } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnActionProps,
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { RoleResponse } from "@/lib/api/role/response";
+import { RoleResponse } from "@/lib/api/user/role/response";
 
 export default function RolesTable(props: {
   isLoading?: boolean;

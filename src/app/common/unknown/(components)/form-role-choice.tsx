@@ -1,6 +1,6 @@
 "use client";
 
-import { RoleChoiceRequest } from "@/lib/api/profile/request";
+import { RoleChoiceRequest } from "@/lib/api/user/profile/request";
 import { Alert, Button, Form, Radio } from "antd";
 
 const options = [

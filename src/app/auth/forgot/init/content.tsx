@@ -7,8 +7,8 @@ import { CustomContainerFullHeight } from "@/components/container/custom-contain
 import { Button, theme as antdTheme, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { ForgotInitEmailRequest } from "@/lib/api/auth/request";
-import { forgotPasswordInitEmail } from "@/lib/api/auth/routes";
+import { ForgotInitEmailRequest } from "@/lib/api/user/auth/request";
+import { forgotPasswordInitEmail } from "@/lib/api/user/auth/routes";
 import { HttpMessageFromStatus } from "@/lib/http/status-message";
 import { HttpStatusCode } from "axios";
 import { NoticeType } from "antd/es/message/interface";

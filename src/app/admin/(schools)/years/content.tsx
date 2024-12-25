@@ -3,8 +3,8 @@
 import { useState } from "react";
 import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import YearsTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,9 +15,9 @@ import {
   getYearList,
   postYear,
   updateYear,
-} from "@/lib/api/year/routes";
-import { YearRequest } from "@/lib/api/year/request";
-import { YearResponse } from "@/lib/api/year/response";
+} from "@/lib/api/school/year/routes";
+import { YearRequest } from "@/lib/api/school/year/request";
+import { YearResponse } from "@/lib/api/school/year/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -28,15 +28,19 @@ import {
   setMultipleSearchParam,
   setSearchParam,
 } from "@/helpers/url/search-param";
-import { SelectionRequest } from "@/lib/api/base-response";
+import { SelectionRequest } from "@/lib/api/common/base-response";
 import YearDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
+import { formatDate } from "@/helpers/date/format";
 import {
   DownloadRequest,
   UploadRequest,
-} from "@/lib/api/upload-download/request";
+} from "@/lib/api/common/upload-download/request";
+import {
+  downloadData,
+  uploadData,
+} from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -358,22 +362,22 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            year={yearToUpdate}
+            item={yearToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
-                  yearToUpdate?.name === values?.name &&
-                  yearToUpdate?.feature === values?.feature &&
-                  yearToUpdate?.description === values?.description
+                  formatDate(yearToUpdate?.startDate?.toString()) ===
+                    formatDate(values?.startDate?.toString()) &&
+                  formatDate(yearToUpdate?.endDate?.toString()) ===
+                    formatDate(values?.endDate?.toString())
                 )
               );
             }}
-            onSubmit={(item) => {
+            onSubmit={(data) => {
               mutationUpdate.mutate({
                 id: yearToUpdate?.id ?? -1,
-                name: item.name,
-                feature: item.feature,
-                description: item.description,
+                startDate: data.startDate,
+                endDate: data.endDate,
               });
             }}
             onCancel={() => setUpdateYearModalOpen(false)}

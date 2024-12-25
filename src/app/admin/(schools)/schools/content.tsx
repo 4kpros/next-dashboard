@@ -3,8 +3,8 @@
 import { useState } from "react";
 import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import SchoolsTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,9 +15,9 @@ import {
   getSchoolList,
   postSchool,
   updateSchool,
-} from "@/lib/api/school/routes";
-import { SchoolRequest } from "@/lib/api/school/request";
-import { SchoolResponse } from "@/lib/api/school/response";
+} from "@/lib/api/school/school/routes";
+import { SchoolRequest } from "@/lib/api/school/school/request";
+import { SchoolResponse } from "@/lib/api/school/school/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -28,15 +28,18 @@ import {
   setMultipleSearchParam,
   setSearchParam,
 } from "@/helpers/url/search-param";
-import { SelectionRequest } from "@/lib/api/base-response";
+import { SelectionRequest } from "@/lib/api/common/base-response";
 import SchoolDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
 import {
   DownloadRequest,
   UploadRequest,
-} from "@/lib/api/upload-download/request";
+} from "@/lib/api/common/upload-download/request";
+import {
+  downloadData,
+  uploadData,
+} from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -57,7 +60,9 @@ export default function PageContent() {
   // Update school states
   const [updateSchoolModalOpen, setUpdateSchoolModalOpen] = useState(false);
   const [canSubmitUpdate, setCanSubmitUpdate] = useState(false);
-  const [schoolToUpdate, setSchoolToUpdate] = useState<SchoolResponse | null>(null);
+  const [schoolToUpdate, setSchoolToUpdate] = useState<SchoolResponse | null>(
+    null
+  );
   // Delete school states
   const [deleteSchoolModalOpen, setDeleteSchoolModalOpen] = useState(false);
   // Uploads & downloads
@@ -329,8 +334,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationAdd.mutate(item);
+            onSubmit={(data) => {
+              mutationAdd.mutate(data);
             }}
             onCancel={() => setAddSchoolModalOpen(false)}
           />
@@ -358,7 +363,7 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            school={schoolToUpdate}
+            item={schoolToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
@@ -367,11 +372,13 @@ export default function PageContent() {
                 )
               );
             }}
-            onSubmit={(item) => {
+            onSubmit={(data) => {
               mutationUpdate.mutate({
                 id: schoolToUpdate?.id ?? -1,
-                name: item.name,
-                type: item.type,
+                name: data.name,
+                type: data.type,
+                config: data.config,
+                info: data.info,
               });
             }}
             onCancel={() => setUpdateSchoolModalOpen(false)}
@@ -388,7 +395,7 @@ export default function PageContent() {
         title="School details"
         content={
           <SchoolDetails
-            school={schoolToShow}
+            item={schoolToShow}
             onClose={() => setShowSchoolModalOpen(false)}
           />
         }
@@ -433,8 +440,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationUpload.mutate(item);
+            onSubmit={(data) => {
+              mutationUpload.mutate(data);
             }}
             onCancel={() => setUploadModalOpen(false)}
           />
@@ -461,8 +468,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationDownload.mutate(item);
+            onSubmit={(data) => {
+              mutationDownload.mutate(data);
             }}
             onCancel={() => setDownloadModalOpen(false)}
           />

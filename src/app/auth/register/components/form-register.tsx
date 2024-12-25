@@ -1,7 +1,7 @@
 import { Form, Input, Button, Alert } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { SignInEmailRequest } from "@/lib/api/auth/request";
+import { SignInEmailRequest } from "@/lib/api/user/auth/request";
 
 export default function FormRegister(props: {
   isLoading?: boolean;

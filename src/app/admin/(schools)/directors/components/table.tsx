@@ -1,17 +1,20 @@
+import { Tooltip } from "antd";
 import { Table, TableColumnsType } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnActionProps,
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { DirectorResponse } from "@/lib/api/school/response";
+import { DirectorResponse } from "@/lib/api/school/director/response";
+import TableColumnSchool from "@/components/table/columns/column-school";
+import TableColumnUser from "@/components/table/columns/column-user";
 
 export default function DirectorsTable(props: {
   isLoading?: boolean;
@@ -50,24 +53,33 @@ export default function DirectorsTable(props: {
       ...defaultColumnProps,
     },
     {
-      title: "User ID",
-      dataIndex: "userID",
-      key: "user_id",
-      sortOrder: props.orderBy && props.orderBy === "user_id" ? props.sort : null,
-      ...defaultColumnProps,
+      title: "User",
+      dataIndex: "user",
+      key: "user",
+      sorter: false,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => (
+        <TableColumnUser record={record.user} showEmailOrPhone={true} />
+      ),
     },
     {
-      title: "Director ID",
-      dataIndex: "directorID",
-      key: "director_id",
-      sortOrder: props.orderBy && props.orderBy === "director_id" ? props.sort : null,
-      ...defaultColumnProps,
+      title: "School",
+      dataIndex: "school",
+      key: "school",
+      sorter: false,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => <TableColumnSchool record={record.school} showType={true}/>,
     },
     {
       title: "Updated",
       dataIndex: "updatedAt",
       key: "updated_at",
-      sortOrder: props.orderBy && props.orderBy === "updated_at" ? props.sort : null,
+      sortOrder:
+        props.orderBy && props.orderBy === "updated_at" ? props.sort : null,
       ...defaultColumnDateTimeProps,
     },
     {

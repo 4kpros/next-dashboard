@@ -1,4 +1,4 @@
-import { NotificationListResponse } from "@/lib/api/notifications/response";
+import { NotificationListResponse } from "@/lib/api/others/notifications/response";
 import React from "react";
 import ModalInfoFooter from "../form/modal-info-footer";
 

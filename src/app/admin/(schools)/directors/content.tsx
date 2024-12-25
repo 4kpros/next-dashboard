@@ -1,14 +1,23 @@
 "use client";
 
-// import { useState } from "react";
+import { useState } from "react";
 import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import DirectorsTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import FormAddUpdateDirector from "./components/form-add-update";
+import {
+  deleteMultipleDirector,
+  deleteDirector,
+  getDirectorList,
+  postDirector,
+  updateDirector,
+} from "@/lib/api/school/director/routes";
+import { DirectorRequest } from "@/lib/api/school/director/request";
+import { DirectorResponse } from "@/lib/api/school/director/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -19,15 +28,18 @@ import {
   setMultipleSearchParam,
   setSearchParam,
 } from "@/helpers/url/search-param";
-import { SelectionRequest } from "@/lib/api/base-response";
+import { SelectionRequest } from "@/lib/api/common/base-response";
 import DirectorDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
 import {
   DownloadRequest,
   UploadRequest,
-} from "@/lib/api/upload-download/request";
+} from "@/lib/api/common/upload-download/request";
+import {
+  downloadData,
+  uploadData,
+} from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -44,11 +56,14 @@ export default function PageContent() {
   const [addDirectorModalOpen, setAddDirectorModalOpen] = useState(false);
   // Show director states
   const [showDirectorModalOpen, setShowDirectorModalOpen] = useState(false);
-  const [directorToShow, setDirectorToShow] = useState<DirectorResponse | null>(null);
+  const [directorToShow, setDirectorToShow] = useState<DirectorResponse | null>(
+    null
+  );
   // Update director states
   const [updateDirectorModalOpen, setUpdateDirectorModalOpen] = useState(false);
   const [canSubmitUpdate, setCanSubmitUpdate] = useState(false);
-  const [directorToUpdate, setDirectorToUpdate] = useState<DirectorResponse | null>(null);
+  const [directorToUpdate, setDirectorToUpdate] =
+    useState<DirectorResponse | null>(null);
   // Delete director states
   const [deleteDirectorModalOpen, setDeleteDirectorModalOpen] = useState(false);
   // Uploads & downloads
@@ -137,7 +152,8 @@ export default function PageContent() {
     },
   });
   const mutationDownload = useMutation({
-    mutationFn: async (item: DownloadRequest) => downloadData("directors", item),
+    mutationFn: async (item: DownloadRequest) =>
+      downloadData("directors", item),
     onSuccess(_data, _variables, _context) {
       console.log(_data);
     },
@@ -320,8 +336,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationAdd.mutate(item);
+            onSubmit={(data) => {
+              mutationAdd.mutate(data);
             }}
             onCancel={() => setAddDirectorModalOpen(false)}
           />
@@ -349,22 +365,20 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            director={directorToUpdate}
+            item={directorToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
-                  directorToUpdate?.name === values?.name &&
-                  directorToUpdate?.feature === values?.feature &&
-                  directorToUpdate?.description === values?.description
+                  directorToUpdate?.user?.id === values?.userID &&
+                  directorToUpdate?.school?.id === values?.schoolID
                 )
               );
             }}
-            onSubmit={(item) => {
+            onSubmit={(data) => {
               mutationUpdate.mutate({
                 id: directorToUpdate?.id ?? -1,
-                name: item.name,
-                feature: item.feature,
-                description: item.description,
+                userID: data.userID,
+                schoolID: data.schoolID,
               });
             }}
             onCancel={() => setUpdateDirectorModalOpen(false)}
@@ -426,8 +440,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationUpload.mutate(item);
+            onSubmit={(data) => {
+              mutationUpload.mutate(data);
             }}
             onCancel={() => setUploadModalOpen(false)}
           />
@@ -454,8 +468,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationDownload.mutate(item);
+            onSubmit={(data) => {
+              mutationDownload.mutate(data);
             }}
             onCancel={() => setDownloadModalOpen(false)}
           />

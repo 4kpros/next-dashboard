@@ -1,7 +1,7 @@
 import { Form, Input, Button, Alert } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { ForgotInitEmailRequest } from "@/lib/api/auth/request";
+import { ForgotInitEmailRequest } from "@/lib/api/user/auth/request";
 
 export default function FormForgotInit(props: {
   isLoading?: boolean;

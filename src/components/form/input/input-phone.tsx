@@ -2,19 +2,21 @@ import { Form, Input } from "antd";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 
 export default function FormItemInputPhone(props: {
+  name?: string | string[];
+  label?: string;
   isLoading?: boolean;
   defaultValue?: string;
+  required?: boolean;
   size?: SizeType;
 }) {
   return (
     <Form.Item
-      label="Phone number"
-      name="phoneNumber"
+      label={props.label}
+      name={props.name}
       initialValue={props.defaultValue}
       rules={[
         {
-          type: "string",
-          required: true,
+          required: props.required,
           message: "Please enter the phone number!",
         },
       ]}

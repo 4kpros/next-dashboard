@@ -1,6 +1,6 @@
 import FormModalFooter from "@/components/form/form-modal-footer";
-import { PermissionRequest } from "@/lib/api/permission/request";
-import { PermissionResponse } from "@/lib/api/permission/response";
+import { PermissionRequest } from "@/lib/api/user/permission/request";
+import { PermissionResponse } from "@/lib/api/user/permission/response";
 import { Form } from "antd";
 import FormItemSelectRole from "@/components/form/select/select-role";
 import FormItemSelectPermissionTable from "@/components/form/select/select-permission-table";
@@ -10,12 +10,12 @@ import FormItemCheckbox from "@/components/form/checkbox/checkbox";
 
 export default function FormAddUpdatePermission(props: {
   isLoading?: boolean;
-  permission?: PermissionResponse | null;
+  item?: PermissionResponse;
   canSubmit?: boolean;
   canSubmitMessage?: string;
   errorMessage?: string;
   onValuesChange?: (values: PermissionRequest) => void;
-  onSubmit: (permission: PermissionRequest) => void;
+  onSubmit: (data: PermissionRequest) => void;
   onCancel: () => void;
 }) {
   return (
@@ -24,42 +24,48 @@ export default function FormAddUpdatePermission(props: {
       layout={"vertical"}
       onFinish={props.onSubmit}
       onValuesChange={(_changed, values) => {
-        props.onValuesChange!(values);
+        if (props.onValuesChange) {
+          props.onValuesChange(values);
+        }
       }}
       autoComplete="on"
     >
       <br />
       <FormItemSelectRole
         isLoading={props.isLoading}
-        defaultValue={props.permission?.role?.id?.toString()}
+        defaultValue={props.item?.role?.id?.toString()}
         size="middle"
       />
       <FormItemSelectPermissionTable
         isLoading={props.isLoading}
-        defaultValue={props.permission?.tableName}
+        defaultValue={props.item?.tableName}
         size="middle"
       />
       <FormItemCheckbox
         isLoading={props.isLoading}
-        defaultValue={props.permission?.create}
+        required={true}
+        defaultValue={props.item?.create}
         label="Create"
         name="create"
       />
       <FormItemCheckbox
         isLoading={props.isLoading}
-        defaultValue={props.permission?.create}
+        required={true}
+        defaultValue={props.item?.read}
         label="Read"
         name="read"
       />
       <FormItemCheckbox
         isLoading={props.isLoading}
-        defaultValue={props.permission?.create}
+        required={true}
+        defaultValue={props.item?.update}
         label="Update"
         name="update"
       />
       <FormItemCheckbox
         isLoading={props.isLoading}
-        defaultValue={props.permission?.create}
+        required={true}
+        defaultValue={props.item?.delete}
         label="Delete"
         name="delete"
       />

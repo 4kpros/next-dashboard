@@ -1,6 +1,6 @@
 import ModalInfoFooter from "@/components/form/modal-info-footer";
 import { formatDateTime } from "@/helpers/date/format";
-import { CommunicationResponse } from "@/lib/api/communication/response";
+import { CommunicationResponse } from "@/lib/api/others/communication/response";
 import { Descriptions, DescriptionsProps } from "antd";
 
 export default function CommunicationDetails(props: {

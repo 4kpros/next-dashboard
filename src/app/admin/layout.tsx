@@ -15,7 +15,7 @@ import {
 } from "antd/es/breadcrumb/Breadcrumb";
 import DashboardHeader from "@/components/header/dashboard-header";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getNotificationList } from "@/lib/api/notifications/routes";
+import { getNotificationList } from "@/lib/api/others/notifications/routes";
 import { useState } from "react";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import NotificationList from "@/components/notifications/notification-list";
@@ -57,7 +57,8 @@ export default function DashboardLayout({
       <MotionLayout>
         <Layout
           style={{
-            backgroundColor: "transparent",
+            // backgroundColor: "transparent",
+            backgroundColor: theme.colorBgLayout,
             scrollbarWidth: "thin",
             minHeight: "100vh",
           }}
@@ -73,7 +74,7 @@ export default function DashboardLayout({
           </MotionPageTransitionFromLeft>
           <Layout
             style={{
-              marginLeft: 210,
+              marginLeft: 280,
               scrollbarWidth: "thin",
               gap: 10,
               marginTop: "10px",
@@ -102,10 +103,12 @@ export default function DashboardLayout({
               <Content
                 style={{
                   overflow: "initial",
+                  // backgroundColor: "rgba(255, 255, 255, 0.6)",
                   backgroundColor: theme.colorBgContainer,
                   borderRadius: theme.borderRadius,
+                  marginBottom: "10px",
                 }}
-                className="border p-0 m-0"
+                className="border p-0"
               >
                 {children}
               </Content>

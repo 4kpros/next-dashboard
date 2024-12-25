@@ -1,6 +1,6 @@
 import FormModalFooter from "@/components/form/form-modal-footer";
-import { ProfileRequest } from "@/lib/api/profile/request";
-import { ProfileResponse } from "@/lib/api/profile/response";
+import { ProfileRequest } from "@/lib/api/user/profile/request";
+import { ProfileResponse } from "@/lib/api/user/profile/response";
 import { DatePicker, Form, Input, Select } from "antd";
 
 export default function FormUpdateProfileInfo(props: {
