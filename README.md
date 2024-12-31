@@ -46,12 +46,13 @@ make run
 If you want to scan vulnerabilities(security issues)
 
 ```
+
 make scan
 ```
 
 Some screenshots:
 
-![Next-dashboard-light-4](https://github.com/user-attachments/assets/1cb9ffa2-5086-4ecb-9009-3d07848c66e9)
+![hero](https://github.com/user-attachments/assets/519458a0-84eb-46bd-9f5e-f75a7d67e883)
 
-![Next-dashboard-dark-4](https://github.com/user-attachments/assets/50f47754-460f-4c2e-8ac5-b7f171112837)
+![director](https://github.com/user-attachments/assets/41d8fe74-888e-45eb-b3be-34f5ce27cd2e)
 
