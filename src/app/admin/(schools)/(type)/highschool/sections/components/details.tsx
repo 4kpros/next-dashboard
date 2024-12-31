@@ -1,3 +1,4 @@
+import getDescriptionSchool from "@/components/descriptions/description-school";
 import ModalInfoFooter from "@/components/form/modal-info-footer";
 import { formatDateTime } from "@/helpers/date/format";
 import { SectionResponse } from "@/lib/api/school/highschool/section/response";

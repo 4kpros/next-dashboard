@@ -106,14 +106,20 @@ export default function sideMenuItems(
               onClick: onClick,
             },
             {
+              key: "/admin/highschool/specialties",
+              label: "Specialties",
+              style: { gap: 5 },
+              onClick: onClick,
+            },
+            {
               key: "/admin/highschool/classes",
               label: "Classes",
               style: { gap: 5 },
               onClick: onClick,
             },
             {
-              key: "/admin/highschool/courses",
-              label: "Courses",
+              key: "/admin/highschool/subjects",
+              label: "Subjects",
               style: { gap: 5 },
               onClick: onClick,
             },

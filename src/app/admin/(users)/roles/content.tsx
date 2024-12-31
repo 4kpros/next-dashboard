@@ -98,7 +98,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (role: RoleRequest) => postRole(role),
+    mutationFn: async (item: RoleRequest) => postRole(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddRoleModalOpen(false);
@@ -106,7 +106,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (role: RoleRequest) => updateRole(role),
+    mutationFn: async (item: RoleRequest) => updateRole(item),
     onSuccess(_data, _variables, _context) {
       setRoleToUpdate(null);
       setCanSubmitUpdate(false);

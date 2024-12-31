@@ -5,7 +5,7 @@ import FormAlertDefaultDescription from "@/components/form/alert/default-descrip
 import FormItemSelectSchool from "@/components/form/select/select-school";
 import { SectionResponse } from "@/lib/api/school/highschool/section/response";
 import { SectionRequest } from "@/lib/api/school/highschool/section/request";
-import { SCHOOL_TYPE_UNIVERSITY } from "@/lib/constants/school";
+import { SCHOOL_TYPE_HIGHSCHOOL } from "@/lib/constants/school";
 import FormItemInputText from "@/components/form/input/input-text";
 
 export default function FormAddUpdateSection(props: {
@@ -38,7 +38,7 @@ export default function FormAddUpdateSection(props: {
         defaultValue={props.item?.school?.id?.toString()}
         size="middle"
         hideType={true}
-        type={SCHOOL_TYPE_UNIVERSITY}
+        type={SCHOOL_TYPE_HIGHSCHOOL}
       />
       
       <FormItemInputText

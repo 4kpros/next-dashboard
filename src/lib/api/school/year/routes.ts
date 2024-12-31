@@ -5,10 +5,10 @@ import { SelectionRequest } from "../../common/base-response";
 import { GenericAbortSignal } from "axios";
 
 export async function getYear(id: number) {
-  return GET<YearResponse, YearRequest>(`/years/${id}`);
+  return GET<YearResponse, YearRequest>(`/schools/years/${id}`);
 }
 export async function getYearList(params: YearListRequest, signal?: GenericAbortSignal) {
-  return GET<YearListResponse, YearListRequest>("/years", {
+  return GET<YearListResponse, YearListRequest>("/schools/years", {
     params: {
       search: params.search,
       orderBy: params.orderBy,
@@ -20,18 +20,18 @@ export async function getYearList(params: YearListRequest, signal?: GenericAbort
   });
 }
 export async function postYear(item: YearRequest) {
-  return POST<YearResponse, YearRequest>(`/years`, item);
+  return POST<YearResponse, YearRequest>(`/schools/years`, item);
 }
 export async function updateYear(item: YearRequest) {
   const id = item.id;
   item.id = undefined;
-  return PUT<YearResponse, YearRequest>(`/years/${id}`, item);
+  return PUT<YearResponse, YearRequest>(`/schools/years/${id}`, item);
 }
 export async function deleteYear(id: number) {
-  return DELETE<YearResponse, YearRequest>(`/years/${id}`);
+  return DELETE<YearResponse, YearRequest>(`/schools/years/${id}`);
 }
 export async function deleteMultipleYear(selection: SelectionRequest) {
-  return DELETE<number, SelectionRequest>(`/years/multiple/delete`, {
+  return DELETE<number, SelectionRequest>(`/schools/years/multiple/delete`, {
     data: selection,
   });
 }

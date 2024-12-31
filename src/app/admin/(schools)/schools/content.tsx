@@ -100,7 +100,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (school: SchoolRequest) => postSchool(school),
+    mutationFn: async (item: SchoolRequest) => postSchool(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddSchoolModalOpen(false);
@@ -108,7 +108,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (school: SchoolRequest) => updateSchool(school),
+    mutationFn: async (item: SchoolRequest) => updateSchool(item),
     onSuccess(_data, _variables, _context) {
       setSchoolToUpdate(null);
       setCanSubmitUpdate(false);

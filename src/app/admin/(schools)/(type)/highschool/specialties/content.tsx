@@ -5,17 +5,17 @@ import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
 import DefaultTableHeader from "@/components/table/headers/default-header";
-import DepartmentsTable from "./components/table";
+import SpecialtyesTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import FormAddUpdateDepartment from "./components/form-add-update";
+import FormAddUpdateSpecialty from "./components/form-add-update";
 import {
-  deleteMultipleDepartment,
-  deleteDepartment,
-  getDepartmentList,
-  postDepartment,
-  updateDepartment,
-} from "@/lib/api/school/university/department/routes";
+  deleteMultipleSpecialty,
+  deleteSpecialty,
+  getSpecialtyList,
+  postSpecialty,
+  updateSpecialty,
+} from "@/lib/api/school/highschool/specialty/routes";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -27,11 +27,11 @@ import {
   setSearchParam,
 } from "@/helpers/url/search-param";
 import { SelectionRequest } from "@/lib/api/common/base-response";
-import DepartmentDetails from "./components/details";
+import SpecialtyDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { DepartmentResponse } from "@/lib/api/school/university/department/response";
-import { DepartmentRequest } from "@/lib/api/school/university/department/request";
+import { SpecialtyResponse } from "@/lib/api/school/highschool/specialty/response";
+import { SpecialtyRequest } from "@/lib/api/school/highschool/specialty/request";
 import {
   DownloadRequest,
   UploadRequest,
@@ -52,20 +52,20 @@ export default function PageContent() {
   const paramSort = searchParams.get("sort");
   // Table row selection states
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  // Add department states
-  const [addDepartmentModalOpen, setAddDepartmentModalOpen] = useState(false);
-  // Show department states
-  const [showDepartmentModalOpen, setShowDepartmentModalOpen] = useState(false);
-  const [departmentToShow, setDepartmentToShow] =
-    useState<DepartmentResponse | null>(null);
-  // Update department states
-  const [updateDepartmentModalOpen, setUpdateDepartmentModalOpen] =
+  // Add specialty states
+  const [addSpecialtyModalOpen, setAddSpecialtyModalOpen] = useState(false);
+  // Show specialty states
+  const [showSpecialtyModalOpen, setShowSpecialtyModalOpen] = useState(false);
+  const [specialtyToShow, setSpecialtyToShow] =
+    useState<SpecialtyResponse | null>(null);
+  // Update specialty states
+  const [updateSpecialtyModalOpen, setUpdateSpecialtyModalOpen] =
     useState(false);
   const [canSubmitUpdate, setCanSubmitUpdate] = useState(false);
-  const [departmentToUpdate, setDepartmentToUpdate] =
-    useState<DepartmentResponse | null>(null);
-  // Delete department states
-  const [deleteDepartmentModalOpen, setDeleteDepartmentModalOpen] =
+  const [specialtyToUpdate, setSpecialtyToUpdate] =
+    useState<SpecialtyResponse | null>(null);
+  // Delete specialty states
+  const [deleteSpecialtyModalOpen, setDeleteSpecialtyModalOpen] =
     useState(false);
   // Uploads & downloads
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
@@ -82,7 +82,7 @@ export default function PageContent() {
 
   // Tanstack hooks
   const queryClient = useQueryClient();
-  const queryKeyData = "departments-data";
+  const queryKeyData = "specialties-data";
   const query = useQuery({
     queryKey: [
       queryKeyData,
@@ -93,7 +93,7 @@ export default function PageContent() {
       paramSort,
     ],
     queryFn: async () =>
-      getDepartmentList({
+      getSpecialtyList({
         search: paramSearch ?? undefined,
         orderBy: paramOrderBy ?? undefined,
         sort: paramSort ?? undefined,
@@ -102,50 +102,50 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (department: DepartmentRequest) =>
-      postDepartment(department),
+    mutationFn: async (item: SpecialtyRequest) =>
+      postSpecialty(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
-      setAddDepartmentModalOpen(false);
-      toastMessage("success", "Successful added department!");
+      setAddSpecialtyModalOpen(false);
+      toastMessage("success", "Successful added specialty!");
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (department: DepartmentRequest) =>
-      updateDepartment(department),
+    mutationFn: async (item: SpecialtyRequest) =>
+      updateSpecialty(item),
     onSuccess(_data, _variables, _context) {
-      setDepartmentToUpdate(null);
+      setSpecialtyToUpdate(null);
       setCanSubmitUpdate(false);
       invalidateQueries();
-      setUpdateDepartmentModalOpen(false);
-      toastMessage("success", "Successful updated department!");
+      setUpdateSpecialtyModalOpen(false);
+      toastMessage("success", "Successful updated specialty!");
     },
   });
   const mutationDelete = useMutation({
-    mutationFn: async (departmentID: number) => deleteDepartment(departmentID),
+    mutationFn: async (specialtyID: number) => deleteSpecialty(specialtyID),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
-      toastMessage("success", "Successful deleted department!");
+      toastMessage("success", "Successful deleted specialty!");
     },
     onError(_error, _variables, _context) {
-      toastMessage("error", "Failed to delete department!");
+      toastMessage("error", "Failed to delete specialty!");
     },
   });
   const mutationDeleteMultiple = useMutation({
     mutationFn: async (selection: SelectionRequest) =>
-      deleteMultipleDepartment(selection),
+      deleteMultipleSpecialty(selection),
     onSuccess(_data, _variables, _context) {
       setSelectedRowKeys([]);
       invalidateQueries();
-      toastMessage("success", "Successful deleted department selection!");
+      toastMessage("success", "Successful deleted specialty selection!");
     },
     onError(_error, _variables, _context) {
       console.log(_error);
-      toastMessage("error", "Failed to delete department selection!");
+      toastMessage("error", "Failed to delete specialty selection!");
     },
   });
   const mutationUpload = useMutation({
-    mutationFn: async (item: UploadRequest) => uploadData("departments", item),
+    mutationFn: async (item: UploadRequest) => uploadData("specialties", item),
     onSuccess(_data, _variables, _context) {
       console.log(_data);
     },
@@ -156,7 +156,7 @@ export default function PageContent() {
   });
   const mutationDownload = useMutation({
     mutationFn: async (item: DownloadRequest) =>
-      downloadData("departments", item),
+      downloadData("specialties", item),
     onSuccess(_data, _variables, _context) {
       console.log(_data);
     },
@@ -198,7 +198,7 @@ export default function PageContent() {
           canDownload={true}
           onAdd={() => {
             mutationAdd.reset();
-            setAddDepartmentModalOpen(true);
+            setAddSpecialtyModalOpen(true);
           }}
           onSearch={(value, _e, info) => {
             if (info?.source === "clear") {
@@ -217,7 +217,7 @@ export default function PageContent() {
           }}
           onRefresh={invalidateQueries}
           onDelete={() => {
-            setDeleteDepartmentModalOpen(true);
+            setDeleteSpecialtyModalOpen(true);
           }}
           onUpload={() => {
             setUploadModalOpen(true);
@@ -232,7 +232,7 @@ export default function PageContent() {
           currentPage={query.data?.data?.pagination.currentPage ?? 0}
           totalPages={query.data?.data?.pagination.totalPages ?? 0}
         />
-        <DepartmentsTable
+        <SpecialtyesTable
           isLoading={
             query.isFetching ||
             mutationDelete.isPending ||
@@ -284,14 +284,14 @@ export default function PageContent() {
             _nativeEvent
           ) => {}}
           onDetailsRequested={(value, _index) => {
-            setDepartmentToShow(value);
-            setShowDepartmentModalOpen(true);
+            setSpecialtyToShow(value);
+            setShowSpecialtyModalOpen(true);
           }}
           onUpdateRequested={(value, _index) => {
             setCanSubmitUpdate(false);
-            setDepartmentToUpdate(value);
+            setSpecialtyToUpdate(value);
             mutationUpdate.reset();
-            setUpdateDepartmentModalOpen(true);
+            setUpdateSpecialtyModalOpen(true);
           }}
           onDeleteConfirmed={(value, _index) => {
             mutationDelete.mutate(value.id ?? -1);
@@ -323,11 +323,11 @@ export default function PageContent() {
         </div>
       </div>
 
-      {/* Add new department modal */}
+      {/* Add new specialty modal */}
       <CustomModalWithoutFooter
-        title="Add new department"
+        title="Add new specialty"
         content={
-          <FormAddUpdateDepartment
+          <FormAddUpdateSpecialty
             isLoading={mutationAdd.isPending}
             canSubmit={true}
             errorMessage={
@@ -335,27 +335,27 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationAdd.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "department name"
+                    "specialty name"
                   )
                 : undefined
             }
             onSubmit={(data) => {
               mutationAdd.mutate(data);
             }}
-            onCancel={() => setAddDepartmentModalOpen(false)}
+            onCancel={() => setAddSpecialtyModalOpen(false)}
           />
         }
-        modalOpen={addDepartmentModalOpen}
-        onOk={() => setAddDepartmentModalOpen(false)}
-        onCancel={() => setAddDepartmentModalOpen(false)}
+        modalOpen={addSpecialtyModalOpen}
+        onOk={() => setAddSpecialtyModalOpen(false)}
+        onCancel={() => setAddSpecialtyModalOpen(false)}
         maskClosable={false}
       />
 
-      {/* Update department modal */}
+      {/* Update specialty modal */}
       <CustomModalWithoutFooter
-        title="Update department"
+        title="Update specialty"
         content={
-          <FormAddUpdateDepartment
+          <FormAddUpdateSpecialty
             isLoading={mutationUpdate.isPending}
             canSubmit={canSubmitUpdate}
             canSubmitMessage={"Add some changes in order to update!"}
@@ -364,71 +364,71 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationUpdate.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "department name"
+                    "specialty name"
                   )
                 : undefined
             }
-            item={departmentToUpdate}
+            item={specialtyToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
-                  departmentToUpdate?.school?.id === values?.schoolID &&
-                  departmentToUpdate?.faculty?.id === values?.facultyID &&
-                  departmentToUpdate?.name === values?.name &&
-                  departmentToUpdate?.description === values?.description
+                  specialtyToUpdate?.school?.id === values?.schoolID &&
+                  specialtyToUpdate?.section?.id === values?.sectionID &&
+                  specialtyToUpdate?.name === values?.name &&
+                  specialtyToUpdate?.description === values?.description
                 )
               );
             }}
             onSubmit={(data) => {
               mutationUpdate.mutate({
-                id: departmentToUpdate?.id ?? -1,
+                id: specialtyToUpdate?.id ?? -1,
                 schoolID: data.schoolID,
-                facultyID: data.facultyID,
+                sectionID: data.sectionID,
                 name: data.name,
                 description: data.description,
               });
             }}
-            onCancel={() => setUpdateDepartmentModalOpen(false)}
+            onCancel={() => setUpdateSpecialtyModalOpen(false)}
           />
         }
-        modalOpen={updateDepartmentModalOpen}
+        modalOpen={updateSpecialtyModalOpen}
         maskClosable={false}
-        onOk={() => setUpdateDepartmentModalOpen(false)}
-        onCancel={() => setUpdateDepartmentModalOpen(false)}
+        onOk={() => setUpdateSpecialtyModalOpen(false)}
+        onCancel={() => setUpdateSpecialtyModalOpen(false)}
       />
 
-      {/* Show department modal */}
+      {/* Show specialty modal */}
       <CustomModalWithoutFooter
-        title="Department details"
+        title="Specialty details"
         content={
-          <DepartmentDetails
-            item={departmentToShow}
-            onClose={() => setShowDepartmentModalOpen(false)}
+          <SpecialtyDetails
+            item={specialtyToShow}
+            onClose={() => setShowSpecialtyModalOpen(false)}
           />
         }
-        modalOpen={showDepartmentModalOpen}
+        modalOpen={showSpecialtyModalOpen}
         maskClosable={true}
         width={800}
-        onOk={() => setShowDepartmentModalOpen(false)}
-        onCancel={() => setShowDepartmentModalOpen(false)}
+        onOk={() => setShowSpecialtyModalOpen(false)}
+        onCancel={() => setShowSpecialtyModalOpen(false)}
       />
 
-      {/* Delete department modal */}
+      {/* Delete specialty modal */}
       <DeleteModal
         description={`Do you really want to delete all selected ${
           selectedRowKeys.length
-        } selected department${
+        } selected specialty${
           selectedRowKeys.length > 1 ? "s" : ""
         } ? This is not a reversible action!`}
-        modalOpen={deleteDepartmentModalOpen}
+        modalOpen={deleteSpecialtyModalOpen}
         onOk={() => {
           const tmpSelection = selectedRowKeys.map(
             (item, _index) => item as number
           );
           mutationDeleteMultiple.mutate({ list: tmpSelection });
-          setDeleteDepartmentModalOpen(false);
+          setDeleteSpecialtyModalOpen(false);
         }}
-        onCancel={() => setDeleteDepartmentModalOpen(false)}
+        onCancel={() => setDeleteSpecialtyModalOpen(false)}
       />
 
       {/* Upload data modal */}
@@ -443,7 +443,7 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationUpload.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "department name"
+                    "specialty name"
                   )
                 : undefined
             }
@@ -471,7 +471,7 @@ export default function PageContent() {
                 ? HttpMessageFromStatus(
                     (mutationDownload.error as any)?.response?.data?.status ??
                       HttpStatusCode.InternalServerError,
-                    "department name"
+                    "specialty name"
                   )
                 : undefined
             }

@@ -31,7 +31,7 @@ export async function getClassList(
 }
 export async function postClass(item: ClassRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
-  item.sectionID = parseInt(`${item.sectionID}`);
+  item.specialtyID = parseInt(`${item.specialtyID}`);
   return POST<ClassResponse, ClassRequest>(
     `/schools/highschools/classes`,
     item
@@ -41,7 +41,7 @@ export async function updateClass(item: ClassRequest) {
   const id = item.id;
   item.id = undefined;
   item.schoolID = parseInt(`${item.schoolID}`);
-  item.sectionID = parseInt(`${item.sectionID}`);
+  item.specialtyID = parseInt(`${item.specialtyID}`);
   return PUT<ClassResponse, ClassRequest>(
     `/schools/highschools/classes/${id}`,
     item

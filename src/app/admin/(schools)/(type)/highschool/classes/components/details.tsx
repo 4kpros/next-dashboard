@@ -4,7 +4,7 @@ import { formatDateTime } from "@/helpers/date/format";
 import { Descriptions, DescriptionsProps, Divider } from "antd";
 import { ClassResponse } from "@/lib/api/school/highschool/class/response";
 
-import getDescriptionSection from "@/components/descriptions/description-section";
+import getDescriptionSpecialty from "@/components/descriptions/description-specialty";
 import getDescriptionSchool from "@/components/descriptions/description-school";
 
 export default function ClassDetails(props: {
@@ -30,9 +30,9 @@ export default function ClassDetails(props: {
         column={1}
       />
       <br />
-      <Divider plain>Section</Divider>
+      <Divider plain>Specialty</Divider>
       <Descriptions
-        items={getDescriptionSection(props.item?.section)}
+        items={getDescriptionSpecialty(props.item?.specialty)}
         size={"small"}
         layout={"horizontal"}
         bordered={true}

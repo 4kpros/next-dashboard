@@ -102,8 +102,8 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (class: ClassRequest) =>
-      postClass(class),
+    mutationFn: async (item: ClassRequest) =>
+      postClass(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddClassModalOpen(false);
@@ -111,8 +111,8 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (class: ClassRequest) =>
-      updateClass(class),
+    mutationFn: async (item: ClassRequest) =>
+      updateClass(item),
     onSuccess(_data, _variables, _context) {
       setClassToUpdate(null);
       setCanSubmitUpdate(false);
@@ -373,7 +373,7 @@ export default function PageContent() {
               setCanSubmitUpdate(
                 !(
                   classToUpdate?.school?.id === values?.schoolID &&
-                  classToUpdate?.section?.id === values?.sectionID &&
+                  classToUpdate?.specialty?.id === values?.specialtyID &&
                   classToUpdate?.name === values?.name &&
                   classToUpdate?.description === values?.description
                 )
@@ -383,7 +383,7 @@ export default function PageContent() {
               mutationUpdate.mutate({
                 id: classToUpdate?.id ?? -1,
                 schoolID: data.schoolID,
-                sectionID: data.sectionID,
+                specialtyID: data.specialtyID,
                 name: data.name,
                 description: data.description,
               });

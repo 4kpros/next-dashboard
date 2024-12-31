@@ -1,13 +1,14 @@
 
-import getDescriptionFaculty from "@/components/descriptions/description-faculty";
-import getDescriptionSchool from "@/components/descriptions/description-school";
 import ModalInfoFooter from "@/components/form/modal-info-footer";
 import { formatDateTime } from "@/helpers/date/format";
-import { DepartmentResponse } from "@/lib/api/school/university/department/response";
 import { Descriptions, DescriptionsProps, Divider } from "antd";
+import { SpecialtyResponse } from "@/lib/api/school/highschool/specialty/response";
 
-export default function DepartmentDetails(props: {
-  item?: DepartmentResponse | null;
+import getDescriptionSection from "@/components/descriptions/description-section";
+import getDescriptionSchool from "@/components/descriptions/description-school";
+
+export default function SpecialtyDetails(props: {
+  item?: SpecialtyResponse | null;
   onClose: () => void;
 }) {
   return (
@@ -29,9 +30,9 @@ export default function DepartmentDetails(props: {
         column={1}
       />
       <br />
-      <Divider plain>Faculty</Divider>
+      <Divider plain>Section</Divider>
       <Descriptions
-        items={getDescriptionFaculty(props.item?.faculty)}
+        items={getDescriptionSection(props.item?.section)}
         size={"small"}
         layout={"horizontal"}
         bordered={true}
@@ -43,7 +44,7 @@ export default function DepartmentDetails(props: {
 }
 
 function getDescription(
-  item?: DepartmentResponse | null
+  item?: SpecialtyResponse | null
 ): DescriptionsProps["items"] {
   const createdAt = formatDateTime(item?.createdAt?.toString());
   const updatedAt = formatDateTime(item?.updatedAt?.toString());
@@ -52,6 +53,16 @@ function getDescription(
       key: "id",
       label: "ID",
       children: item?.id,
+    },
+    {
+      key: "name",
+      label: "Name",
+      children: item?.name,
+    },
+    {
+      key: "description",
+      label: "Description",
+      children: item?.description,
     },
     {
       key: "createdAt",

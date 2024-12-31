@@ -100,7 +100,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (domain: DomainRequest) => postDomain(domain),
+    mutationFn: async (item: DomainRequest) => postDomain(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddDomainModalOpen(false);
@@ -108,7 +108,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (domain: DomainRequest) => updateDomain(domain),
+    mutationFn: async (item: DomainRequest) => updateDomain(item),
     onSuccess(_data, _variables, _context) {
       setDomainToUpdate(null);
       setCanSubmitUpdate(false);

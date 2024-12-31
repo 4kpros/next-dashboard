@@ -99,7 +99,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (year: YearRequest) => postYear(year),
+    mutationFn: async (item: YearRequest) => postYear(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddYearModalOpen(false);
@@ -107,7 +107,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (year: YearRequest) => updateYear(year),
+    mutationFn: async (item: YearRequest) => updateYear(item),
     onSuccess(_data, _variables, _context) {
       setYearToUpdate(null);
       setCanSubmitUpdate(false);

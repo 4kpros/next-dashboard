@@ -101,7 +101,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (director: DirectorRequest) => postDirector(director),
+    mutationFn: async (item: DirectorRequest) => postDirector(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddDirectorModalOpen(false);
@@ -109,7 +109,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (director: DirectorRequest) => updateDirector(director),
+    mutationFn: async (item: DirectorRequest) => updateDirector(item),
     onSuccess(_data, _variables, _context) {
       setDirectorToUpdate(null);
       setCanSubmitUpdate(false);

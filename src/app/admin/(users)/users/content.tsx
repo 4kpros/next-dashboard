@@ -99,7 +99,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (user: UserRequest) => postUser(user),
+    mutationFn: async (item: UserRequest) => postUser(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddUserModalOpen(false);
@@ -107,7 +107,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (user: UserRequest) => updateUser(user),
+    mutationFn: async (item: UserRequest) => updateUser(item),
     onSuccess(_data, _variables, _context) {
       setUserToUpdate(null);
       setCanSubmitUpdate(false);

@@ -101,8 +101,8 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (permission: PermissionRequest) =>
-      updatePermission(permission),
+    mutationFn: async (item: PermissionRequest) =>
+      updatePermission(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddPermissionModalOpen(false);
@@ -110,8 +110,8 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (permission: PermissionRequest) =>
-      updatePermission(permission),
+    mutationFn: async (item: PermissionRequest) =>
+      updatePermission(item),
     onSuccess(_data, _variables, _context) {
       setPermissionToUpdate(null);
       setCanSubmitUpdate(false);

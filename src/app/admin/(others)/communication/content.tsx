@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
 import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
 import DefaultTableHeader from "@/components/table/headers/default-header";
@@ -82,8 +81,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (communication: CommunicationRequest) =>
-      postCommunication(communication),
+    mutationFn: async (item: CommunicationRequest) => postCommunication(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddCommunicationModalOpen(false);

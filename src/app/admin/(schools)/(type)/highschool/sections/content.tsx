@@ -101,7 +101,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (section: SectionRequest) => postSection(section),
+    mutationFn: async (item: SectionRequest) => postSection(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddSectionModalOpen(false);
@@ -109,7 +109,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (section: SectionRequest) => updateSection(section),
+    mutationFn: async (item: SectionRequest) => updateSection(item),
     onSuccess(_data, _variables, _context) {
       setSectionToUpdate(null);
       setCanSubmitUpdate(false);

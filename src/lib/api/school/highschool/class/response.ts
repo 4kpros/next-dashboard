@@ -1,5 +1,5 @@
 import { SchoolResponse } from "@/lib/api/school/school/response";
-import { SectionResponse } from "../section/response";
+import { SpecialtyResponse } from "../specialty/response";
 import {
   BasePaginatedResponse,
   BaseResponse,
@@ -7,7 +7,7 @@ import {
 
 export interface ClassResponse extends BaseResponse {
   school?: SchoolResponse;
-  section?: SectionResponse;
+  specialty?: SpecialtyResponse;
   name?: string;
   description?: string;
 }

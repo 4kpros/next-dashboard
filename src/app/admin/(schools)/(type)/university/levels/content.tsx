@@ -101,7 +101,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (level: LevelRequest) => postLevel(level),
+    mutationFn: async (item: LevelRequest) => postLevel(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddLevelModalOpen(false);
@@ -109,7 +109,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (level: LevelRequest) => updateLevel(level),
+    mutationFn: async (item: LevelRequest) => updateLevel(item),
     onSuccess(_data, _variables, _context) {
       setLevelToUpdate(null);
       setCanSubmitUpdate(false);

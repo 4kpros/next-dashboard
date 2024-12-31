@@ -102,8 +102,8 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (department: DepartmentRequest) =>
-      postDepartment(department),
+    mutationFn: async (item: DepartmentRequest) =>
+      postDepartment(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddDepartmentModalOpen(false);
@@ -111,8 +111,8 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (department: DepartmentRequest) =>
-      updateDepartment(department),
+    mutationFn: async (item: DepartmentRequest) =>
+      updateDepartment(item),
     onSuccess(_data, _variables, _context) {
       setDepartmentToUpdate(null);
       setCanSubmitUpdate(false);

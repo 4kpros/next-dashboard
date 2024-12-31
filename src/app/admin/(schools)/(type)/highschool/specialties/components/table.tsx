@@ -12,37 +12,40 @@ import {
   SortOrder,
 } from "antd/es/table/interface";
 import TableColumnSchool from "@/components/table/columns/column-school";
-import { FacultyResponse } from "@/lib/api/school/university/faculty/response";
+import TableColumnSection from "@/components/table/columns/column-section";
+import { SpecialtyResponse } from "@/lib/api/school/highschool/specialty/response";
 
-export default function FacultiesTable(props: {
+export default function SpecialtyesTable(props: {
   isLoading?: boolean;
-  data?: FacultyResponse[];
+  data?: SpecialtyResponse[];
   orderBy?: string;
   sort?: SortOrder;
   selectedRowKeys?: React.Key[];
   onFilterSortChanged?: (
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<FacultyResponse> | SorterResult<FacultyResponse>[]
+    sorter:
+      | SorterResult<SpecialtyResponse>
+      | SorterResult<SpecialtyResponse>[]
   ) => void;
   onRowSelectionChanged?: (
     selectedRowKeys: React.Key[],
-    selectedRows: FacultyResponse[],
+    selectedRows: SpecialtyResponse[],
     info: {
       type: RowSelectMethod;
     }
   ) => void;
   onRowSelectionSelected?: (
-    record: FacultyResponse,
+    record: SpecialtyResponse,
     selected: boolean,
-    selectedRows: FacultyResponse[],
+    selectedRows: SpecialtyResponse[],
     nativeEvent: Event
   ) => void;
-  onDetailsRequested?: (value: FacultyResponse, index: number) => void;
-  onUpdateRequested?: (value: FacultyResponse, index: number) => void;
-  onDeleteConfirmed?: (value: FacultyResponse, index: number) => void;
+  onDetailsRequested?: (value: SpecialtyResponse, index: number) => void;
+  onUpdateRequested?: (value: SpecialtyResponse, index: number) => void;
+  onDeleteConfirmed?: (value: SpecialtyResponse, index: number) => void;
 }) {
   // Table columns. dataIndex represents the field name(case sensitive) of the model(RecordType)
-  const columns: TableColumnsType<FacultyResponse> = [
+  const columns: TableColumnsType<SpecialtyResponse> = [
     {
       title: "ID",
       dataIndex: "id",
@@ -76,6 +79,16 @@ export default function FacultiesTable(props: {
       render: (_, record) => <TableColumnSchool record={record.school} />,
     },
     {
+      title: "Section",
+      dataIndex: "section",
+      key: "section",
+      sorter: false,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => <TableColumnSection record={record.section} />,
+    },
+    {
       title: "Updated",
       dataIndex: "updatedAt",
       key: "updated_at",
@@ -86,7 +99,7 @@ export default function FacultiesTable(props: {
     {
       // Column props for actions(update, delete, ...)
       ...defaultColumnActionProps({
-        deleteDescription: "this faculty",
+        deleteDescription: "this specialty",
         onDetailsRequested: props.onDetailsRequested,
         onUpdateRequested: props.onUpdateRequested,
         onDeleteConfirmed: props.onDeleteConfirmed,
@@ -95,7 +108,7 @@ export default function FacultiesTable(props: {
   ];
   return (
     <div className="w-full mt-2">
-      <Table<FacultyResponse>
+      <Table<SpecialtyResponse>
         {...DefaultTableProps({
           isLoading: props.isLoading,
           data: props.data,

@@ -12,7 +12,7 @@ import {
   SortOrder,
 } from "antd/es/table/interface";
 import TableColumnSchool from "@/components/table/columns/column-school";
-import TableColumnSection from "@/components/table/columns/column-section";
+import TableColumnSpecialty from "@/components/table/columns/column-specialty";
 import { ClassResponse } from "@/lib/api/school/highschool/class/response";
 
 export default function ClassesTable(props: {
@@ -79,14 +79,14 @@ export default function ClassesTable(props: {
       render: (_, record) => <TableColumnSchool record={record.school} />,
     },
     {
-      title: "Section",
-      dataIndex: "section",
-      key: "section",
+      title: "Specialty",
+      dataIndex: "specialty",
+      key: "specialty",
       sorter: false,
       ellipsis: {
         showTitle: false,
       },
-      render: (_, record) => <TableColumnSection record={record.section} />,
+      render: (_, record) => <TableColumnSpecialty record={record.specialty} />,
     },
     {
       title: "Updated",

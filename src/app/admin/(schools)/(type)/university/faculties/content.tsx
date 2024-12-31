@@ -101,7 +101,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (faculty: FacultyRequest) => postFaculty(faculty),
+    mutationFn: async (item: FacultyRequest) => postFaculty(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddFacultyModalOpen(false);
@@ -109,7 +109,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (faculty: FacultyRequest) => updateFaculty(faculty),
+    mutationFn: async (item: FacultyRequest) => updateFaculty(item),
     onSuccess(_data, _variables, _context) {
       setFacultyToUpdate(null);
       setCanSubmitUpdate(false);

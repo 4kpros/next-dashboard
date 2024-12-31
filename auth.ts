@@ -2,9 +2,8 @@ import { hashPassword } from "@/helpers/security/hash";
 import {
   signInWithCredentialsEmail,
   signInWithProvider,
-} from "@/lib/api/auth/routes";
-import { getProfileServer } from "@/lib/api/profile/routes";
-import { HttpStatusCode } from "axios";
+} from "@/lib/api/user/auth/routes";
+import { getProfileServer } from "@/lib/api/user/profile/routes";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Facebook from "next-auth/providers/facebook";
@@ -56,8 +55,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           resData = await signInWithCredentialsEmail({
             email: (credentials?.email as string | null) ?? "",
             password: pwHash,
-            // stayConnected:
-            //   (credentials?.stayConnected as boolean | null) ?? false,
+            stayConnected:
+              ((credentials?.stayConnected as string | null)?.toLowerCase() ??
+                "") === "true"
+                ? true
+                : false,
           });
           return {
             ...resData?.data,

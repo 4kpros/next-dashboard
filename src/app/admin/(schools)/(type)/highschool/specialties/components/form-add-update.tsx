@@ -8,18 +8,18 @@ import FormItemSelectSchool from "@/components/form/select/select-school";
 import { SCHOOL_TYPE_HIGHSCHOOL } from "@/lib/constants/school";
 import FormItemInputText from "@/components/form/input/input-text";
 import { useEffect, useState } from "react";
-import { ClassResponse } from "@/lib/api/school/highschool/class/response";
-import { ClassRequest } from "@/lib/api/school/highschool/class/request";
-import FormItemSelectSchoolHighschoolSpecialty from "@/components/form/select/select-school-highschool-specialty";
+import { SpecialtyResponse } from "@/lib/api/school/highschool/specialty/response";
+import { SpecialtyRequest } from "@/lib/api/school/highschool/specialty/request";
+import FormItemSelectSchoolHighschoolSection from "@/components/form/select/select-school-highschool-section";
 
-export default function FormAddUpdateClass(props: {
+export default function FormAddUpdateSpecialty(props: {
   isLoading?: boolean;
-  item?: ClassResponse | null;
+  item?: SpecialtyResponse | null;
   canSubmit?: boolean;
   canSubmitMessage?: string;
   errorMessage?: string;
-  onValuesChange?: (values: ClassRequest) => void;
-  onSubmit?: (data: ClassRequest) => void;
+  onValuesChange?: (values: SpecialtyRequest) => void;
+  onSubmit?: (data: SpecialtyRequest) => void;
   onCancel?: () => void;
 }) {
   const [selectedSchoolID, setSelectedSchoolID] = useState<
@@ -45,9 +45,9 @@ export default function FormAddUpdateClass(props: {
   }, [props.item?.school?.id]);
 
   return (
-    <Form<ClassRequest>
+    <Form<SpecialtyRequest>
       form={form}
-      name="form-add-update-class"
+      name="form-add-update-specialty"
       layout={"vertical"}
       className="w-full"
       onFinish={props.onSubmit}
@@ -61,7 +61,7 @@ export default function FormAddUpdateClass(props: {
           !values.schoolID ||
           (tempSchoolID && (tempSchoolID?.length ?? 0) > 0)
         ) {
-          updateFieldValue("specialtyID", undefined);
+          updateFieldValue("sectionID", undefined);
         }
         if (
           tempSchoolID &&
@@ -83,10 +83,10 @@ export default function FormAddUpdateClass(props: {
         type={SCHOOL_TYPE_HIGHSCHOOL}
       />
 
-      <FormItemSelectSchoolHighschoolSpecialty
+      <FormItemSelectSchoolHighschoolSection
         disabled={(selectedSchoolID ?? 0) < 1}
         isLoading={props.isLoading}
-        defaultValue={props.item?.specialty?.id?.toString()}
+        defaultValue={props.item?.section?.id?.toString()}
         size="middle"
         schoolID={selectedSchoolID ?? undefined}
         updateFieldValue={updateFieldValue}
@@ -95,14 +95,14 @@ export default function FormAddUpdateClass(props: {
       <FormItemInputText
         label="Name"
         name="name"
-        placeholder="Enter the class name"
+        placeholder="Enter the specialty name"
         size="middle"
         isLoading={props.isLoading}
         defaultValue={props.item?.name}
         rules={[
           {
             required: true,
-            message: "Please enter the class name!",
+            message: "Please enter the specialty name!",
           },
         ]}
       />
@@ -110,7 +110,7 @@ export default function FormAddUpdateClass(props: {
       <FormItemInputText
         label="Description"
         name="description"
-        placeholder="Enter the class description"
+        placeholder="Enter the specialty description"
         size="middle"
         isLoading={props.isLoading}
         defaultValue={props.item?.description}
