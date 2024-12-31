@@ -4,7 +4,7 @@ import {
   FEATURE_PARENT,
   FEATURE_STUDENT,
   FEATURE_TEACHER,
-} from "@/lib/features";
+} from "@/lib/constants/feature";
 
 export const getDashboardPath = (feature: string) => {
   switch (feature) {

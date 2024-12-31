@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import ContactTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,9 +18,9 @@ import {
   setSearchParam,
 } from "@/helpers/url/search-param";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData } from "@/lib/api/upload-download/routes";
-import { DownloadRequest } from "@/lib/api/upload-download/request";
-import { getContactList } from "@/lib/api/contact/routes";
+import { getContactList } from "@/lib/api/others/contact/routes";
+import { DownloadRequest } from "@/lib/api/common/upload-download/request";
+import { downloadData } from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -100,7 +100,7 @@ export default function PageContent() {
           isFetching={query.isFetching}
           searchKeyword={paramSearch}
           canAdd={false}
-          canDeleteMultiple={false}
+          canDeleteMultiple={true}
           canUpload={false}
           canDownload={true}
           onSearch={(value, _e, info) => {
@@ -124,6 +124,8 @@ export default function PageContent() {
           }}
         />
         <DefaultTableHeaderInfo
+          showSelection={true}
+          selectedItemsCount={0}
           currentPage={query.data?.data?.pagination.currentPage ?? 0}
           totalPages={query.data?.data?.pagination.totalPages ?? 0}
         />
@@ -207,8 +209,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationDownload.mutate(item);
+            onSubmit={(data) => {
+              mutationDownload.mutate(data);
             }}
             onCancel={() => setDownloadModalOpen(false)}
           />

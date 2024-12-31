@@ -10,8 +10,8 @@ import { useRouter } from "next/navigation";
 import LogoHeader from "@/components/header/logo-header";
 import FormForgotCode from "./components/form-forgot-code";
 import { getSearchParam } from "@/helpers/url/search-param";
-import { forgotPasswordCode } from "@/lib/api/auth/routes";
-import { ForgotCodeRequest } from "@/lib/api/auth/request";
+import { forgotPasswordCode } from "@/lib/api/user/auth/routes";
+import { ForgotCodeRequest } from "@/lib/api/user/auth/request";
 import { NoticeType } from "antd/es/message/interface";
 
 export default function PageContent() {

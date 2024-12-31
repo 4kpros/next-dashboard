@@ -13,9 +13,9 @@ import FormUpdateProfileInfo from "./(components)/form-update-profile-info";
 import { useState } from "react";
 import { CustomContainerMd } from "@/components/container/custom-container";
 import DashboardIcon from "@/components/icons/material/dashboard";
-import { getProfile, updateProfile } from "@/lib/api/profile/routes";
+import { getProfile, updateProfile } from "@/lib/api/user/profile/routes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ProfileRequest } from "@/lib/api/profile/request";
+import { ProfileRequest } from "@/lib/api/user/profile/request";
 import { NoticeType } from "antd/es/message/interface";
 
 export default function PageContent() {

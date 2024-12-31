@@ -1,4 +1,4 @@
-import { User } from "@/lib/api/user/response";
+import { User } from "@/lib/api/user/user/response";
 // import NextAuth, { DefaultSession } from "next-auth";
 
 declare module "next-auth" {

@@ -6,7 +6,7 @@ export default function FormItemInputText(props: {
   isLoading?: boolean;
   defaultValue?: string;
   label?: string;
-  name?: string;
+  name?: string | string[];
   rules?: Rule[];
   placeholder?: string;
   size?: SizeType;

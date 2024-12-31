@@ -1,7 +1,7 @@
 import FormModalFooter from "@/components/form/form-modal-footer";
-import { FEATURES } from "@/lib/features";
-import { CommunicationRequest } from "@/lib/api/communication/request";
-import { CommunicationResponse } from "@/lib/api/communication/response";
+import { FEATURES } from "@/lib/constants/feature";
+import { CommunicationRequest } from "@/lib/api/others/communication/request";
+import { CommunicationResponse } from "@/lib/api/others/communication/response";
 import { Alert, Form, Input, Select } from "antd";
 
 export default function FormAddCommunication(props: {
@@ -21,7 +21,9 @@ export default function FormAddCommunication(props: {
       style={{ maxWidth: 600 }}
       onFinish={props.onSubmit}
       onValuesChange={(_changed, values) => {
-        props.onValuesChange!(values);
+        if (props.onValuesChange) {
+          props.onValuesChange(values);
+        }
       }}
       autoComplete="on"
     >

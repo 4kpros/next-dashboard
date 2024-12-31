@@ -3,8 +3,8 @@
 import { useState } from "react";
 import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -13,9 +13,9 @@ import {
   getUserList,
   postUser,
   updateUser,
-} from "@/lib/api/user/routes";
-import { UserRequest } from "@/lib/api/user/request";
-import { UserResponse } from "@/lib/api/user/response";
+} from "@/lib/api/user/user/routes";
+import { UserRequest } from "@/lib/api/user/user/request";
+import { UserResponse } from "@/lib/api/user/user/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -26,18 +26,21 @@ import {
   setMultipleSearchParam,
   setSearchParam,
 } from "@/helpers/url/search-param";
-import { SelectionRequest } from "@/lib/api/base-response";
+import { SelectionRequest } from "@/lib/api/common/base-response";
 import UserDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
-import {
-  DownloadRequest,
-  UploadRequest,
-} from "@/lib/api/upload-download/request";
 import UsersTable from "./components/table";
 import FormUpdateUser from "./components/form-update";
 import FormAddUser from "./components/form-add";
+import {
+  DownloadRequest,
+  UploadRequest,
+} from "@/lib/api/common/upload-download/request";
+import {
+  downloadData,
+  uploadData,
+} from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -96,7 +99,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (user: UserRequest) => postUser(user),
+    mutationFn: async (item: UserRequest) => postUser(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddUserModalOpen(false);
@@ -104,7 +107,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (user: UserRequest) => updateUser(user),
+    mutationFn: async (item: UserRequest) => updateUser(item),
     onSuccess(_data, _variables, _context) {
       setUserToUpdate(null);
       setCanSubmitUpdate(false);
@@ -330,8 +333,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationAdd.mutate(item);
+            onSubmit={(data) => {
+              mutationAdd.mutate(data);
             }}
             onCancel={() => setAddUserModalOpen(false)}
           />
@@ -359,7 +362,7 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            user={userToUpdate}
+            item={userToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
@@ -370,8 +373,14 @@ export default function PageContent() {
                 )
               );
             }}
-            onSubmit={(item) => {
-              mutationUpdate.mutate(item);
+            onSubmit={(data) => {
+              mutationUpdate.mutate({
+                id: userToUpdate?.id ?? -1,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+                roleID: data.roleID,
+                isActivated: data.isActivated,
+              });
             }}
             onCancel={() => setUpdateUserModalOpen(false)}
           />
@@ -432,8 +441,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationUpload.mutate(item);
+            onSubmit={(data) => {
+              mutationUpload.mutate(data);
             }}
             onCancel={() => setUploadModalOpen(false)}
           />
@@ -460,8 +469,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationDownload.mutate(item);
+            onSubmit={(data) => {
+              mutationDownload.mutate(data);
             }}
             onCancel={() => setDownloadModalOpen(false)}
           />

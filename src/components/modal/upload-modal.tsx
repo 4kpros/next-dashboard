@@ -1,8 +1,8 @@
 import { InboxOutlined } from "@ant-design/icons";
 import Upload, { UploadChangeParam, UploadFile } from "antd/es/upload";
 import FormModalFooter from "../form/form-modal-footer";
-import { UploadRequest } from "@/lib/api/upload-download/request";
 import { Alert, Form, Radio, Space } from "antd";
+import { UploadRequest } from "@/lib/api/common/upload-download/request";
 
 export default function UploadModal(props: {
   isLoading?: boolean;
@@ -11,7 +11,7 @@ export default function UploadModal(props: {
   errorMessage?: string;
   onFileChange?: (info: UploadChangeParam<UploadFile<any>>) => void;
   onFileDrop?: (event: React.DragEvent<HTMLDivElement>) => void;
-  onSubmit: (role: UploadRequest) => void;
+  onSubmit: (data: UploadRequest) => void;
   onValuesChange?: (values: UploadRequest) => void;
   onCancel?: () => void;
 }) {

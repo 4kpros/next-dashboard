@@ -1,6 +1,6 @@
 import FormModalFooter from "@/components/form/form-modal-footer";
-import { RoleRequest } from "@/lib/api/role/request";
-import { RoleResponse } from "@/lib/api/role/response";
+import { RoleRequest } from "@/lib/api/user/role/request";
+import { RoleResponse } from "@/lib/api/user/role/response";
 import { Form } from "antd";
 import FormItemSelectFeature from "@/components/form/select/select-feature";
 import FormAlertDefaultError from "@/components/form/alert/default-error";
@@ -9,12 +9,12 @@ import FormItemInputText from "@/components/form/input/input-text";
 
 export default function FormAddUpdateRole(props: {
   isLoading?: boolean;
-  role?: RoleResponse | null;
+  item?: RoleResponse | null;
   canSubmit?: boolean;
   canSubmitMessage?: string;
   errorMessage?: string;
   onValuesChange?: (values: RoleRequest) => void;
-  onSubmit: (role: RoleRequest) => void;
+  onSubmit: (data: RoleRequest) => void;
   onCancel: () => void;
 }) {
   return (
@@ -23,7 +23,9 @@ export default function FormAddUpdateRole(props: {
       layout={"vertical"}
       onFinish={props.onSubmit}
       onValuesChange={(_changed, values) => {
-        props.onValuesChange!(values);
+        if (props.onValuesChange) {
+          props.onValuesChange(values);
+        }
       }}
       autoComplete="on"
     >
@@ -34,7 +36,7 @@ export default function FormAddUpdateRole(props: {
         placeholder="Enter the role name"
         size="middle"
         isLoading={props.isLoading}
-        defaultValue={props.role?.name}
+        defaultValue={props.item?.name}
         rules={[
           {
             required: true,
@@ -45,7 +47,7 @@ export default function FormAddUpdateRole(props: {
 
       <FormItemSelectFeature
         isLoading={props.isLoading}
-        defaultValue={props.role?.feature}
+        defaultValue={props.item?.feature}
         size="middle"
       />
       <FormItemInputText
@@ -54,7 +56,7 @@ export default function FormAddUpdateRole(props: {
         placeholder="Enter the role description"
         size="middle"
         isLoading={props.isLoading}
-        defaultValue={props.role?.description}
+        defaultValue={props.item?.description}
         rules={[
           {
             required: false,

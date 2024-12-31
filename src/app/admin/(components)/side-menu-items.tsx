@@ -95,19 +95,31 @@ export default function sideMenuItems(
           ],
         },
         {
-          key: "grp-secondary",
-          label: "Secondary",
+          key: "grp-highschool",
+          label: "Highschool",
           icon: <SchoolIcon />,
           children: [
             {
-              key: "/admin/secondary/sections",
+              key: "/admin/highschool/sections",
               label: "Sections",
               style: { gap: 5 },
               onClick: onClick,
             },
             {
-              key: "/admin/secondary/classes",
+              key: "/admin/highschool/specialties",
+              label: "Specialties",
+              style: { gap: 5 },
+              onClick: onClick,
+            },
+            {
+              key: "/admin/highschool/classes",
               label: "Classes",
+              style: { gap: 5 },
+              onClick: onClick,
+            },
+            {
+              key: "/admin/highschool/subjects",
+              label: "Subjects",
               style: { gap: 5 },
               onClick: onClick,
             },

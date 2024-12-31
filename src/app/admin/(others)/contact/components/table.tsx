@@ -1,16 +1,16 @@
 import { Table, TableColumnsType } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { ContactResponse } from "@/lib/api/contact/response";
+import { ContactResponse } from "@/lib/api/others/contact/response";
 
 export default function ContactsTable(props: {
   isLoading?: boolean;

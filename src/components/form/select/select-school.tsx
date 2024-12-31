@@ -1,5 +1,5 @@
-import { getSchoolList } from "@/lib/api/school/routes";
-import { useQuery } from "@tanstack/react-query";
+import { getSchoolList } from "@/lib/api/school/school/routes";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Empty, Form, Select, Space, Spin } from "antd";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 import { useState } from "react";
@@ -7,21 +7,23 @@ import { useState } from "react";
 export default function FormItemSelectSchool(props: {
   isLoading?: boolean;
   defaultValue?: string;
+  hideType?: boolean;
+  type?: string;
   size?: SizeType;
 }) {
   const page = "1";
   const limit = "10";
-  const [paramSearch, setParamSearch] = useState(
-    props.defaultValue ? props.defaultValue : ""
-  );
+  const [paramSearch, setParamSearch] = useState("");
 
   // Tanstack hooks
-  const queryKeyData = "select-schools-data";
+  const queryClient = useQueryClient();
+  const queryKeyData = "select-school-data";
   const query = useQuery({
-    queryKey: [queryKeyData, paramSearch],
+    queryKey: [queryKeyData, paramSearch, props.type],
     queryFn: async ({ signal }) =>
       getSchoolList(
         {
+          type: props.type,
           search: paramSearch,
           page: page,
           limit: limit,
@@ -31,10 +33,16 @@ export default function FormItemSelectSchool(props: {
   });
 
   const onSearch = (value: string) => {
+    queryClient.removeQueries({
+      queryKey: [queryKeyData, paramSearch, props.type],
+    });
     setParamSearch(value);
   };
 
   const onClear = () => {
+    queryClient.removeQueries({
+      queryKey: [queryKeyData, paramSearch, props.type],
+    });
     setParamSearch("");
   };
 
@@ -69,14 +77,15 @@ export default function FormItemSelectSchool(props: {
         onSearch={onSearch}
         onClear={onClear}
         options={query.data?.data?.data?.map((item) => ({
-          label: `${item.name}(${item.type})`,
           value: `${item.id}`,
-          icon: ` - ${item.info?.fullName ?? "NA"}`,
+          type: `${item?.type ?? "NA"}`,
+          label: `${item.name}(${item.info?.fullName ?? "NA"})`,
         }))}
         optionRender={(option) => (
           <Space>
+            {props.hideType === true ? "" : `${option.data.type}`}
+            {props.hideType === true ? "" : "-"}
             {option.data.label}
-            {option.data.icon}
           </Space>
         )}
       />

@@ -1,17 +1,18 @@
 import { Table, TableColumnsType } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnActionProps,
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { SchoolResponse } from "@/lib/api/school/response";
+import { SchoolResponse } from "@/lib/api/school/school/response";
+import TableColumnSchool from "@/components/table/columns/column-school";
 
 export default function SchoolsTable(props: {
   isLoading?: boolean;
@@ -54,13 +55,33 @@ export default function SchoolsTable(props: {
       dataIndex: "name",
       key: "name",
       sortOrder: props.orderBy && props.orderBy === "name" ? props.sort : null,
-      ...defaultColumnProps,
+      sorter: true,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => <TableColumnSchool record={record} />,
     },
     {
       title: "Type",
       dataIndex: "type",
       key: "type",
       sortOrder: props.orderBy && props.orderBy === "type" ? props.sort : null,
+      ...defaultColumnProps,
+    },
+    {
+      title: "Full name",
+      dataIndex: ["info", "fullName"],
+      key: "full_name",
+      sortOrder:
+        props.orderBy && props.orderBy === "full_name" ? props.sort : null,
+      ...defaultColumnProps,
+    },
+    {
+      title: "Slogan",
+      dataIndex: ["info", "slogan"],
+      key: "slogan",
+      sortOrder:
+        props.orderBy && props.orderBy === "slogan" ? props.sort : null,
       ...defaultColumnProps,
     },
     {

@@ -1,5 +1,5 @@
-import { getRoleList } from "@/lib/api/role/routes";
-import { useQuery } from "@tanstack/react-query";
+import { getRoleList } from "@/lib/api/user/role/routes";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Empty, Form, Select, Space, Spin } from "antd";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 import { useState } from "react";
@@ -11,12 +11,11 @@ export default function FormItemSelectRole(props: {
 }) {
   const page = "1";
   const limit = "10";
-  const [paramSearch, setParamSearch] = useState(
-    props.defaultValue ? props.defaultValue : ""
-  );
+  const [paramSearch, setParamSearch] = useState("");
 
   // Tanstack hooks
-  const queryKeyData = "select-roles-data";
+  const queryClient = useQueryClient();
+  const queryKeyData = "select-role-data";
   const query = useQuery({
     queryKey: [queryKeyData, paramSearch],
     queryFn: async ({ signal }) =>
@@ -31,10 +30,16 @@ export default function FormItemSelectRole(props: {
   });
 
   const onSearch = (value: string) => {
+    queryClient.removeQueries({
+      queryKey: [queryKeyData, paramSearch],
+    });
     setParamSearch(value);
   };
 
   const onClear = () => {
+    queryClient.removeQueries({
+      queryKey: [queryKeyData, paramSearch],
+    });
     setParamSearch("");
   };
 

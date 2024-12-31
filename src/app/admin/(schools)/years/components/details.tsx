@@ -1,6 +1,6 @@
 import ModalInfoFooter from "@/components/form/modal-info-footer";
 import { formatDateTime } from "@/helpers/date/format";
-import { YearResponse } from "@/lib/api/year/response";
+import { YearResponse } from "@/lib/api/school/year/response";
 import { Descriptions, DescriptionsProps } from "antd";
 
 export default function YearDetails(props: {
@@ -24,36 +24,38 @@ export default function YearDetails(props: {
 function getDescription(
   item?: YearResponse | null
 ): DescriptionsProps["items"] {
+  const startDate = formatDateTime(item?.startDate?.toString());
+  const endDate = formatDateTime(item?.endDate?.toString());
   const createdAt = formatDateTime(item?.createdAt?.toString());
   const updatedAt = formatDateTime(item?.updatedAt?.toString());
   return [
     {
-      key: "1",
+      key: "id",
       label: "ID",
       children: item?.id,
     },
     {
-      key: "2",
+      key: "name",
       label: "Name",
       children: item?.name,
     },
     {
-      key: "3",
-      label: "Feature",
-      children: item?.feature,
+      key: "startDate",
+      label: "Start date",
+      children: startDate,
     },
     {
-      key: "4",
-      label: "Description",
-      children: item?.description,
+      key: "endDate",
+      label: "End date",
+      children: endDate,
     },
     {
-      key: "5",
+      key: "createdAt",
       label: "Created at",
       children: createdAt,
     },
     {
-      key: "5",
+      key: "updatedAt",
       label: "Updated at",
       children: updatedAt,
     },

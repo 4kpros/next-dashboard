@@ -1,6 +1,6 @@
 import ModalInfoFooter from "@/components/form/modal-info-footer";
 import { formatDateTime } from "@/helpers/date/format";
-import { RoleResponse } from "@/lib/api/role/response";
+import { RoleResponse } from "@/lib/api/user/role/response";
 import { Descriptions, DescriptionsProps } from "antd";
 
 export default function RoleDetails(props: {
@@ -28,32 +28,32 @@ function getDescription(
   const updatedAt = formatDateTime(item?.updatedAt?.toString());
   return [
     {
-      key: "1",
+      key: "id",
       label: "ID",
       children: item?.id,
     },
     {
-      key: "2",
+      key: "name",
       label: "Name",
       children: item?.name,
     },
     {
-      key: "3",
+      key: "feature",
       label: "Feature",
       children: item?.feature,
     },
     {
-      key: "4",
+      key: "description",
       label: "Description",
       children: item?.description,
     },
     {
-      key: "5",
+      key: "createdAt",
       label: "Created at",
       children: createdAt,
     },
     {
-      key: "5",
+      key: "updatedAt",
       label: "Updated at",
       children: updatedAt,
     },

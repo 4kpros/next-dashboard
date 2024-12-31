@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Alert } from "antd";
 import Link from "next/link";
-import { ActivateRequest } from "@/lib/api/auth/request";
+import { ActivateRequest } from "@/lib/api/user/auth/request";
 
 export default function FormActivateAccount(props: {
   isLoading?: boolean;

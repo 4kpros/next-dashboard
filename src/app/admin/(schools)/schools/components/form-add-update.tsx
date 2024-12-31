@@ -1,121 +1,225 @@
 import FormModalFooter from "@/components/form/form-modal-footer";
-import { FEATURES } from "@/lib/features";
-import { SchoolRequest } from "@/lib/api/school/request";
-import { SchoolResponse } from "@/lib/api/school/response";
-import { Alert, Form, Input, Select } from "antd";
+import { SchoolRequest } from "@/lib/api/school/school/request";
+import { SchoolResponse } from "@/lib/api/school/school/response";
+import { Divider, Form } from "antd";
+import FormAlertDefaultError from "@/components/form/alert/default-error";
+import FormAlertDefaultDescription from "@/components/form/alert/default-description";
+import FormItemDateTime from "@/components/form/date/date";
+import FormItemInputText from "@/components/form/input/input-text";
+import FormItemSelectSchoolType from "@/components/form/select/select-school-type";
+import FormItemInputEmailDomain from "@/components/form/input/input-email-domain";
+import dayjs from "dayjs";
+import FormItemInputPhone from "@/components/form/input/input-phone";
+import FormItemInputEmail from "@/components/form/input/input-email";
 
 export default function FormAddUpdateSchool(props: {
   isLoading?: boolean;
-  school?: SchoolResponse | null;
+  item?: SchoolResponse | null;
   canSubmit?: boolean;
   canSubmitMessage?: string;
   errorMessage?: string;
   onValuesChange?: (values: SchoolRequest) => void;
-  onSubmit: (school: SchoolRequest) => void;
+  onSubmit: (data: SchoolRequest) => void;
   onCancel: () => void;
 }) {
   return (
     <Form<SchoolRequest>
       name="form-add-update-school"
       layout={"vertical"}
-      style={{ maxWidth: 600 }}
+      className="w-full"
       onFinish={props.onSubmit}
       onValuesChange={(_changed, values) => {
-        props.onValuesChange!(values);
+        if (props.onValuesChange) {
+          props.onValuesChange(values)
+        };
       }}
       autoComplete="on"
     >
       <br />
-      <Form.Item
+      <FormItemInputText
         label="Name"
         name="name"
-        initialValue={props.school?.name}
+        placeholder="Enter the school name"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.name ?? undefined}
         rules={[
           {
             required: true,
             message: "Please enter the school name!",
           },
         ]}
-      >
-        <Input
-          disabled={props.isLoading}
-          size="middle"
-          placeholder="Enter the school name"
-        />
-      </Form.Item>
+      />
 
-      <Form.Item
-        label="Feature"
-        name="feature"
-        initialValue={props.school?.feature}
+      <FormItemSelectSchoolType
+        isLoading={props.isLoading}
+        defaultValue={props.item?.type ?? undefined}
+        size="middle"
+      />
+      <br />
+      <Divider plain>Config</Divider>
+      <FormItemInputEmailDomain
+        isLoading={props.isLoading}
+        required={false}
+        size="middle"
+        name={["config", "emailDomain"]}
+      />
+      <br />
+      <Divider plain>Info</Divider>
+      <FormItemInputText
+        label="Full name"
+        name={["info", "fullName"]}
+        placeholder="Enter the full name"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.fullName ?? undefined}
         rules={[
           {
             required: true,
-            message: "Please select the feature!",
+            message: "Please enter the full name!"
           },
         ]}
-      >
-        <Select
-          disabled={props.isLoading}
-          size="middle"
-          placeholder="Select the feature"
-        >
-          {FEATURES.map((item, index) => (
-            <Select.Option key={index} value={item}>
-              <span className="capitalize">{item.substring(8)}</span>
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item
+      />
+      <FormItemInputText
         label="Description"
-        name="description"
-        initialValue={props.school?.description}
+        name={["info", "description"]}
+        placeholder="Enter the description"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.description ?? undefined}
         rules={[
           {
             required: false,
           },
         ]}
-      >
-        <Input
-          disabled={props.isLoading}
-          size="middle"
-          placeholder="Enter the school description"
-        />
-      </Form.Item>
-      <br />
-      <Alert
-        showIcon={false}
-        style={{
-          height:
-            props.errorMessage && props.errorMessage.length > 0
-              ? "auto"
-              : "0px",
-          padding:
-            props.errorMessage && props.errorMessage.length > 0
-              ? "8px 12px"
-              : "0px",
-          borderWidth:
-            props.errorMessage && props.errorMessage.length > 0 ? "1px" : "0px",
-          marginBottom:
-            props.errorMessage && props.errorMessage.length > 0
-              ? "10px"
-              : "0px",
-        }}
-        message={
-          props.errorMessage && props.errorMessage.length > 0
-            ? props.errorMessage
-            : undefined
-        }
-        type="error"
-        className="transition-all duration-150 ease-in-out"
       />
-      {props.canSubmitMessage && props.canSubmitMessage.length > 0 ? (
-        <div className="w-full flex items-center justify-end">
-          <p className="w-auto text-end opacity-75">{props.canSubmitMessage}</p>
-        </div>
-      ) : null}
+      <FormItemInputText
+        label="Slogan"
+        name={["info", "slogan"]}
+        placeholder="Enter the slogan"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.slogan ?? undefined}
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      />
+      <FormItemInputText
+        label="Founder"
+        name={["info", "founder"]}
+        placeholder="Enter the founder"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.founder ?? undefined}
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      />
+      <FormItemDateTime
+        label="Founded at"
+        name={["info", "foundedAt"]}
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.foundedAt ? dayjs(props.item?.info?.foundedAt?.toString()) : undefined}
+      />
+      <FormItemInputText
+        label="Address"
+        name={["info", "address"]}
+        placeholder="Enter the address"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.address ?? undefined}
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      />
+      <FormItemInputText
+        label="Location longitude"
+        name={["info", "locationLongitude"]}
+        placeholder="Enter the location longitude"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.locationLongitude ?? undefined}
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      />
+      <FormItemInputText
+        label="Location latitude"
+        name={["info", "locationLatitude"]}
+        placeholder="Enter the location latitude"
+        size="middle"
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.locationLatitude ?? undefined}
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      />
+
+      <FormItemInputEmail
+        label="Email 1"
+        name={["info", "email1"]}
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.email1 ?? undefined}
+        required={false}
+        size="middle"
+      />
+      <FormItemInputEmail
+        label="Email 2"
+        name={["info", "email2"]}
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.email2 ?? undefined}
+        required={false}
+        size="middle"
+      />
+      <FormItemInputEmail
+        label="Email 3"
+        name={["info", "email3"]}
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.email3 ?? undefined}
+        required={false}
+        size="middle"
+      />
+
+      <FormItemInputPhone
+        label="Phone number 1"
+        name={["info", "phoneNumber1"]}
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.phoneNumber1?.toString() ?? undefined}
+        required={false}
+        size="middle"
+      />
+      <FormItemInputPhone
+        label="Phone number 2"
+        name={["info", "phoneNumber2"]}
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.phoneNumber2?.toString() ?? undefined}
+        required={false}
+        size="middle"
+      />
+      <FormItemInputPhone
+        label="Phone number 3"
+        name={["info", "phoneNumber3"]}
+        isLoading={props.isLoading}
+        defaultValue={props.item?.info?.phoneNumber3?.toString() ?? undefined}
+        required={false}
+        size="middle"
+      />
+
+      <br />
+
+      <FormAlertDefaultError errorMessage={props.errorMessage} />
+      <FormAlertDefaultDescription canSubmitMessage={props.canSubmitMessage} />
       <FormModalFooter
         isLoading={props.isLoading}
         canSubmit={props.canSubmit}

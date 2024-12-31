@@ -1,21 +1,21 @@
 import { Table, TableColumnsType, Tooltip } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnActionProps,
-  defaultColumnBooleanProps,
   defaultColumnBooleanPropsWithoutSorter,
   defaultColumnDateTimeProps,
   defaultColumnProps,
   defaultColumnPropsWithoutSorter,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { UserResponse } from "@/lib/api/user/response";
-import { RoleResponse } from "@/lib/api/role/response";
+import { UserResponse } from "@/lib/api/user/user/response";
+import { RoleResponse } from "@/lib/api/user/role/response";
+import TableColumnUser from "@/components/table/columns/column-user";
 
 export default function UsersTable(props: {
   isLoading?: boolean;
@@ -53,6 +53,15 @@ export default function UsersTable(props: {
       ...defaultColumnProps,
     },
     {
+      title: "Full name",
+      dataIndex: "fullName",
+      sorter: false,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (_, record) => <TableColumnUser record={record} />,
+    },
+    {
       title: "Email",
       dataIndex: "email",
       key: "email",
@@ -68,6 +77,12 @@ export default function UsersTable(props: {
       ...defaultColumnProps,
     },
     {
+      title: "Login method",
+      dataIndex: "loginMethod",
+      key: "login_method",
+      ...defaultColumnPropsWithoutSorter,
+    },
+    {
       title: "Role",
       dataIndex: "role",
       key: "role",
@@ -80,18 +95,6 @@ export default function UsersTable(props: {
           {item?.name}
         </Tooltip>
       ),
-    },
-    {
-      title: "Login method",
-      dataIndex: "loginMethod",
-      key: "login_method",
-      ...defaultColumnPropsWithoutSorter,
-    },
-    {
-      title: "Provider",
-      dataIndex: "provider",
-      key: "provider",
-      ...defaultColumnPropsWithoutSorter,
     },
     {
       title: "Is activated",

@@ -1,7 +1,7 @@
 import { Form, Input, Button, Alert } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { ForgotNewPasswordRequest } from "@/lib/api/auth/request";
+import { ForgotNewPasswordRequest } from "@/lib/api/user/auth/request";
 
 export default function FormForgotNewPassword(props: {
   isLoading?: boolean;

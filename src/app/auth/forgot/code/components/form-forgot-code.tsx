@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Alert } from "antd";
 import Link from "next/link";
-import { ForgotCodeRequest } from "@/lib/api/auth/request";
+import { ForgotCodeRequest } from "@/lib/api/user/auth/request";
 
 export default function FormForgotCode(props: {
   isLoading?: boolean;

@@ -3,8 +3,8 @@
 import { useState } from "react";
 import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import PermissionsTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,9 +14,9 @@ import {
   deletePermission,
   getPermissionList,
   updatePermission,
-} from "@/lib/api/permission/routes";
-import { PermissionRequest } from "@/lib/api/permission/request";
-import { PermissionResponse } from "@/lib/api/permission/response";
+} from "@/lib/api/user/permission/routes";
+import { PermissionRequest } from "@/lib/api/user/permission/request";
+import { PermissionResponse } from "@/lib/api/user/permission/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -27,15 +27,18 @@ import {
   setMultipleSearchParam,
   setSearchParam,
 } from "@/helpers/url/search-param";
-import { SelectionRequest } from "@/lib/api/base-response";
+import { SelectionRequest } from "@/lib/api/common/base-response";
 import PermissionDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
 import {
   DownloadRequest,
   UploadRequest,
-} from "@/lib/api/upload-download/request";
+} from "@/lib/api/common/upload-download/request";
+import {
+  downloadData,
+  uploadData,
+} from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -98,8 +101,8 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (permission: PermissionRequest) =>
-      updatePermission(permission),
+    mutationFn: async (item: PermissionRequest) =>
+      updatePermission(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddPermissionModalOpen(false);
@@ -107,8 +110,8 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (permission: PermissionRequest) =>
-      updatePermission(permission),
+    mutationFn: async (item: PermissionRequest) =>
+      updatePermission(item),
     onSuccess(_data, _variables, _context) {
       setPermissionToUpdate(null);
       setCanSubmitUpdate(false);
@@ -335,8 +338,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationAdd.mutate(item);
+            onSubmit={(data) => {
+              mutationAdd.mutate(data);
             }}
             onCancel={() => setAddPermissionModalOpen(false)}
           />
@@ -364,27 +367,27 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            permission={permissionToUpdate}
+            item={permissionToUpdate ?? undefined}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
-                  (permissionToUpdate?.role?.id?.toString() ?? "") as string ===
-                    (values?.roleID ?? "") as string &&
-                  (permissionToUpdate?.tableName ?? "") as string ===
-                    (values?.tableName ?? "") as string &&
-                  (permissionToUpdate?.create ?? false) as boolean ===
-                    (values?.create ?? false) as boolean &&
-                  (permissionToUpdate?.read ?? false) as boolean ===
-                    (values?.read ?? false) as boolean &&
-                  (permissionToUpdate?.update ?? false) as boolean ===
-                    (values?.update ?? false) as boolean &&
-                  (permissionToUpdate?.delete ?? false) as boolean ===
-                    (values?.delete ?? false) as boolean
+                  ((permissionToUpdate?.role?.id?.toString() ??
+                    "") as string) === ((values?.roleID ?? "") as string) &&
+                  ((permissionToUpdate?.tableName ?? "") as string) ===
+                    ((values?.tableName ?? "") as string) &&
+                  ((permissionToUpdate?.create ?? false) as boolean) ===
+                    ((values?.create ?? false) as boolean) &&
+                  ((permissionToUpdate?.read ?? false) as boolean) ===
+                    ((values?.read ?? false) as boolean) &&
+                  ((permissionToUpdate?.update ?? false) as boolean) ===
+                    ((values?.update ?? false) as boolean) &&
+                  ((permissionToUpdate?.delete ?? false) as boolean) ===
+                    ((values?.delete ?? false) as boolean)
                 )
               );
             }}
-            onSubmit={(item) => {
-              mutationUpdate.mutate(item);
+            onSubmit={(data) => {
+              mutationUpdate.mutate(data);
             }}
             onCancel={() => setUpdatePermissionModalOpen(false)}
           />
@@ -400,7 +403,7 @@ export default function PageContent() {
         title="Permission details"
         content={
           <PermissionDetails
-            permission={permissionToShow}
+            permission={permissionToShow ?? undefined}
             onClose={() => setShowPermissionModalOpen(false)}
           />
         }
@@ -445,8 +448,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationUpload.mutate(item);
+            onSubmit={(data) => {
+              mutationUpload.mutate(data);
             }}
             onCancel={() => setUploadModalOpen(false)}
           />
@@ -473,8 +476,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationDownload.mutate(item);
+            onSubmit={(data) => {
+              mutationDownload.mutate(data);
             }}
             onCancel={() => setDownloadModalOpen(false)}
           />

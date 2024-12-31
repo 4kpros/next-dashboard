@@ -1,18 +1,18 @@
 import { Table, TableColumnsType } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { HistoryResponse } from "@/lib/api/history/response";
+import { HistoryResponse } from "@/lib/api/others/history/response";
 
-export default function HistorysTable(props: {
+export default function HistoriesTable(props: {
   isLoading?: boolean;
   data?: HistoryResponse[];
   orderBy?: string;

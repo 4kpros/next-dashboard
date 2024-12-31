@@ -8,7 +8,7 @@ import { Button, theme as antdTheme, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
-import { SignInEmailRequest } from "@/lib/api/auth/request";
+import { SignInEmailRequest } from "@/lib/api/user/auth/request";
 
 export default function PageContent() {
   // React hooks

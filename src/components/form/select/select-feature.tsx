@@ -1,4 +1,4 @@
-import { FEATURES } from "@/lib/features";
+import { FEATURES } from "@/lib/constants/feature";
 import { Empty, Form, Select } from "antd";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 

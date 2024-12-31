@@ -7,7 +7,7 @@ import {
   FEATURE_PARENT,
   FEATURE_STUDENT,
   FEATURE_TEACHER,
-} from "./lib/features";
+} from "./lib/constants/feature";
 import {
   ROUTE_API_BASE_URL_INTERNAL,
   ROUTE_INVALID_FEATURE_PERMISSION,
@@ -17,7 +17,7 @@ import {
   ROUTE_PROTECTED_PARENT,
   ROUTE_PROTECTED_STUDENT,
   ROUTE_PROTECTED_TEACHER,
-} from "./lib/routes";
+} from "./lib/constants/routes";
 
 export default auth(async (req: NextRequest) => {
   const response = NextResponse.next();

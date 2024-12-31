@@ -3,8 +3,8 @@
 import { useState } from "react";
 import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import RolesTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,9 +15,9 @@ import {
   getRoleList,
   postRole,
   updateRole,
-} from "@/lib/api/role/routes";
-import { RoleRequest } from "@/lib/api/role/request";
-import { RoleResponse } from "@/lib/api/role/response";
+} from "@/lib/api/user/role/routes";
+import { RoleRequest } from "@/lib/api/user/role/request";
+import { RoleResponse } from "@/lib/api/user/role/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -28,15 +28,18 @@ import {
   setMultipleSearchParam,
   setSearchParam,
 } from "@/helpers/url/search-param";
-import { SelectionRequest } from "@/lib/api/base-response";
+import { SelectionRequest } from "@/lib/api/common/base-response";
 import RoleDetails from "./components/details";
 import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData, uploadData } from "@/lib/api/upload-download/routes";
 import {
   DownloadRequest,
   UploadRequest,
-} from "@/lib/api/upload-download/request";
+} from "@/lib/api/common/upload-download/request";
+import {
+  downloadData,
+  uploadData,
+} from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -95,7 +98,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (role: RoleRequest) => postRole(role),
+    mutationFn: async (item: RoleRequest) => postRole(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddRoleModalOpen(false);
@@ -103,7 +106,7 @@ export default function PageContent() {
     },
   });
   const mutationUpdate = useMutation({
-    mutationFn: async (role: RoleRequest) => updateRole(role),
+    mutationFn: async (item: RoleRequest) => updateRole(item),
     onSuccess(_data, _variables, _context) {
       setRoleToUpdate(null);
       setCanSubmitUpdate(false);
@@ -358,7 +361,7 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            role={roleToUpdate}
+            item={roleToUpdate}
             onValuesChange={(values) => {
               setCanSubmitUpdate(
                 !(
@@ -368,12 +371,12 @@ export default function PageContent() {
                 )
               );
             }}
-            onSubmit={(item) => {
+            onSubmit={(data) => {
               mutationUpdate.mutate({
                 id: roleToUpdate?.id ?? -1,
-                name: item.name,
-                feature: item.feature,
-                description: item.description,
+                name: data.name,
+                feature: data.feature,
+                description: data.description,
               });
             }}
             onCancel={() => setUpdateRoleModalOpen(false)}
@@ -435,8 +438,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationUpload.mutate(item);
+            onSubmit={(data) => {
+              mutationUpload.mutate(data);
             }}
             onCancel={() => setUploadModalOpen(false)}
           />

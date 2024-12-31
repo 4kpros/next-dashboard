@@ -1,22 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import DeleteModal from "@/components/modal/delete";
 import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
-import DefaultTableHeaderInfo from "@/components/tables/headers/default-header-info";
-import DefaultTableHeader from "@/components/tables/headers/default-header";
+import DefaultTableHeaderInfo from "@/components/table/headers/default-header-info";
+import DefaultTableHeader from "@/components/table/headers/default-header";
 import CommunicationsTable from "./components/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import FormAddUpdateCommunication from "./components/form-add";
 import {
-  deleteMultipleCommunication,
-  deleteCommunication,
   getCommunicationList,
   postCommunication,
-} from "@/lib/api/communication/routes";
-import { CommunicationRequest } from "@/lib/api/communication/request";
-import { CommunicationResponse } from "@/lib/api/communication/response";
+} from "@/lib/api/others/communication/routes";
+import { CommunicationRequest } from "@/lib/api/others/communication/request";
+import { CommunicationResponse } from "@/lib/api/others/communication/response";
 import { App, Pagination } from "antd";
 import { NoticeType } from "antd/es/message/interface";
 import { HttpStatusCode } from "axios";
@@ -28,10 +25,9 @@ import {
   setSearchParam,
 } from "@/helpers/url/search-param";
 import CommunicationDetails from "./components/details";
-import UploadModal from "@/components/modal/upload-modal";
 import DownloadModal from "@/components/modal/download-modal";
-import { downloadData } from "@/lib/api/upload-download/routes";
-import { DownloadRequest } from "@/lib/api/upload-download/request";
+import { DownloadRequest } from "@/lib/api/common/upload-download/request";
+import { downloadData } from "@/lib/api/common/upload-download/routes";
 
 export default function PageContent() {
   // React hooks
@@ -85,8 +81,7 @@ export default function PageContent() {
       }),
   });
   const mutationAdd = useMutation({
-    mutationFn: async (communication: CommunicationRequest) =>
-      postCommunication(communication),
+    mutationFn: async (item: CommunicationRequest) => postCommunication(item),
     onSuccess(_data, _variables, _context) {
       invalidateQueries();
       setAddCommunicationModalOpen(false);
@@ -246,8 +241,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationAdd.mutate(item);
+            onSubmit={(data) => {
+              mutationAdd.mutate(data);
             }}
             onCancel={() => setAddCommunicationModalOpen(false)}
           />
@@ -290,8 +285,8 @@ export default function PageContent() {
                   )
                 : undefined
             }
-            onSubmit={(item) => {
-              mutationDownload.mutate(item);
+            onSubmit={(data) => {
+              mutationDownload.mutate(data);
             }}
             onCancel={() => setDownloadModalOpen(false)}
           />

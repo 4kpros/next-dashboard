@@ -7,8 +7,8 @@ import { CustomContainerFullHeight } from "@/components/container/custom-contain
 import { theme as antdTheme } from "antd";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { ForgotNewPasswordRequest } from "@/lib/api/auth/request";
-import { forgotPasswordNewPassword } from "@/lib/api/auth/routes";
+import { ForgotNewPasswordRequest } from "@/lib/api/user/auth/request";
+import { forgotPasswordNewPassword } from "@/lib/api/user/auth/routes";
 import { HttpMessageFromStatus } from "@/lib/http/status-message";
 import { HttpStatusCode } from "axios";
 import { getSearchParam } from "@/helpers/url/search-param";

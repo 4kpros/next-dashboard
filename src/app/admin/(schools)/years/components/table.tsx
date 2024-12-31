@@ -1,17 +1,18 @@
 import { Table, TableColumnsType } from "antd";
-import DefaultTableProps from "@/components/tables/props/default-table-props";
+import DefaultTableProps from "@/components/table/props/default-table-props";
 import {
   defaultColumnActionProps,
+  defaultColumnDateProps,
   defaultColumnDateTimeProps,
   defaultColumnProps,
-} from "@/components/tables/props/default-column-props";
+} from "@/components/table/props/default-column-props";
 import {
   FilterValue,
   RowSelectMethod,
   SorterResult,
   SortOrder,
 } from "antd/es/table/interface";
-import { YearResponse } from "@/lib/api/year/response";
+import { YearResponse } from "@/lib/api/school/year/response";
 
 export default function YearsTable(props: {
   isLoading?: boolean;
@@ -50,18 +51,25 @@ export default function YearsTable(props: {
       ...defaultColumnProps,
     },
     {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      sortOrder: props.orderBy && props.orderBy === "name" ? props.sort : null,
+      ...defaultColumnProps,
+    },
+    {
       title: "Start date",
       dataIndex: "startDate",
       key: "start_date",
       sortOrder: props.orderBy && props.orderBy === "start_date" ? props.sort : null,
-      ...defaultColumnProps,
+      ...defaultColumnDateProps,
     },
     {
       title: "End date",
       dataIndex: "endDate",
       key: "end_date",
       sortOrder: props.orderBy && props.orderBy === "end_date" ? props.sort : null,
-      ...defaultColumnProps,
+      ...defaultColumnDateProps,
     },
     {
       title: "Updated",
