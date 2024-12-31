@@ -1,99 +1,176 @@
 "use client";
 
-import React from "react";
-import { Breadcrumb, Layout, theme, Badge, Button } from "antd";
-import {
-  MessageOutlined,
-  NodeCollapseOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
-import AvatarProfile from "@/components/avatar/avatar-profile";
+import { Layout, theme as antdTheme } from "antd";
 import MotionLayout from "@/components/motion/motion-layout";
-import AdminSideMenu from "@/components/sidemenu/admin-side-menu";
-import { MotionPageTransitionFromLeft, MotionPageTransitionFromTop } from "@/components/motion/motion-page";
+import {
+  MotionPageTransitionFromBottom,
+  MotionPageTransitionFromLeft,
+  MotionPageTransitionFromTop,
+} from "@/components/motion/motion-page";
+import sideMenuItems from "@/app/admin/(components)/side-menu-items";
+import { usePathname } from "next/navigation";
+import {
+  BreadcrumbItemType,
+  BreadcrumbSeparatorType,
+} from "antd/es/breadcrumb/Breadcrumb";
+import DashboardHeader from "@/components/header/dashboard-header";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getNotificationList } from "@/lib/api/notifications/routes";
+import { useState } from "react";
+import CustomModalWithoutFooter from "@/components/modal/custom-without-footer";
+import NotificationList from "@/components/notifications/notification-list";
+import DashboardSideMenu from "@/components/menu/dashboard-side-menu";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {
-    token: { colorBgContainer, borderRadius },
-  } = theme.useToken();
+  // React hooks
+  const pathName = usePathname();
+  const paramPage = "1";
+  const paramLimit = "1";
+  // Show role states
+  const [showNotificationsModalOpen, setShowNotificationsModalOpen] =
+    useState(false);
 
-  const toggleSidebar = () => {
-    // TODO
-  };
+  // Ant design theme
+  const { useToken } = antdTheme;
+  const { token: theme } = useToken();
+
+  // Tanstack hooks
+  const queryClient = useQueryClient();
+  const queryKeyData = "notifications-data";
+  const queryNotification = useQuery({
+    queryKey: [queryKeyData],
+    queryFn: async () =>
+      getNotificationList({
+        page: paramPage ?? undefined,
+        limit: paramLimit ?? undefined,
+      }),
+  });
 
   return (
-    <MotionLayout>
-      <Layout style={{ scrollbarWidth: "thin", minHeight: "100vh" }}>
-        <MotionPageTransitionFromLeft>
-          <AdminSideMenu />
-        </MotionPageTransitionFromLeft>
-        <Layout style={{ marginLeft: 210, scrollbarWidth: "thin", gap: 10 }}>
-          <MotionPageTransitionFromTop>
-            <Header
-              style={{
-                padding: "10px 15px 10px 15px",
-                background: colorBgContainer,
-                borderRadius: borderRadius,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 20,
+    <>
+      <MotionLayout>
+        <Layout
+          style={{
+            backgroundColor: "transparent",
+            scrollbarWidth: "thin",
+            minHeight: "100vh",
+          }}
+        >
+          <MotionPageTransitionFromLeft>
+            <DashboardSideMenu
+              menuLabel="Dashboard"
+              onMenuClicked={() => {
+                // TODO
               }}
-            >
-              <div className="flex flex-wrap justify-center items-center gap-5">
-                <Button
-                  size="large"
-                  icon={<NodeCollapseOutlined />}
-                  onClick={toggleSidebar}
-                >
-                  Hide
-                </Button>
-                <Breadcrumb
-                  separator="/"
-                  items={[
-                    {
-                      title: "Administration",
-                      href: "/admin/home",
-                    },
-                    {
-                      title: "Users",
-                      href: "/admin/users",
-                    },
-                  ]}
-                />
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Button size="large" icon={<QuestionCircleOutlined />}>
-                  Help
-                </Button>
-                <Button
-                  size="large"
-                  icon={
-                    <Badge
-                      size="small"
-                      count={5}
-                      offset={[-2, 1]}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <MessageOutlined />
-                    </Badge>
-                  }
-                />
-                <AvatarProfile firstName="P" lastName="A" />
-              </div>
-            </Header>
-          </MotionPageTransitionFromTop>
-          <Content style={{ overflow: "initial" }}>
-            {children}
-          </Content>
+              getItems={sideMenuItems}
+            />
+          </MotionPageTransitionFromLeft>
+          <Layout
+            style={{
+              marginLeft: 210,
+              scrollbarWidth: "thin",
+              gap: 10,
+              marginTop: "10px",
+              marginRight: "10px",
+              backgroundColor: "transparent",
+            }}
+          >
+            <MotionPageTransitionFromTop>
+              <DashboardHeader
+                notificationsCount={
+                  queryNotification.data?.data?.pagination.count ?? undefined
+                }
+                breadcrumbItems={breadcrumbItems(pathName)}
+                toggleSidebar={() => {
+                  // TODO
+                }}
+                onClickNotifications={() => {
+                  queryClient.fetchQuery({
+                    queryKey: [queryKeyData, "1", "1"],
+                  });
+                  setShowNotificationsModalOpen(true);
+                }}
+              />
+            </MotionPageTransitionFromTop>
+            <MotionPageTransitionFromBottom>
+              <Content
+                style={{
+                  overflow: "initial",
+                  backgroundColor: theme.colorBgContainer,
+                  borderRadius: theme.borderRadius,
+                }}
+                className="border p-0 m-0"
+              >
+                {children}
+              </Content>
+            </MotionPageTransitionFromBottom>
+          </Layout>
         </Layout>
-      </Layout>
-    </MotionLayout>
+      </MotionLayout>
+
+      {/* Show role modal */}
+      <CustomModalWithoutFooter
+        title="Notifications"
+        content={
+          <NotificationList
+            items={queryNotification.data?.data ?? undefined}
+            onClose={() => setShowNotificationsModalOpen(false)}
+          />
+        }
+        modalOpen={showNotificationsModalOpen}
+        maskClosable={true}
+        width={800}
+        onOk={() => setShowNotificationsModalOpen(false)}
+        onCancel={() => setShowNotificationsModalOpen(false)}
+      />
+    </>
   );
 }
+
+const breadcrumbItems = (pathName: string) => {
+  let list: Partial<BreadcrumbItemType & BreadcrumbSeparatorType>[] = [];
+  if (pathName.startsWith("/admin/")) {
+    list = [
+      {
+        title: "Administration",
+        href: "/admin/home",
+      },
+    ];
+  } else if (pathName.startsWith("/director/")) {
+    list = [
+      {
+        title: "School direction",
+        href: "/director/home",
+      },
+    ];
+  } else if (pathName.startsWith("/teacher/")) {
+    list = [
+      {
+        title: "Professor & Teacher",
+        href: "/teacher/home",
+      },
+    ];
+  } else if (pathName.startsWith("/student/")) {
+    list = [
+      {
+        title: "Student & Pupil",
+        href: "/student/home",
+      },
+    ];
+  } else if (pathName.startsWith("/parent/")) {
+    list = [
+      {
+        title: "Parent",
+        href: "/parent/home",
+      },
+    ];
+  }
+
+  return list;
+};

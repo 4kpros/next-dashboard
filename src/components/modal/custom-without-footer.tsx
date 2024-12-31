@@ -4,9 +4,9 @@ export default function CustomModalWithoutFooter(props: {
   icon?: React.ReactNode;
   title: string;
   content?: React.ReactNode;
-  modalOpen: boolean;
-  onOk: () => void;
-  onCancel: () => void;
+  modalOpen?: boolean;
+  onOk?: () => void;
+  onCancel?: () => void;
   maskClosable?: boolean;
   width?: string | number;
   destroyOnClose?: boolean;

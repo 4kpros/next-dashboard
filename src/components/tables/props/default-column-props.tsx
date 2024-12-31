@@ -1,8 +1,9 @@
+import { formatDateTimeToSince } from "@/helpers/date/format";
+import { EyeOutlined } from "@ant-design/icons";
 import { Popconfirm, Space, Tag, Tooltip } from "antd";
 import { ColumnType } from "antd/es/table";
 
-// Default column props for string
-const defaultColumnProps = {
+export const defaultColumnProps = {
   sorter: true,
   ellipsis: {
     showTitle: false,
@@ -14,8 +15,34 @@ const defaultColumnProps = {
   ),
 };
 
-// Default column props for boolean
-const defaultColumnBooleanProps = {
+export const defaultColumnPropsWithoutSorter = {
+  sorter: false,
+  ellipsis: {
+    showTitle: false,
+  },
+  render: (value: string) => (
+    <Tooltip placement="topLeft" title={value}>
+      {value}
+    </Tooltip>
+  ),
+};
+
+export const defaultColumnDateTimeProps = {
+  sorter: true,
+  ellipsis: {
+    showTitle: false,
+  },
+  render: (value: string) => {
+    return (
+      <Tooltip placement="topLeft" title={value}>
+        {formatDateTimeToSince(value)}
+      </Tooltip>
+    );
+  },
+};
+
+
+export const defaultColumnBooleanProps = {
   sorter: true,
   ellipsis: {
     showTitle: false,
@@ -24,18 +51,36 @@ const defaultColumnBooleanProps = {
     value ? <Tag color="green">Yes</Tag> : <Tag color="orange">No</Tag>,
 };
 
+export const defaultColumnBooleanPropsWithoutSorter = {
+  sorter: false,
+  ellipsis: {
+    showTitle: false,
+  },
+  render: (value: boolean) =>
+    value ? <Tag color="green">Yes</Tag> : <Tag color="orange">No</Tag>,
+};
+
 // Default column props for user actions
-function defaultColumnActionProps<T>(props: {
+export function defaultColumnActionProps<T>(props: {
   deleteDescription?: string | null;
+  onDetailsRequested?: (value: T, index: number) => void;
   onUpdateRequested?: (value: T, index: number) => void;
   onDeleteConfirmed?: (value: T, index: number) => void;
 }): ColumnType<T> {
   return {
     title: "Action",
     key: "action",
-    sorter: true,
+    sorter: false,
     render: (_, record, index) => (
       <Space size="large">
+        <a
+          className="w-auto"
+          onClick={() => {
+            props.onDetailsRequested!(record, index);
+          }}
+        >
+          <EyeOutlined />
+        </a>
         <a
           onClick={() => {
             props.onUpdateRequested!(record, index);
@@ -45,11 +90,7 @@ function defaultColumnActionProps<T>(props: {
         </a>
         <Popconfirm
           title="Delete"
-          description={
-            "Do you really want to delete" +
-            (props.deleteDescription ?? "") +
-            "?"
-          }
+          description={`Do you really want to delete ${props.deleteDescription} ?`}
           placement="topRight"
           okText="Yes"
           cancelText="Cancel"
@@ -63,9 +104,3 @@ function defaultColumnActionProps<T>(props: {
     ),
   };
 }
-
-export {
-  defaultColumnProps,
-  defaultColumnBooleanProps,
-  defaultColumnActionProps,
-};
