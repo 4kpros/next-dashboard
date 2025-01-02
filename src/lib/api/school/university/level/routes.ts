@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Level
 export async function getLevel(id: number) {
   return GET<LevelResponse, LevelRequest>(
-    `/schools/universities/levels/${id}`
+    `/schools/university/levels/${id}`
   );
 }
 export async function getLevelList(
@@ -15,7 +15,7 @@ export async function getLevelList(
   signal?: GenericAbortSignal
 ) {
   return GET<LevelListResponse, LevelListRequest>(
-    "/schools/universities/levels",
+    "/schools/university/levels",
     {
       params: {
         schoolID: params.schoolID,
@@ -32,7 +32,7 @@ export async function getLevelList(
 export async function postLevel(item: LevelRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   return POST<LevelResponse, LevelRequest>(
-    `/schools/universities/levels`,
+    `/schools/university/levels`,
     item
   );
 }
@@ -41,18 +41,18 @@ export async function updateLevel(item: LevelRequest) {
   item.id = undefined;
   item.schoolID = parseInt(`${item.schoolID}`);
   return PUT<LevelResponse, LevelRequest>(
-    `/schools/universities/levels/${id}`,
+    `/schools/university/levels/${id}`,
     item
   );
 }
 export async function deleteLevel(id: number) {
   return DELETE<LevelResponse, LevelRequest>(
-    `/schools/universities/levels/${id}`
+    `/schools/university/levels/${id}`
   );
 }
 export async function deleteMultipleLevel(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/universities/levels/multiple/delete`,
+    `/schools/university/levels/multiple/delete`,
     {
       data: selection,
     }

@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Department
 export async function getDepartment(id: number) {
   return GET<DepartmentResponse, DepartmentRequest>(
-    `/schools/schools/universities/departments/${id}`
+    `/schools/schools/university/departments/${id}`
   );
 }
 export async function getDepartmentList(
@@ -15,7 +15,7 @@ export async function getDepartmentList(
   signal?: GenericAbortSignal
 ) {
   return GET<DepartmentListResponse, DepartmentListRequest>(
-    "/schools/universities/departments",
+    "/schools/university/departments",
     {
       params: {
         schoolID: params.schoolID,
@@ -33,7 +33,7 @@ export async function postDepartment(item: DepartmentRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.facultyID = parseInt(`${item.facultyID}`);
   return POST<DepartmentResponse, DepartmentRequest>(
-    `/schools/universities/departments`,
+    `/schools/university/departments`,
     item
   );
 }
@@ -43,18 +43,18 @@ export async function updateDepartment(item: DepartmentRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.facultyID = parseInt(`${item.facultyID}`);
   return PUT<DepartmentResponse, DepartmentRequest>(
-    `/schools/universities/departments/${id}`,
+    `/schools/university/departments/${id}`,
     item
   );
 }
 export async function deleteDepartment(id: number) {
   return DELETE<DepartmentResponse, DepartmentRequest>(
-    `/schools/universities/departments/${id}`
+    `/schools/university/departments/${id}`
   );
 }
 export async function deleteMultipleDepartment(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/universities/departments/multiple/delete`,
+    `/schools/university/departments/multiple/delete`,
     {
       data: selection,
     }

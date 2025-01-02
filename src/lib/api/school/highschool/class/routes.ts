@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Class
 export async function getClass(id: number) {
   return GET<ClassResponse, ClassRequest>(
-    `/schools/schools/highschools/classes/${id}`
+    `/schools/schools/highschool/classes/${id}`
   );
 }
 export async function getClassList(
@@ -15,7 +15,7 @@ export async function getClassList(
   signal?: GenericAbortSignal
 ) {
   return GET<ClassListResponse, ClassListRequest>(
-    "/schools/highschools/classes",
+    "/schools/highschool/classes",
     {
       params: {
         schoolID: params.schoolID,
@@ -33,7 +33,7 @@ export async function postClass(item: ClassRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.specialtyID = parseInt(`${item.specialtyID}`);
   return POST<ClassResponse, ClassRequest>(
-    `/schools/highschools/classes`,
+    `/schools/highschool/classes`,
     item
   );
 }
@@ -43,18 +43,18 @@ export async function updateClass(item: ClassRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.specialtyID = parseInt(`${item.specialtyID}`);
   return PUT<ClassResponse, ClassRequest>(
-    `/schools/highschools/classes/${id}`,
+    `/schools/highschool/classes/${id}`,
     item
   );
 }
 export async function deleteClass(id: number) {
   return DELETE<ClassResponse, ClassRequest>(
-    `/schools/highschools/classes/${id}`
+    `/schools/highschool/classes/${id}`
   );
 }
 export async function deleteMultipleClass(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/highschools/classes/multiple/delete`,
+    `/schools/highschool/classes/multiple/delete`,
     {
       data: selection,
     }

@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Domain
 export async function getDomain(id: number) {
   return GET<DomainResponse, DomainRequest>(
-    `/schools/schools/universities/domains/${id}`
+    `/schools/schools/university/domains/${id}`
   );
 }
 export async function getDomainList(
@@ -15,7 +15,7 @@ export async function getDomainList(
   signal?: GenericAbortSignal
 ) {
   return GET<DomainListResponse, DomainListRequest>(
-    "/schools/universities/domains",
+    "/schools/university/domains",
     {
       params: {
         schoolID: params.schoolID,
@@ -33,7 +33,7 @@ export async function postDomain(item: DomainRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.departmentID = parseInt(`${item.departmentID}`);
   return POST<DomainResponse, DomainRequest>(
-    `/schools/universities/domains`,
+    `/schools/university/domains`,
     item
   );
 }
@@ -43,18 +43,18 @@ export async function updateDomain(item: DomainRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.departmentID = parseInt(`${item.departmentID}`);
   return PUT<DomainResponse, DomainRequest>(
-    `/schools/universities/domains/${id}`,
+    `/schools/university/domains/${id}`,
     item
   );
 }
 export async function deleteDomain(id: number) {
   return DELETE<DomainResponse, DomainRequest>(
-    `/schools/universities/domains/${id}`
+    `/schools/university/domains/${id}`
   );
 }
 export async function deleteMultipleDomain(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/universities/domains/multiple/delete`,
+    `/schools/university/domains/multiple/delete`,
     {
       data: selection,
     }

@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Section
 export async function getSection(id: number) {
   return GET<SectionResponse, SectionRequest>(
-    `/schools/highschools/sections/${id}`
+    `/schools/highschool/sections/${id}`
   );
 }
 export async function getSectionList(
@@ -15,7 +15,7 @@ export async function getSectionList(
   signal?: GenericAbortSignal
 ) {
   return GET<SectionListResponse, SectionListRequest>(
-    "/schools/highschools/sections",
+    "/schools/highschool/sections",
     {
       params: {
         schoolID: params.schoolID,
@@ -32,7 +32,7 @@ export async function getSectionList(
 export async function postSection(item: SectionRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   return POST<SectionResponse, SectionRequest>(
-    `/schools/highschools/sections`,
+    `/schools/highschool/sections`,
     item
   );
 }
@@ -41,18 +41,18 @@ export async function updateSection(item: SectionRequest) {
   item.id = undefined;
   item.schoolID = parseInt(`${item.schoolID}`);
   return PUT<SectionResponse, SectionRequest>(
-    `/schools/highschools/sections/${id}`,
+    `/schools/highschool/sections/${id}`,
     item
   );
 }
 export async function deleteSection(id: number) {
   return DELETE<SectionResponse, SectionRequest>(
-    `/schools/highschools/sections/${id}`
+    `/schools/highschool/sections/${id}`
   );
 }
 export async function deleteMultipleSection(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/highschools/sections/multiple/delete`,
+    `/schools/highschool/sections/multiple/delete`,
     {
       data: selection,
     }
