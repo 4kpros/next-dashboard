@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Specialty
 export async function getSpecialty(id: number) {
   return GET<SpecialtyResponse, SpecialtyRequest>(
-    `/schools/schools/highschools/specialties/${id}`
+    `/schools/schools/highschool/specialties/${id}`
   );
 }
 export async function getSpecialtyList(
@@ -15,7 +15,7 @@ export async function getSpecialtyList(
   signal?: GenericAbortSignal
 ) {
   return GET<SpecialtyListResponse, SpecialtyListRequest>(
-    "/schools/highschools/specialties",
+    "/schools/highschool/specialties",
     {
       params: {
         schoolID: params.schoolID,
@@ -33,7 +33,7 @@ export async function postSpecialty(item: SpecialtyRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.sectionID = parseInt(`${item.sectionID}`);
   return POST<SpecialtyResponse, SpecialtyRequest>(
-    `/schools/highschools/specialties`,
+    `/schools/highschool/specialties`,
     item
   );
 }
@@ -43,18 +43,18 @@ export async function updateSpecialty(item: SpecialtyRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   item.sectionID = parseInt(`${item.sectionID}`);
   return PUT<SpecialtyResponse, SpecialtyRequest>(
-    `/schools/highschools/specialties/${id}`,
+    `/schools/highschool/specialties/${id}`,
     item
   );
 }
 export async function deleteSpecialty(id: number) {
   return DELETE<SpecialtyResponse, SpecialtyRequest>(
-    `/schools/highschools/specialties/${id}`
+    `/schools/highschool/specialties/${id}`
   );
 }
 export async function deleteMultipleSpecialty(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/highschools/specialties/multiple/delete`,
+    `/schools/highschool/specialties/multiple/delete`,
     {
       data: selection,
     }

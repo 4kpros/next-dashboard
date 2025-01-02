@@ -7,7 +7,7 @@ import { SelectionRequest } from "@/lib/api/common/base-response";
 // Faculty
 export async function getFaculty(id: number) {
   return GET<FacultyResponse, FacultyRequest>(
-    `/schools/universities/faculties/${id}`
+    `/schools/university/faculties/${id}`
   );
 }
 export async function getFacultyList(
@@ -15,7 +15,7 @@ export async function getFacultyList(
   signal?: GenericAbortSignal
 ) {
   return GET<FacultyListResponse, FacultyListRequest>(
-    "/schools/universities/faculties",
+    "/schools/university/faculties",
     {
       params: {
         schoolID: params.schoolID,
@@ -32,7 +32,7 @@ export async function getFacultyList(
 export async function postFaculty(item: FacultyRequest) {
   item.schoolID = parseInt(`${item.schoolID}`);
   return POST<FacultyResponse, FacultyRequest>(
-    `/schools/universities/faculties`,
+    `/schools/university/faculties`,
     item
   );
 }
@@ -41,18 +41,18 @@ export async function updateFaculty(item: FacultyRequest) {
   item.id = undefined;
   item.schoolID = parseInt(`${item.schoolID}`);
   return PUT<FacultyResponse, FacultyRequest>(
-    `/schools/universities/faculties/${id}`,
+    `/schools/university/faculties/${id}`,
     item
   );
 }
 export async function deleteFaculty(id: number) {
   return DELETE<FacultyResponse, FacultyRequest>(
-    `/schools/universities/faculties/${id}`
+    `/schools/university/faculties/${id}`
   );
 }
 export async function deleteMultipleFaculty(selection: SelectionRequest) {
   return DELETE<number, SelectionRequest>(
-    `/schools/universities/faculties/multiple/delete`,
+    `/schools/university/faculties/multiple/delete`,
     {
       data: selection,
     }
